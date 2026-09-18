@@ -20,6 +20,8 @@ The handover reports an original automation-authored commit, but that commit was
 
 ## Public repository
 
+Published on 2026-09-18 at [cgrbxl/farmy](https://github.com/cgrbxl/farmy), with `main` tracking `origin/main`. New history was initialised from the extracted files. The commands below are retained for fresh setup; do not rerun repository creation against the existing repository.
+
 The connected GitHub account observed during preparation was `cgrbxl`. The following are user-executed instructions and do not imply the repository exists. If publishing under another account or organisation, replace the owner.
 
 With GitHub CLI installed and authenticated:
