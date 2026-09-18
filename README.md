@@ -19,7 +19,7 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 ## Current focus
 
-Consolidate capabilities, module ownership, secure communication and per-module technical design before environment-specific deployment. Start with the [abstract capability review](docs/capability-review.md), [module integration profile](docs/module-integration.md), [module architecture](docs/module-architecture.md) and [communication design](docs/module-communication.md). These are review drafts; see [ADR 0006](docs/decisions/0006-architecture-first.md).
+Consolidate capabilities, module ownership, secure communication and per-module technical design before environment-specific deployment. Start with the [abstract capability review](docs/capability-review.md), [module integration profile](docs/module-integration.md), [module architecture](docs/module-architecture.md) and [communication design](docs/module-communication.md). Broad capability coverage and MVP delivery are accepted; the exact [module grouping and change scenarios](docs/module-architecture.md) remain the current review focus. See [ADR 0006](docs/decisions/0006-architecture-first.md) and [ADR 0007](docs/decisions/0007-incremental-modularity.md).
 
 ## Start here
 

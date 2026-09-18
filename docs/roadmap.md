@@ -10,6 +10,10 @@ Document vision, service boundaries, trust, composition, examples, decision proc
 
 Following [ADR 0006](decisions/0006-architecture-first.md), review capabilities and module ownership, communication contracts, security boundaries and each module’s technical design before deployment. Review drafts: [abstract capability coverage](capability-review.md), [module integration profile](module-integration.md), [module architecture](module-architecture.md) and [communication](module-communication.md). Resolve the proposed minimal core, identity/trust bootstrap, grant/delegation model, persistence/key protection and offline semantics. Scaleway setup is deferred.
 
+## MVP delivery rule
+
+Use concrete end-to-end cases to test a small subset of capabilities, then extend based on evidence, following [ADR 0007](decisions/0007-incremental-modularity.md). Review the proposed [module grouping and change scenarios](module-architecture.md). For every increment, record changed implementations, contracts, configuration and migration, and prove that unaffected modules can remain on their existing versions.
+
 ## M1 — Contract foundation
 
 Choose identifiers and version semantics, define capability descriptors and grants, publish schemas/API specifications, synthetic fixtures and conformance harness. Resolve transport, identity and key custody with decision records. Capture compatibility and dependency requirements in descriptors; detailed release manifests and landing-zone handoff implementation follow the module design and working path.

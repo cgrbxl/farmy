@@ -14,37 +14,76 @@ Bindings select instances; grants authorise actions. An offering advertises a pr
 
 The [capability review](capability-review.md) expands the document-oriented map to source/event acquisition, general processing, model execution and controlled actions, with clear ownership of approvals and data lifecycle. These additions are proposals, not extra first-release deliverables. The [integration profile](module-integration.md) defines what independent modules must declare and prove.
 
-## Capability ownership map
+## Proposed grouping: nine service module families
 
-Names below are descriptive working names, not product or package commitments.
+The broad capability catalogue is not a deployment inventory. Group implementations by cohesive responsibility, owned state, privilege boundary and independent change. The following nine families cover the first document solution; they are a proposal to review, not nine mandatory servers or a limit on future modules. A family defines contracts, not a central service hosting every implementation.
 
-| Module | Capabilities owned | State owned | Explicit boundary |
+| Module family | Capabilities grouped | Owned state / reason to group | Must stay outside |
 | --- | --- | --- | --- |
-| FarmWallet authority | Resource/collection identity, version inventory, provenance acceptance, policy decisions, issuing/revoking grants | Authoritative resource metadata, locations, policies, grants and accepted derivations | Does not own all source bytes, execute parsers or maintain search indexes |
-| Service registry | Implementation/instance discovery, endpoint and contract records, scoped bindings and compatibility checks | Trusted instance registrations, bindings and configuration references | Discovery and bindings never grant farm-data access; public catalogues are separate inputs |
-| Workflow coordinator | Durable ingestion/indexing/export workflows, retries, cancellation and reconciliation | Job ownership, pinned inputs/bindings, step status and idempotency records | Exactly one coordinator owns each job; it cannot approve its own extra permissions |
-| Storage connector | Inventory, read exact versions, optional write/delete, source change detection and controlled staging | Provider credentials by reference, source cursors, object/location mappings and temporary-copy records | Multiple implementations: local folder, S3, later Drive/synchronised folders; no content interpretation |
-| Source adapters | Acquire structured records, batches, events and external changes | Source credentials by reference, cursors and delivery/deduplication state | Distinct from storage and parsing; may initially share an Exchange implementation |
-| Processing | Transform, validate, aggregate, calculate and render proposed outputs | Algorithm/configuration references, job results and input provenance | No automatic authority to commit or disclose transformed results |
-| Ingestion | Parse/extract, normalise, chunk and propose derived records | Attempt status, temporary authorised snapshots and result references | Cannot overwrite originals or make proposed results authoritative |
-| Knowledge | Index/remove authorised versions, retrieve evidence and report freshness | Derived indexes, source/version references, index job state and permissions metadata | Indexes are rebuildable; cannot invent authoritative facts or permissions |
-| Model runtime / adapter | Execute model inference | Model/version artifacts or external-provider references, execution state | Separate from routing policy; may be external and accessed through the gateway |
-| Model gateway | Model profiles, parameter validation, approved routing, invocation and usage accounting | Profiles, endpoint/secret references and minimal invocation metadata | Does not own chat reasoning or issue tool permissions; local failure cannot select an unapproved cloud model |
-| Copilot | Query interpretation, evidence synthesis, controlled tool proposals and source-linked answers | Scoped task/conversation state, evidence references and answer provenance | Uses Knowledge and Model APIs; cannot bypass grants by following document or model instructions |
-| Exchange | Prepare disclosures, authorised delivery, external-source import and ecosystem-specific adapters | Disclosure manifests, recipient/purpose records and delivery acknowledgements | Read permission is insufficient to export; signatures do not turn inference into official certification |
-| Action/tool adapters | Execute authorised external commands or writes | Command identity, execution attempts and outcome receipts | Separate from Copilot reasoning; physical actions need a later safety profile |
-| Audit collector | Receive, deduplicate and query security/operational events | Collected event records, retention and access policies | Each producer must durably record locally first; collector unavailability must not erase events |
-| Dashboard / CLI | User interaction, viewing sources/jobs, requesting bindings/grants, reviewing exports | Minimal client preferences and session state | No authoritative policy, source store or durable background execution |
-| Identity/trust integration | Human/service authentication, trusted issuer mapping, credential lifecycle | Identity provider state and service trust material under their respective owners | Integrate established identity infrastructure; authentication is separate from wallet authorisation |
-| Deployment controller (later) | Install/upgrade/retire instances and report actual deployment state | Deployment plans, artifact versions and infrastructure references | Privileged infrastructure actions do not confer farm-data grants |
+| FarmWallet | Resource/collection identity, version and provenance acceptance, policy/grants, retention decisions | Authoritative resource and policy state; consistent acceptance and authorisation | Parsers, indexes, provider SDKs, workflow execution and domain algorithms |
+| Service registry | Implementation/instance discovery, compatibility declarations, configuration references and bindings | Installation composition and binding revisions | Farm grants, executing jobs, silently trusting catalogue entries |
+| Workflow coordinator | Durable jobs, step ordering, triggers, approvals-in-progress, retries/cancellation and reconciliation | Workflow state and pinned inputs/bindings; one coordinator per job | Domain algorithms, identity issuance, grant approval and provider-specific branches |
+| Connectors | Physical storage access and source acquisition, grouped by external system and credential boundary | Provider credentials by reference, source cursors, location/version mapping and staged-copy records | Parsing, analytics, answering questions or deciding export permission |
+| Processing | Ingestion, extraction, normalisation, validation, calculation, transformation and rendering as declared specialisations | One implementation owns its algorithm/configuration and proposed results; operations share versioned inputs/provenance and job semantics | Authoritative commits, retrieval index ownership, unapproved external effects |
+| Knowledge | Indexing, retrieval, graph/query access, freshness and index removal | Derived indexes and exact source/version references | Wallet authority, raw source credentials or domain workflow orchestration |
+| Model access | Model profiles, provider adapters, parameter validation, approved routing and egress control | Endpoint/secret references and minimal invocation state | Owning every model runtime, task reasoning or tool permissions |
+| Assistance | Copilot/task reasoning, evidence synthesis, citation validation and constrained tool proposals | Scoped conversation/task state and answer dependencies | Owning durable external workflows or executing effects without boundary checks |
+| Exchange | Disclosure preparation, exact-content/recipient approval binding, delivery and receipts | Disclosure manifests and external delivery outcomes | General computation, ordinary source acquisition, equipment control or new permissions |
 
-External catalogues supply offerings to the registry after validation. Weather, market and scientific inputs use Exchange adapters with source identity, retrieval time, licence and trust metadata; private farm context may only be sent with explicit permission. Agriculture-specific modules implement declared acquisition, ingestion, processing, knowledge, model, copilot, action or exchange contracts; propose a new capability only when those do not express the real boundary. Sensors, equipment actuation and production credentials remain later capabilities requiring their own safety and trust contracts.
+Connector implementations are scoped, such as Local Folder, S3 or a later weather API. Do not build a universal connector daemon with every credential. Processing implementations are scoped, such as Document Extraction or a later calculation module. Do not build a universal processor with every algorithm. Several independently deployed instances and implementations of either family may coexist.
+
+For this grouping, the earlier Ingestion role is a specialised Processing module, Source acquisition belongs to the Connector family, and the earlier Model gateway is the Model access module. These are architecture terms; published API names do not exist yet. Source acquisition must still satisfy Exchange/disclosure controls whenever a request sends private information to an external party.
+
+### Supporting components and future boundaries
+
+- Identity/trust infrastructure is an independently replaceable dependency, integrated through agreed profiles; Farmy should not build an identity product for the MVP.
+- Audit recording/enforcement belongs in every producer. A separately deployable collector is optional initially; no shared audit database becomes a private integration dependency.
+- Dashboard/CLI/external clients sit outside background service ownership. A client can compose workflows without a copilot.
+- Model runtimes are independently supplied dependencies behind Model access. Installing a model runtime is not the same as installing routing policy.
+- Catalogues advertise offerings; Registry records selected instances. Deployment administration remains a later separate control boundary.
+- Physical actions and credential issuance require specialised later modules with their own trust/safety contracts. Do not place them in Processing or Exchange merely to avoid adding a module.
+
+## Why these boundaries
+
+Keep together operations needing the same owner, lifecycle and local consistency. Split when privileges, state ownership, scale, third-party dependencies, failure containment or independent replacement provide a concrete benefit. A new API endpoint alone is not a reason for a new module.
+
+Wallet, Registry and Coordinator may be delivered in one core distribution for convenience, but retain public interfaces, owned persistence and independently runnable components. Registry changes, long-running jobs and wallet policy are different reasons for change; do not fuse them into a single private schema. Resource-policy consistency belongs inside Wallet, while cross-service updates use revisions, recorded intent and reconciliation rather than one shared transaction.
+
+Ingestion and analytics can share a Processing job envelope without pretending their semantics are interchangeable. An extraction result and a simulation result have different schema identifiers, features and conformance tests. Processing cannot accept arbitrary executable code from a workflow or retrieved document; a new implementation is explicitly registered and trusted.
+
+Prefer a small common resource/provenance envelope with versioned capability-specific payloads. Wallet can preserve validated references to new payload types without acquiring every domain schema, but must reject unknown security semantics. A module must declare schema ownership, features and input/output meaning; an unrestricted JSON blob or universal `execute(anything)` endpoint would conceal coupling rather than remove it.
+
+## Extension and change rules
+
+Existing-capability extension: change or introduce the implementing module, its descriptor/configuration and a solution binding/workflow. Other modules should require no source change if the established contract and semantics cover the extension. Changes to configuration, schemas, credentials and migration are still real work and must be recorded.
+
+New-capability extension: design its contract and authority semantics explicitly; affected callers, UI or policies may need updates. Do not claim all future capabilities can be implemented by configuration alone. Changes that cross several modules need a reason, not an automatic prohibition.
+
+Shared code is optional, limited to transport, validation and security primitives. Keep domain business rules and private models out of a compulsory common package. A contribution must not require coordinated deployment of all modules merely because they share a repository.
+
+## Modularity change scenarios
+
+These are planned architectural acceptance tests, not executed results. For each MVP increment, record source changes, configuration/contract changes, state migrations and which other modules stayed on their existing versions.
+
+| Extension | Expected implementation change | Other changes / limits |
+| --- | --- | --- |
+| Add another S3-compatible store supporting the existing features | Connector configuration only, or connector adapter if provider behaviour differs | Credentials, bindings and actual compatibility tests; do not assume every S3-like API matches |
+| Add a new document format | Document Processing parser/implementation | Advertise supported input/result schemas; Wallet, Registry and Knowledge stay unchanged if the evidence contract still fits |
+| Add a new calculation over known structured data | New specialised Processing implementation | New operation/output schema and workflow binding; a specialised UI may need work, generic status/result handling should not |
+| Replace keyword search with another conforming provider | Knowledge implementation | Rebuild/migrate index, compare semantics, change binding/revoke old grants; no Wallet schema access |
+| Add a model provider | Model access adapter or compatible external endpoint configuration | Model profile, secrets and egress approval; Copilot unchanged only if advertised features match |
+| Add a report recipient protocol | Exchange delivery adapter | Recipient policy, credentials, receipt/retry semantics; Processing and Knowledge should not change |
+| Add a new use case using existing capabilities | Versioned solution workflow, bindings and grants | UI/presentation may change; Coordinator engine must not gain domain-specific branches |
+| Add live sensor streams | New Connector specialisation and stream contract; possibly specialised Processing/Knowledge | Flow control, time windows and retention are new semantics: intentionally outside the document MVP |
+| Add physical actuation | New Action implementation and safety/authorisation contract | Coordinator, policy and UI changes may be necessary; not a generic processing extension |
+
+Repeated co-changes are evidence to revisit a boundary. If provider additions repeatedly edit Wallet or Coordinator, domain detail is leaking into the core. If one module accumulates unrelated credentials, dependencies, operators and failure modes, split it. If two modules are always changed together and need synchronous back-and-forth for every operation, review whether they should be one module or use a better contract. Security/trust boundaries can justify separation even when that costs performance.
 
 ## Proposed core and first solution
 
 **Minimal core:** Wallet authority, service registry and durable audit recording, using an identity/trust integration. These functions give the installation authority and composition; a separate audit collector is optional initially. A configured storage connector makes the core useful with real resources. This is a proposed composition, not a new requirement that all modules run together.
 
-**First document solution:** core plus Local Folder and S3 connectors, coordinator, ingestion, knowledge, model gateway, copilot and controlled export. The dashboard is replaceable by a CLI; neither must remain open. Two knowledge instances and a separately implemented alternative prove multiplicity and substitution after the basic path works.
+**First document solution:** core plus Local Folder and S3 Connector implementations, Coordinator, a Document Processing implementation, Knowledge, Model access, Assistance and Exchange for controlled export. The dashboard is replaceable by a CLI; neither must remain open. Two knowledge instances and a separately implemented alternative prove multiplicity and substitution after the basic path works.
 
 The identity system can be locally operated or external. It need not be a Farmy-written identity product. Deployment tooling and a public marketplace are not prerequisites for the document path.
 
@@ -77,9 +116,9 @@ flowchart LR
 
 A worker only reads through Storage when the grant permits that exact transfer; the graph is not an allowlist by itself. Knowledge reads accepted derived artifacts through a connector, not Ingestion's private database. No downstream call inherits the caller's entire credentials.
 
-## Technical reference implementation by module
+## Technical reference implementation by responsibility
 
-Python services, HTTP/JSON APIs, OpenAPI/JSON Schema and service-owned local SQLite follow ADR 0002. Exact libraries and versions are selected after contract review. The choices below are proposed internals; contributors can replace them without reproducing private schemas. SQLite alone supplies no encryption or high-availability guarantee: private-data operation requires an explicit storage/key design.
+The rows below describe responsibility-level components, not an additional module count; apply the nine-family grouping above. Python services, HTTP/JSON APIs, OpenAPI/JSON Schema and service-owned local SQLite follow ADR 0002. Exact libraries and versions are selected after contract review. The choices below are proposed internals; contributors can replace them without reproducing private schemas. SQLite alone supplies no encryption or high-availability guarantee: private-data operation requires an explicit storage/key design.
 
 | Module | First implementation structure and persistence | Critical verification |
 | --- | --- | --- |
@@ -99,7 +138,7 @@ Python services, HTTP/JSON APIs, OpenAPI/JSON Schema and service-owned local SQL
 
 These are per-module technical designs, not selected frameworks or runnable components. Each implementation needs a configuration schema, private persistence schema/migrations, credential handling, failure limits and contract tests before its first release.
 
-The newly explicit Source, Processing, Model runtime and Action boundaries in the capability review still need implementation designs after their contracts are reviewed. Their appearance in the map does not silently select a framework or add them to the first document release.
+Additional Source acquisition and Processing specialisations, Model runtimes and future Action modules still need implementation designs after their contracts are reviewed. Their appearance in the map does not silently select a framework or add them to the first document release.
 
 ## Shared data boundaries
 
@@ -107,9 +146,20 @@ Wallet owns resource identity/version, policy/grant and accepted provenance sche
 
 A multi-source derived record or answer must retain the contributing source set. Access is conservatively bounded by that source set unless an explicit, reviewed declassification/transformation policy says otherwise. Copies in prompts, caches, histories and exports remain part of the security design.
 
+## Proposed MVP cases to test the grouping
+
+Use synthetic records and progressively add boundaries rather than implementing every service before producing a useful result.
+
+1. **Controlled memory:** register a synthetic soil report from a local folder, inspect its exact version, relocate it without changing its resource ID, and deny an unauthorised reader. Exercise Wallet, Registry and a Connector through a thin client with identity and durable audit.
+2. **Useful evidence:** extract a known field from the report and retrieve it with the exact source/version reference; repeat the ingestion request and verify one accepted result. Add Coordinator, Document Processing and Knowledge. No LLM is needed for this test.
+3. **Assisted answer and disclosure:** answer a question from authorised evidence using an explicitly selected model, preview an export and deliver only after export authorisation. Add Model access, Assistance and Exchange. Add S3 via a second Connector and verify the earlier path still works.
+4. **Prove modular benefit:** replace a Processing or Knowledge implementation through declared binding/migration, run two Knowledge instances, and repeat the earlier cases while unaffected modules remain unchanged. Use a separately implemented provider, not just another configuration of the same one.
+
+These are proposed test cases, not a claim of agronomic accuracy or deployed functionality. An initial implementation may use fixed reviewed workflows; a general-purpose visual workflow editor is not needed. Security checks are introduced with each affected boundary, not postponed until the last case. Offline cloud execution and OS/cloud packaging remain later acceptance work.
+
 ## What to review next
 
-1. Confirm capability ownership and the proposed minimal core; resolve any overlapping responsibilities.
+1. Review the nine-family grouping and minimal core against the change scenarios; the broad capability coverage is accepted, while this exact grouping remains proposed.
 2. Review the exact document/query/export sequences and security proposal in [module communication](module-communication.md).
 3. Record accepted security decisions for service identity, grants, keys and offline execution; then turn the contracts into schemas and conformance fixtures.
 4. Implement the smallest working path, verify boundaries and substitution, then create independent packages for macOS, Windows, Linux and Kubernetes.

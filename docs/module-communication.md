@@ -4,6 +4,8 @@ Status: proposed protocol/security design for architecture review. HTTP/JSON wit
 
 This draft specifies the first document path. The broader [capability review](capability-review.md) reserves additional acquisition, processing, inference and action contracts; they must not be claimed as supported by these document operations. All implementations also need the [module integration profile](module-integration.md).
 
+Names in the document walkthrough identify responsibilities: Ingestion is the Document Processing specialisation, Model gateway is Model access, and Copilot is Assistance in the current [grouping proposal](module-architecture.md). These names do not create additional deployment requirements.
+
 ## Interaction contracts
 
 Operation names describe required semantics, not final URLs or a stable API. Callers authenticate and supply explicit wallet-scoped authority; a row is not an automatic permission.

@@ -1,6 +1,6 @@
 # Abstract capability review
 
-Status: architecture review proposal, 2026-09-18. This tests coverage against Farmy's current vision, not every possible future agricultural use. No new capability or module is implemented, and this review does not silently accept new technical decisions.
+Status: broad coverage and incremental implementation approach accepted by the maintainer, 2026-09-18; exact module boundaries remain proposed. This tests coverage against Farmy's current vision, not every possible future agricultural use. No new capability or module is implemented, and this review does not silently accept new technical decisions.
 
 ## Finding
 
@@ -30,7 +30,7 @@ Use cases are compositions of configured, bound module instances. Some fit one i
 | Explain activity and operate services | Audit, health and lifecycle | Audit collector plus per-module contracts; later deployment controller | Existing; data deletion, backup and retirement responsibilities must be explicit |
 | Interact with people or other applications | User/API interaction | Dashboard, CLI or external clients | Existing; background capabilities cannot depend on an open UI |
 
-This is a capability catalogue, not a requirement to build seventeen services now. Source acquisition and controlled actions can initially be adapters in an Exchange implementation, provided their contracts and permissions remain distinct. Inference may be an externally supplied endpoint. Processing implementations may supply several functions, without a central interpreter that must understand every domain algorithm.
+This is a capability catalogue, not a requirement to build seventeen services now. The current [nine-family grouping proposal](module-architecture.md) maps these responsibilities onto implementation boundaries. The latest grouping puts ordinary source acquisition with Connectors and reserves consequential action execution for separate later modules; Exchange focuses on controlled disclosure and delivery. Inference may be an externally supplied endpoint. Processing implementations may supply several functions, without a central interpreter that must understand every domain algorithm.
 
 ## Boundaries that must remain precise
 
@@ -61,4 +61,4 @@ The [module integration profile](module-integration.md) defines the proposed adm
 
 Retain the minimal document solution as the first implementation. The additions reserve general contracts; they do not expand the first milestone to sensors, simulators, device operation or certification.
 
-The recommended next decisions are: accept the expanded capability families and boundaries; agree the integration profile; then specify the first small set of public contracts and conformance tests. Only after that select module frameworks and packaging. A catalogue of names alone is not proof of modularity.
+The expanded capability coverage and MVP approach are accepted in [ADR 0007](decisions/0007-incremental-modularity.md). Next review the module grouping against concrete change scenarios, agree the integration profile, then specify the first small set of public contracts and conformance tests. Only after that select module frameworks and packaging. A catalogue of names alone is not proof of modularity.
