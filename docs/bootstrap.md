@@ -35,6 +35,6 @@ If the repository name already exists, inspect it before proceeding; do not over
 
 ## After publishing
 
-Select licensing terms, configure private vulnerability reporting, and choose branch protection/review rules appropriate to contributors. These are future repository settings, not settings applied by this snapshot.
+Apache 2.0 licensing is applied; see [LICENSING.md](../LICENSING.md). Configure private vulnerability reporting and choose branch protection/review rules appropriate to contributors. These repository settings have not been applied by this snapshot.
 
 This is a documentation repository. Farmy installation commands will be added when working components and validated deployment packages exist.

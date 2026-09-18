@@ -1,7 +1,19 @@
-# Licensing decision pending
+# Farmy licensing
 
-The initial project owner has not selected a licence. This repository is prepared for public collaboration but must not yet be described as open-source software.
+Farmy’s original code, documentation, specifications, schemas, configuration and synthetic examples in this repository are licensed under the Apache License, Version 2.0, unless explicitly identified otherwise. See [LICENSE](LICENSE) for the full terms.
 
-Before accepting routine third-party contributions or releasing reusable implementations, the maintainer should select explicit terms for documentation, specifications, schemas and code and add the applicable licence texts. Contributor implementations can have their own terms; compatibility is separate from licensing.
+Copyright 2026 Farmy contributors. Each contributor retains ownership of their contributions; this collective notice does not assign copyright to a separate legal entity.
 
-No licence choice or transfer of rights is implied by this document.
+Commercial use and private modifications are permitted subject to the licence. Sharing improvements with Farmy is strongly encouraged, but is not an additional licence condition.
+
+## Scope and exclusions
+
+This grant does not license farmers’ records, personal data, credentials or other material merely processed by Farmy. It grants no access to such information. Third-party materials and dependencies retain their own terms; preserve their notices and identify them explicitly when added. Independently maintained provider implementations choose their own licences. Compatibility does not imply common licensing.
+
+Trademark permissions are limited to those in section 6 of the licence. No affiliation or endorsement is implied by reuse.
+
+## Contributions
+
+Contributions intentionally submitted for inclusion are handled under section 5 of Apache 2.0. Contributors retain copyright and must have the rights to submit their work. No copyright assignment or separate contributor licence agreement is required by the current project policy. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+The accepted decision and rationale are recorded in [ADR 0003](docs/decisions/0003-apache-2.0.md).

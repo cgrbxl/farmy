@@ -17,7 +17,7 @@ Hybrid installations are first-class. Offline semantics, distributed jobs, provi
 
 | Topic | Required decision |
 | --- | --- |
-| Licence | Maintainer selection of reuse/contribution terms |
+| Licence | Resolved by [ADR 0003](0003-apache-2.0.md): Apache 2.0 |
 | Runtime stack | Reference implementation languages and state stores |
 | Protocol | API transport, events and schema tooling |
 | Identity | Authentication and delegation interoperability |

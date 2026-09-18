@@ -32,7 +32,7 @@ M3 then demonstrates a Mac wallet with cloud ingestion, live and staged modes, t
 
 ## Decisions still needed
 
-- Maintainer: licensing terms for documentation, contracts and code; no licence is selected by this plan.
+- Licensing is resolved: Apache 2.0 for original documentation, contracts and code; see [ADR 0003](decisions/0003-apache-2.0.md).
 - Reference stack is resolved: Python services, HTTP/JSON contracts and service-owned SQLite; see accepted ADR 0002.
 - Identity and keys: issuer trust, human/service authentication, grant format, key storage, recovery and rotation.
 - Offline policy: grant lifetimes, maximum revocation staleness and staged-copy retention per trust boundary.

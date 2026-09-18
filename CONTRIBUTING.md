@@ -1,6 +1,6 @@
 # Contributing to Farmy
 
-Farmy welcomes discussion of the architecture and independently provided modules. The project is at documentation-baseline stage. Licensing terms must be settled before routine outside contributions are merged.
+Farmy welcomes discussion of the architecture and independently provided modules. The project is at documentation-baseline stage. Original repository materials are licensed under [Apache 2.0](LICENSE).
 
 1. Open an architecture proposal or issue describing the user need and affected capability.
 2. Distinguish new contract requirements from implementation-specific choices.
@@ -9,6 +9,10 @@ Farmy welcomes discussion of the architecture and independently provided modules
 5. Use synthetic fixtures only; never submit real farm records, secrets or personal data.
 
 Future module submissions should include descriptor, supported contract versions, deployment modes, configuration and secret references, permissions/egress requirements, lifecycle instructions, migration procedure and conformance evidence. Module implementations may live in separate repositories and use different languages.
+
+Farmy is an altruistic project. Please consider sharing fixes, interoperability improvements and documentation with the community. Sharing back is encouraged, not a condition of use.
+
+Contributions intentionally submitted for inclusion follow section 5 of Apache 2.0. You retain copyright and must have the rights to submit your contribution. Identify third-party material and its licence; do not assume Farmy can relicense it. The current policy requires neither copyright assignment nor a separate CLA. See [LICENSING.md](LICENSING.md).
 
 For documentation checks run `python3 scripts/check_docs.py`. This checks links and JSON parsing only, not security or API conformance.
 

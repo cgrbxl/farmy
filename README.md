@@ -39,4 +39,4 @@ All examples are synthetic. Do not commit farm data, credentials or private endp
 
 ## Licensing
 
-A project licence has not yet been selected. Public visibility does not itself grant an open-source licence. See [LICENSING.md](LICENSING.md) before reusing or contributing material.
+Farmy’s original code, contracts and documentation are licensed under [Apache 2.0](LICENSE). Sharing improvements is encouraged, not required. See [LICENSING.md](LICENSING.md) for scope, exclusions and contribution terms.

@@ -4,7 +4,7 @@ No runtime work is marked complete.
 
 ## M0 — Architecture repository (this baseline)
 
-Document vision, service boundaries, trust, composition, examples, decision process and acceptance criteria. Resolve licensing before presenting the project as open source or accepting routine external contributions.
+Document vision, service boundaries, trust, composition, examples, decision process and acceptance criteria. Licensing is resolved through [ADR 0003](decisions/0003-apache-2.0.md): Apache 2.0 applies to original repository materials. This does not imply a working runtime.
 
 ## M1 — Contract foundation
 
