@@ -1,0 +1,33 @@
+{
+  "status": "illustrative-not-a-standard",
+  "implementationId": "example.document-ingestor",
+  "version": "0.1.0",
+  "capabilities": [
+    {
+      "type": "ingestion",
+      "contractVersion": "0.1-draft",
+      "multipleInstances": true
+    }
+  ],
+  "deploymentModes": [
+    "local",
+    "self-hosted",
+    "provider-hosted"
+  ],
+  "permissionsRequired": [
+    "resource.read",
+    "derived.propose"
+  ],
+  "supportedInputs": [
+    "application/pdf",
+    "text/plain"
+  ],
+  "onwardTransfers": {
+    "default": "deny",
+    "destinations": []
+  },
+  "portability": {
+    "jobResults": "exportable",
+    "internalState": "implementation-specific"
+  }
+}

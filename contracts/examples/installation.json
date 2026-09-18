@@ -1,0 +1,41 @@
+{
+  "status": "illustrative-not-executable",
+  "walletId": "urn:farmy:wallet:demo",
+  "instances": [
+    {
+      "id": "ingest-cloud",
+      "capability": "ingestion",
+      "endpoint": "https://ingest.example.invalid",
+      "credentialRef": "secret://farmy/ingest-cloud"
+    },
+    {
+      "id": "knowledge-private",
+      "capability": "knowledge",
+      "endpoint": "https://private.example.invalid"
+    },
+    {
+      "id": "knowledge-agronomy",
+      "capability": "knowledge",
+      "endpoint": "https://agronomy.example.invalid"
+    }
+  ],
+  "bindings": [
+    {
+      "collection": "business-documents",
+      "capability": "knowledge",
+      "instanceId": "knowledge-private"
+    },
+    {
+      "collection": "crop-records",
+      "capability": "knowledge",
+      "instanceId": "knowledge-agronomy"
+    },
+    {
+      "collection": "approved-staged-documents",
+      "capability": "ingestion",
+      "instanceId": "ingest-cloud"
+    }
+  ],
+  "grants": [],
+  "note": "Bindings confer no access. Explicit grants must be issued separately."
+}
