@@ -4,6 +4,8 @@ Status: first provider selected by the maintainer on 2026-09-18. Service mapping
 
 Scaleway is the first implementation target because the maintainer already knows the provider. The [common landing-zone requirements](../cloud-landing-zones.md) still apply; Farmy contracts remain provider-independent.
 
+Current priority is architecture consolidation under [ADR 0006](../decisions/0006-architecture-first.md). The sequence below is for later deployment work; account/project, region and budget selection are not the immediate next step.
+
 ## Initial service mapping to validate
 
 | Requirement | Proposed Scaleway mapping | Evidence needed before support |

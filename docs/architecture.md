@@ -2,6 +2,8 @@
 
 Status: agreed conceptual direction, with implementation proposals explicitly left open.
 
+The consolidated [capability/module map and technical design](module-architecture.md) and [communication/security design](module-communication.md) expand this baseline. Detailed proposals are marked for review; deployment work follows architecture consolidation.
+
 ## Composition model
 
 | Object | Meaning |

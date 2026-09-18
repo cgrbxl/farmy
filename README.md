@@ -17,6 +17,10 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 - Make substitution demonstrable through public contracts and conformance tests.
 - Keep the dashboard replaceable; closing it must not stop workflows.
 
+## Current focus
+
+Consolidate capabilities, module ownership, secure communication and per-module technical design before environment-specific deployment. Start with the [module architecture](docs/module-architecture.md) and [communication design](docs/module-communication.md). These are review drafts; see [ADR 0006](docs/decisions/0006-architecture-first.md).
+
 ## Start here
 
 1. [Vision and scope](docs/vision.md)

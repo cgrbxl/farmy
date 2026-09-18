@@ -1,6 +1,6 @@
 # Deployment boundaries and profiles
 
-These are target designs, not installation instructions for a working application.
+These are target designs, not installation instructions for a working application. Detailed deployment work is deferred until [module architecture](module-architecture.md), communication/security and technical design are consolidated, following [ADR 0006](decisions/0006-architecture-first.md).
 
 | Component | Independent deployment | Multiplicity | State or location constraint |
 | --- | --- | --- | --- |

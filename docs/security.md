@@ -2,6 +2,8 @@
 
 Status: requirements, not implemented guarantees.
 
+See the [proposed module communication/security design](module-communication.md) for per-hop checks and complete workflows. Its identity and grant mechanisms remain proposals pending security ADRs.
+
 ## Trust boundaries
 
 Identify farmer device, each hosting operator, each model provider, source provider and external recipient separately. Encryption at rest does not hide plaintext from an authorised processor. Stronger operator-blind processing requires a separate evaluated design and is not promised here.

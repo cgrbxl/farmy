@@ -4,6 +4,8 @@ Status: requirements only. Scaleway is selected as the first provider in [ADR 00
 
 A Farmy landing zone is the versioned infrastructure foundation required to run a declared solution or module safely within a cloud environment. Each supported provider needs an explicit implementation mapping these requirements to named services, settings, permissions and tests. A Kubernetes application package alone is not a landing zone.
 
+Implementation is deferred until capabilities, communication/security and module technical design are consolidated; see [ADR 0006](decisions/0006-architecture-first.md).
+
 ## Layers and ownership
 
 1. Provider foundation: account/project/subscription boundaries, region, network, identity, keys, secrets, logging, state and budgets.

@@ -22,4 +22,4 @@ Document-oriented wallet, local-folder and S3 adapters, ingestion, two knowledge
 
 ## Non-goals of baseline v0.1
 
-No claim of legal compliance, certified agronomic advice, production security, functioning installation or compatibility with an external standard. Protocol and technology choices remain open until implementation decisions are recorded.
+No claim of legal compliance, certified agronomic advice, production security, functioning installation or compatibility with an external standard. The reference stack is recorded in ADR 0002; detailed contracts, security mechanisms and implementation choices remain under review.

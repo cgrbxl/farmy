@@ -10,6 +10,10 @@ The actual project root is `/Users/Shared/projects/farmy`; there is no nested `f
 
 FarmWallet owns a coherent resource and policy namespace independently of storage. Capabilities, implementations, offerings, instances, bindings and grants are separate concepts. Services communicate through public contracts, own their internal state, and may run independently. Bindings confer no permission. Originals and exact versions remain authoritative; derived knowledge retains provenance. Permission checks precede disclosure to workers, models and recipients. The dashboard is not a background execution dependency.
 
+## Immediate work: consolidate the architecture
+
+Review the [capability/module map and technical designs](module-architecture.md), then [communication and security](module-communication.md). Establish ownership, contracts, trust, persistence and failure semantics before implementation. Deployment-specific work follows; do not request Scaleway project, region or budget as the next step. This order is recorded in [ADR 0006](decisions/0006-architecture-first.md).
+
 ## First milestone: M1 contract foundation
 
 Deliver a small, executable contract validation and conformance harness using synthetic plain-text documents. This milestone does not claim a working wallet, secure deployment or model integration.

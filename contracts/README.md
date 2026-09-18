@@ -2,6 +2,8 @@
 
 Status: proposed v0.1 vocabulary and illustrative examples. No interoperable wire protocol or conformance suite is implemented yet.
 
+The [module interaction map](../docs/module-communication.md) assigns callers, receivers, operation semantics and authority checks. It is a review draft, not a published wire API.
+
 ## Common envelope
 
 Requests need contract version, request/job identifier, caller identity, wallet identifier, scoped authorisation reference, purpose and input versions. Mutating requests need idempotency and expected-version semantics.
@@ -33,4 +35,4 @@ See [implementation.json](examples/implementation.json) and [installation.json](
 
 Specify required fields and extension namespaces, version negotiation, units, time representation, pagination, limits and errors before publishing a stable contract. Breaking semantic changes require a new major contract version. Substitution tests must include two independently implemented services, not two configurations of the same service alone.
 
-Open choices: transport, identity/delegation protocol, schema language, event broker necessity and external standards mappings. Choose these through architecture decision records, without imposing a particular internal programming language.
+ADR 0002 selects HTTP/JSON, OpenAPI/JSON Schema and initial polling for the reference path. Open choices include precise contract versions and schemas, identity/delegation protocol, later event-broker necessity and external standards mappings. Choose these through architecture decision records, without imposing a particular internal programming language.

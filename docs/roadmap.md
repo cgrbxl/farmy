@@ -6,9 +6,13 @@ No runtime work is marked complete.
 
 Document vision, service boundaries, trust, composition, examples, decision process and acceptance criteria. Licensing is resolved through [ADR 0003](decisions/0003-apache-2.0.md): Apache 2.0 applies to original repository materials. This does not imply a working runtime.
 
+## Current priority — Architecture consolidation
+
+Following [ADR 0006](decisions/0006-architecture-first.md), review capabilities and module ownership, communication contracts, security boundaries and each module’s technical design before deployment. Review drafts: [module architecture](module-architecture.md) and [communication](module-communication.md). Resolve the proposed minimal core, identity/trust bootstrap, grant/delegation model, persistence/key protection and offline semantics. Scaleway setup is deferred.
+
 ## M1 — Contract foundation
 
-Choose identifiers and version semantics, define capability descriptors and grants, publish schemas/API specifications, synthetic fixtures and conformance harness. Resolve transport, identity and key custody with decision records. Define release manifests, compatibility declarations and the non-secret landing-zone handoff contract.
+Choose identifiers and version semantics, define capability descriptors and grants, publish schemas/API specifications, synthetic fixtures and conformance harness. Resolve transport, identity and key custody with decision records. Capture compatibility and dependency requirements in descriptors; detailed release manifests and landing-zone handoff implementation follow the module design and working path.
 
 ## M2 — Working document path
 
