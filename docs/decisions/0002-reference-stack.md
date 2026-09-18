@@ -1,13 +1,13 @@
 # ADR 0002 — Reference implementation stack
 
 Date: 2026-09-18
-Status: Proposed; awaiting maintainer direction. No runtime implemented.
+Status: Accepted by the maintainer on 2026-09-18. No runtime implemented.
 
 ## Context
 
 The first implementation must test independent deployment and replacement without imposing one language or a shared database on contributors. A small reference implementation should minimise infrastructure while preserving service boundaries.
 
-## Proposal
+## Decision
 
 Use Python for reference services, HTTP with JSON for request/response boundaries, versioned JSON Schema and OpenAPI documents for public contracts, and a separate SQLite database owned by each local reference service. Pin dependency versions when implementation begins. No service may directly read another service's database.
 

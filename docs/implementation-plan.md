@@ -14,7 +14,7 @@ FarmWallet owns a coherent resource and policy namespace independently of storag
 
 Deliver a small, executable contract validation and conformance harness using synthetic plain-text documents. This milestone does not claim a working wallet, secure deployment or model integration.
 
-1. Record decisions for resource identity/versioning, transport, authentication, delegation, key custody and bounded offline authorisation. Review the reference-stack proposal in ADR 0002.
+1. Record decisions for resource identity/versioning, transport, authentication, delegation, key custody and bounded offline authorisation. Use the accepted reference stack in ADR 0002.
 2. Define versioned schemas for resources, immutable source versions, provenance, implementation descriptors, instances, bindings, grants, jobs and evidence. Keep existing examples illustrative until explicitly migrated.
 3. Specify the minimal document path: resolve/read an authorised version, submit and inspect an ingestion job, propose/accept derived output, index/retrieve evidence, invoke an approved model and prepare/authorise export. Define errors and idempotency per mutation.
 4. Supply positive and negative fixtures plus a runnable harness. Exercise wrong-wallet/audience/purpose/action, expired/revoked authority, stale versions, duplicate requests, unsupported operations and content attempting to expand permissions. Clearly distinguish schema checks from runtime enforcement tests.
@@ -33,7 +33,7 @@ M3 then demonstrates a Mac wallet with cloud ingestion, live and staged modes, t
 ## Decisions still needed
 
 - Maintainer: licensing terms for documentation, contracts and code; no licence is selected by this plan.
-- Reference stack: ADR 0002 is proposed pending maintainer direction.
+- Reference stack is resolved: Python services, HTTP/JSON contracts and service-owned SQLite; see accepted ADR 0002.
 - Identity and keys: issuer trust, human/service authentication, grant format, key storage, recovery and rotation.
 - Offline policy: grant lifetimes, maximum revocation staleness and staged-copy retention per trust boundary.
 - Prototype providers: S3 environment, local model and any explicitly authorised remote model.
