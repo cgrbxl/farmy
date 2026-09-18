@@ -1,6 +1,6 @@
 # Cloud provider landing zones
 
-Status: requirements only. No provider is selected, infrastructure is provisioned, or cloud security is certified.
+Status: requirements only. Scaleway is selected as the first provider in [ADR 0005](decisions/0005-scaleway-first-provider.md). No infrastructure is provisioned or cloud security certified.
 
 A Farmy landing zone is the versioned infrastructure foundation required to run a declared solution or module safely within a cloud environment. Each supported provider needs an explicit implementation mapping these requirements to named services, settings, permissions and tests. A Kubernetes application package alone is not a landing zone.
 
@@ -55,4 +55,4 @@ For laptop-to-cloud workflows, test loss of connectivity, staged-copy expiry/del
 
 ## Rollout choices still open
 
-Select one provider and region for the first validated implementation, plus a tenancy model, operational owner, budget and infrastructure tooling. Add subsequent providers through independently tested mappings to the same requirements. Do not claim all-provider support or publish placeholder infrastructure as deployable.
+Scaleway is the first selected provider; see the [Scaleway plan](providers/scaleway.md). Select its project and region, plus a tenancy model, operational owner, budget and infrastructure tooling. Add subsequent providers through independently tested mappings to the same requirements. Do not claim all-provider support or publish placeholder infrastructure as deployable.

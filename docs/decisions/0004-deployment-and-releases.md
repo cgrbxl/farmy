@@ -13,7 +13,7 @@ Treat the four environments as explicit release targets. Publish independently v
 
 Define a common cloud landing-zone requirement set with separately versioned, validated implementations per supported provider. Separate infrastructure provisioning and administration from module deployment and wallet data grants. A module may depend on remote services; consumers need not install the entire solution to use it.
 
-See [release requirements](../releases.md) and [cloud landing zones](../cloud-landing-zones.md). Native installers versus container packaging, infrastructure tooling, the minimal core bundle, supported OS/CPU versions, first cloud provider and support commitments remain open.
+See [release requirements](../releases.md) and [cloud landing zones](../cloud-landing-zones.md). Native installers versus container packaging, infrastructure tooling, the minimal core bundle, supported OS/CPU versions, and support commitments remain open. The first cloud provider is now Scaleway, selected in [ADR 0005](0005-scaleway-first-provider.md).
 
 ## Alternatives
 

@@ -30,6 +30,7 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 9. [Reference stack decision](docs/decisions/0002-reference-stack.md)
 10. [Versioned solutions and module releases](docs/releases.md)
 11. [Cloud provider landing zones](docs/cloud-landing-zones.md)
+12. [Scaleway: first cloud provider](docs/providers/scaleway.md)
 
 Contributors: read [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md). Publication and Mac transfer instructions are in [docs/bootstrap.md](docs/bootstrap.md).
 
