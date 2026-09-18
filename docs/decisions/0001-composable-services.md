@@ -23,7 +23,7 @@ Hybrid installations are first-class. Offline semantics, distributed jobs, provi
 | Identity | Authentication and delegation interoperability |
 | Key custody | Per-profile key holders, recovery and rotation |
 | Offline authority | Grant lifetime and revocation freshness |
-| Deployment | Packaging and controller privilege model |
+| Deployment | Target/release/landing-zone requirements accepted in [ADR 0004](0004-deployment-and-releases.md); package tooling and provider mappings remain open |
 | Data spaces | First target ecosystem and its required contracts |
 | Governance | Maintainer additions, voting and release ownership |
 

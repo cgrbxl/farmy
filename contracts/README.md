@@ -25,7 +25,7 @@ Do not require unsupported operations such as deletion on a read-only source. Ad
 
 ## Descriptor
 
-A descriptor identifies the implementation and contract versions, supported deployment modes, capability multiplicity, dependencies, configuration schema, data destinations, retention assumptions, health/lifecycle operations and portability. An offering is not a deployment and a descriptor is not an access grant.
+A descriptor identifies the implementation and contract versions, supported deployment modes, capability multiplicity, dependencies, configuration schema, data destinations, retention assumptions, health/lifecycle operations and portability. An offering is not a deployment and a descriptor is not an access grant. Future release manifests must also declare per-target artifacts, compatibility, dependencies, migrations and required landing-zone capabilities; see [release requirements](../docs/releases.md). These are requirements, not an implemented schema.
 
 See [implementation.json](examples/implementation.json) and [installation.json](examples/installation.json). All endpoint names and identifiers are fictional. The JSON is illustrative, not validated by a formal schema.
 

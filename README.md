@@ -28,6 +28,8 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 7. [Decisions and open questions](docs/decisions/0001-composable-services.md)
 8. [Implementation kickoff and first milestone](docs/implementation-plan.md)
 9. [Reference stack decision](docs/decisions/0002-reference-stack.md)
+10. [Versioned solutions and module releases](docs/releases.md)
+11. [Cloud provider landing zones](docs/cloud-landing-zones.md)
 
 Contributors: read [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md). Publication and Mac transfer instructions are in [docs/bootstrap.md](docs/bootstrap.md).
 

@@ -8,7 +8,7 @@ Document vision, service boundaries, trust, composition, examples, decision proc
 
 ## M1 — Contract foundation
 
-Choose identifiers and version semantics, define capability descriptors and grants, publish schemas/API specifications, synthetic fixtures and conformance harness. Resolve transport, identity and key custody with decision records.
+Choose identifiers and version semantics, define capability descriptors and grants, publish schemas/API specifications, synthetic fixtures and conformance harness. Resolve transport, identity and key custody with decision records. Define release manifests, compatibility declarations and the non-secret landing-zone handoff contract.
 
 ## M2 — Working document path
 
@@ -20,7 +20,7 @@ Run a wallet on a Mac with cloud ingestion; demonstrate live and staged modes. C
 
 ## M4 — Deployment and recovery
 
-Provide tested macOS/Windows setup and Kubernetes packages, with hardware/network requirements, secrets, backup/restore, upgrade, failure and rollback documentation. Verify Windows independently; do not infer support from Mac testing.
+Provide versioned core/solution and individual module packages for macOS, Windows and Linux laptops and cloud Kubernetes, following [release requirements](releases.md). Test each advertised OS/architecture and lifecycle independently. Implement and validate the first [provider landing zone](cloud-landing-zones.md), with explicit identity, secrets, network controls, operations, recovery and cost assumptions; add providers incrementally. Unverified targets remain labelled as such.
 
 ## M5 — Contributor ecosystem
 

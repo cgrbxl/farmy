@@ -19,6 +19,10 @@ Identify farmer device, each hosting operator, each model provider, source provi
 - Bound offline authorisations by expiry and document revocation latency.
 - Use source-version checks, idempotency and durable audit/outbox coordination.
 
+## Deployment enforcement
+
+Cloud deployments must meet the [provider landing-zone requirements](cloud-landing-zones.md). Cloud IAM, Kubernetes RBAC and wallet grants are distinct controls. Verify secrets protection and network enforcement in each provider implementation before advertising support. Laptop release profiles must document OS permissions, secret storage and background-service identity. These remain unimplemented requirements.
+
 ## Deletion and withdrawal
 
 Specify handling of original, cached, staged, indexed and backup copies. Request downstream deletion and record acknowledgement; distinguish a requested action from verified completion. Revoking future access cannot recall recipient copies. Deletion may require index rebuilds.

@@ -26,9 +26,11 @@ Live access requires the Mac to remain connected. Staging allows offline process
 
 ## Deployment profiles
 
-- Laptop: macOS or Windows, local dashboard binding by default, managed metadata and optional local AI. Container packaging is an initial candidate, not a committed dependency.
+- Laptop: macOS, Windows or Linux, local dashboard binding by default, managed metadata and optional local AI. Container packaging is an initial candidate, not a committed dependency.
 - Hybrid: laptop connector/wallet plus selected remotely deployed services. Explicit staging, offline and routing policies.
 - Kubernetes: independently packaged services, persistent state, secrets integration, authenticated ingress and service communication; remote laptop connectors where needed.
+
+Core solutions and individual modules require versioned releases for each declared target; see [release requirements](releases.md). Cloud Kubernetes deployments require a validated [provider landing zone](cloud-landing-zones.md) covering infrastructure, secrets, networking and authorisation. These requirements are accepted in [ADR 0004](decisions/0004-deployment-and-releases.md); no packages exist yet.
 
 Installation packages must eventually document supported OS/CPU versions, resource requirements excluding/including model inference, network reachability, initial admin setup, keys, backup, restore, upgrades and removal. No Compose file or Helm chart is supplied until runnable components exist.
 

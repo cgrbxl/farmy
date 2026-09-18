@@ -28,7 +28,7 @@ Use synthetic text first, then PDF extraction. Demonstrate local-folder and vers
 
 Require end-to-end tests for denied retrieval, blocked unapproved model routing, export denial, repeat-job reconciliation and provenance back to exact source versions. S3-compatible local testing does not by itself establish compatibility with hosted S3. Real cloud/model integration requires selected endpoints and credentials supplied outside the repository.
 
-M3 then demonstrates a Mac wallet with cloud ingestion, live and staged modes, two knowledge instances, independent implementation substitution and continued background operation without the dashboard. Windows and Kubernetes support remain unverified until separately tested.
+M3 then demonstrates a Mac wallet with cloud ingestion, live and staged modes, two knowledge instances, independent implementation substitution and continued background operation without the dashboard. Windows, Linux laptop and each cloud Kubernetes profile remain unverified until separately tested. Versioned releases and provider landing zones follow [ADR 0004](decisions/0004-deployment-and-releases.md).
 
 ## Decisions still needed
 

@@ -8,7 +8,7 @@ Farmy welcomes discussion of the architecture and independently provided modules
 4. Keep changes focused and update the relevant ADR when changing architecture.
 5. Use synthetic fixtures only; never submit real farm records, secrets or personal data.
 
-Future module submissions should include descriptor, supported contract versions, deployment modes, configuration and secret references, permissions/egress requirements, lifecycle instructions, migration procedure and conformance evidence. Module implementations may live in separate repositories and use different languages.
+Future module submissions should include descriptor, supported contract versions, deployment modes, configuration and secret references, permissions/egress requirements, lifecycle instructions, migration procedure and conformance evidence. Module implementations may live in separate repositories and use different languages. Declare target support and release evidence using the [release requirements](docs/releases.md); cloud offerings must identify their compatible [provider landing zones](docs/cloud-landing-zones.md).
 
 Farmy is an altruistic project. Please consider sharing fixes, interoperability improvements and documentation with the community. Sharing back is encouraged, not a condition of use.
 
