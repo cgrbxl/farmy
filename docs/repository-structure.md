@@ -1,6 +1,6 @@
 # Repository structure and delivery model
 
-Status: organisation established; runtime implementations, executable deployment templates, SDKs and conformance runners are not yet supplied.
+Status: organisation and draft structural/compatibility validator established; module runtimes, executable deployment templates, SDKs and runtime conformance runners are not yet supplied.
 
 ## Separation of responsibilities
 
@@ -9,11 +9,11 @@ Shared capability meaning, resource authority and security requirements are envi
 | Location | Owns | Current maturity |
 | --- | --- | --- |
 | [docs](architecture.md) | Reference architecture, rationale, roadmap and ADRs | Architecture/design documents |
-| [contracts](../contracts/README.md) | Public operations, schemas, semantics and common integration/security profiles | Design guidance and illustrative JSON only |
+| [contracts](../contracts/README.md) | Public operations, schemas, semantics and common integration/security profiles | Draft foundation schemas/examples; capability APIs pending |
 | [modules](../modules/README.md) | Family-specific implementation guidance and future reference implementations | Nine family guides; no runtimes |
 | [solutions](../solutions/README.md) | Compositions of module instances for concrete use cases | Core and document-path design recipes; not deployable |
 | [deployments](../deployments/README.md) | OS/Kubernetes packages and provider landing-zone adapters | Target/profile requirements; no installers or infrastructure code |
-| [conformance](../conformance/README.md) | Provider-independent contract, security, lifecycle and composition checks | Test plan; no runner |
+| [conformance](../conformance/README.md) | Provider-independent contract, security, lifecycle and composition checks | Runnable foundation structural checks; runtime suite pending |
 | [sdk](../sdk/README.md) | Optional integration clients and helpers | Scope defined; no library |
 | [scripts](../scripts/check_docs.py) | Repository maintenance checks | Existing Markdown-link/JSON check |
 

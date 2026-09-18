@@ -1,0 +1,16 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "bindingId": "binding.demo",
+  "revision": 1,
+  "walletId": "wallet.demo",
+  "instanceId": "connector.demo",
+  "capabilityId": "farmy.storage",
+  "contractVersion": "0.1-draft",
+  "operations": [
+    "read.version"
+  ],
+  "requiredFeatures": [
+    "exact-version"
+  ],
+  "scopeId": "collection.demo"
+}

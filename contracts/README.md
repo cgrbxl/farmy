@@ -1,6 +1,6 @@
 # Capability contracts
 
-Status: proposed v0.1 vocabulary and illustrative examples. No interoperable wire protocol or conformance suite is implemented yet.
+Status: a [minimum 0.1-draft foundation](v0.1-draft/README.md) now supplies schemas, examples and executable structural/declared-compatibility checks. Capability wire APIs, runtime security and full conformance remain unimplemented. Earlier examples below remain illustrative.
 
 The [module interaction map](../docs/module-communication.md) assigns callers, receivers, operation semantics and authority checks. It is a review draft, not a published wire API.
 
@@ -31,7 +31,7 @@ Do not require unsupported operations such as deletion on a read-only source. Ad
 
 ## Descriptor
 
-A descriptor identifies the implementation and contract versions, supported deployment modes, capability multiplicity, dependencies, configuration schema, data destinations, retention assumptions, health/lifecycle operations and portability. An offering is not a deployment and a descriptor is not an access grant. Future release manifests must also declare per-target artifacts, compatibility, dependencies, migrations and required landing-zone capabilities; see [release requirements](../docs/releases.md). These are requirements, not an implemented schema.
+A descriptor identifies the implementation and contract versions, supported deployment modes, capability multiplicity, dependencies, configuration schema, data destinations, retention assumptions, health/lifecycle operations and portability. An offering is not a deployment and a descriptor is not an access grant. Future release manifests must also declare per-target artifacts, compatibility, dependencies, migrations and required landing-zone capabilities; see [release requirements](../docs/releases.md). The foundation implements a minimal descriptor subset; complete release manifests, configuration schemas and lifecycle evidence remain requirements to deliver with runtime modules.
 
 See [implementation.json](examples/implementation.json) and [installation.json](examples/installation.json). All endpoint names and identifiers are fictional. The JSON is illustrative, not validated by a formal schema.
 

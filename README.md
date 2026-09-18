@@ -2,7 +2,7 @@
 
 Farmer-controlled digital memory and a composable ecosystem of agricultural intelligence services.
 
-**Status: architecture baseline v0.1 — documentation and illustrative contracts only. No working application, deployment package or security certification is provided yet.**
+**Status: architecture baseline plus a draft integration schema/compatibility validator. No working Farmy application, deployment package or verified runtime security is provided yet.**
 
 Farmy connects information held in local folders, managed encrypted vaults and cloud stores. Farmers choose independently supplied ingestion, knowledge, model and copilot services, deciding what each may access and transmit. Services can run on a laptop, private infrastructure or provider infrastructure in the same installation.
 
@@ -21,7 +21,7 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place; no runtime is implemented yet.
 
-Start with the draft [working method](docs/working-method.md), [delivery queue](docs/delivery-backlog.md) and [UC-001 controlled local memory](solutions/core/use-cases/UC-001-controlled-memory.md). Contracts, security and implementation evolve together per slice; deployment across all target environments follows proven module needs.
+The [minimum integration foundation](contracts/v0.1-draft/README.md) now provides a runnable structural validator and outlines the common technical profile. Start with the draft [working method](docs/working-method.md), [delivery queue](docs/delivery-backlog.md) and [UC-001 controlled local memory](solutions/core/use-cases/UC-001-controlled-memory.md). Contracts, security and implementation evolve together per slice; deployment across all target environments follows proven module needs.
 
 ## Repository deliverables
 

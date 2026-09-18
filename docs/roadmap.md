@@ -1,6 +1,6 @@
 # Roadmap
 
-No runtime work is marked complete.
+No module runtime work is marked complete. The [draft integration foundation](../contracts/v0.1-draft/README.md) now has executable document/declared-compatibility checks; runtime conformance remains pending.
 
 ## M0 — Architecture repository (this baseline)
 

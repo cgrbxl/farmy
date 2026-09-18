@@ -1,0 +1,24 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "requestId": "request.demo",
+  "correlationId": "correlation.demo",
+  "walletId": "wallet.demo",
+  "targetInstanceId": "connector.demo",
+  "capabilityId": "farmy.storage",
+  "contractVersion": "0.1-draft",
+  "operation": "read.version",
+  "purpose": "synthetic-test",
+  "actorId": "actor.demo",
+  "subjectId": "subject.demo",
+  "grantRef": "grant.demo",
+  "deadline": "2030-01-01T00:00:00Z",
+  "inputRefs": [
+    {
+      "walletId": "wallet.demo",
+      "resourceId": "resource.demo",
+      "versionId": "version.1"
+    }
+  ],
+  "payloadSchema": "urn:farmy:example:read-request",
+  "payload": {}
+}

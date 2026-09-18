@@ -1,0 +1,20 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "requestId": "request.demo",
+  "producerInstanceId": "connector.demo",
+  "implementationVersion": "0.1.0",
+  "status": "failed",
+  "inputRefs": [
+    {
+      "walletId": "wallet.demo",
+      "resourceId": "resource.demo",
+      "versionId": "version.1"
+    }
+  ],
+  "outputRefs": [],
+  "error": {
+    "code": "denied",
+    "message": "Operation not permitted",
+    "retryable": false
+  }
+}

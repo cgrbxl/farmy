@@ -1,6 +1,6 @@
 # Module integration profile
 
-Status: proposed requirements for review; no machine-readable schema or conformance harness exists yet. Applies to independently supplied Farmy modules, regardless of language or hosting environment.
+Status: integration requirements, now supported by [draft schemas and structural checks](../contracts/v0.1-draft/README.md). Runtime conformance and deployment validation do not yet exist. Applies to independently supplied Farmy modules, regardless of language or hosting environment.
 
 ## What a module must declare
 

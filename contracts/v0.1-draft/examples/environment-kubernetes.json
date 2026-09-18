@@ -1,0 +1,16 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "environmentId": "env.kubernetes.demo",
+  "target": "kubernetes",
+  "securityProfile": "farmy.mtls-online/0.1-draft",
+  "connectivityMode": "direct-https",
+  "trustBundleRef": "secret://demo/trust",
+  "serviceCredentialRef": "secret://demo/connector",
+  "stateStoreRef": "state.connector.demo",
+  "auditSinkRef": "audit.connector.demo",
+  "allowedEgress": [
+    "https://wallet.example.invalid:8443"
+  ],
+  "provider": "scaleway",
+  "landingZoneProfile": "example.scaleway.unimplemented"
+}

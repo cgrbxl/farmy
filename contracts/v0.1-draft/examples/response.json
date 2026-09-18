@@ -1,0 +1,17 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "requestId": "request.demo",
+  "producerInstanceId": "connector.demo",
+  "implementationVersion": "0.1.0",
+  "status": "succeeded",
+  "inputRefs": [
+    {
+      "walletId": "wallet.demo",
+      "resourceId": "resource.demo",
+      "versionId": "version.1"
+    }
+  ],
+  "outputRefs": [],
+  "resultSchema": "urn:farmy:example:read-result",
+  "result": {}
+}

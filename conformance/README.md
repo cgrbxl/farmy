@@ -1,6 +1,6 @@
 # Conformance and composition tests
 
-Status: test plan only; no executable conformance suite exists. The existing repository script checks Markdown links and JSON parsing only.
+Status: [foundation document/compatibility checks](foundation/README.md) are executable. Runtime security, operation and deployment conformance remain a test plan. The separate repository documentation script checks Markdown links and JSON parsing only.
 
 | Layer | Required evidence |
 | --- | --- |

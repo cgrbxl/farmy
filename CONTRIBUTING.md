@@ -16,6 +16,8 @@ Farmy is an altruistic project. Please consider sharing fixes, interoperability 
 
 Contributions intentionally submitted for inclusion follow section 5 of Apache 2.0. You retain copyright and must have the rights to submit your contribution. Identify third-party material and its licence; do not assume Farmy can relicense it. The current policy requires neither copyright assignment nor a separate CLA. See [LICENSING.md](LICENSING.md).
 
+The [foundation validator](conformance/foundation/README.md) checks draft document structure and declared compatibility; passing it does not prove runtime security or grant access.
+
 For documentation checks run `python3 scripts/check_docs.py`. This checks links and JSON parsing only, not security or API conformance.
 
 Public issues are for design and ordinary defects. See SECURITY.md before reporting sensitive findings.

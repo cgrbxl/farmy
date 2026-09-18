@@ -1,6 +1,6 @@
 # Common integration and security profiles
 
-Status: design entry point, not a published protocol or certification standard.
+Status: the [0.1-draft foundation](../v0.1-draft/README.md) defines a proposed common HTTPS/mTLS-online profile and validated document formats. Runtime enforcement, capability APIs and certification remain unimplemented.
 
 The baseline must specify common identity/trust enrollment, secure transport, audience-bound authority, error handling, audit, time/expiry and lifecycle requirements. Capability extensions add their own data semantics, operations and limits. The first profile targets the document path with reachable Wallet authority; streams, offline grants, physical actions and credentials remain later work.
 

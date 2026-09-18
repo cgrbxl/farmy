@@ -5,13 +5,16 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 errors = []
+excluded = {".git", ".venv", "node_modules", "__pycache__"}
 for path in root.rglob("*.json"):
-    if ".git" not in path.parts:
+    if not excluded.intersection(path.relative_to(root).parts):
         try:
             json.loads(path.read_text())
         except ValueError as exc:
             errors.append(f"{path.relative_to(root)}: {exc}")
 for path in root.rglob("*.md"):
+    if excluded.intersection(path.relative_to(root).parts):
+        continue
     for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", path.read_text()):
         if "://" in target or target.startswith(("#", "mailto:")):
             continue

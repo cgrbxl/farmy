@@ -1,0 +1,12 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "instanceId": "connector.demo",
+  "implementationId": "example.local-folder",
+  "implementationVersion": "0.1.0",
+  "endpoint": "https://connector.example.invalid:8443",
+  "securityProfile": "farmy.mtls-online/0.1-draft",
+  "connectivityMode": "direct-https",
+  "peerIdentity": "urn:farmy:instance:connector.demo",
+  "environmentId": "env.macos.demo",
+  "status": "registered"
+}

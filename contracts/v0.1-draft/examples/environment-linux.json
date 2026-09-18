@@ -1,0 +1,14 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "environmentId": "env.linux.demo",
+  "target": "linux",
+  "securityProfile": "farmy.mtls-online/0.1-draft",
+  "connectivityMode": "direct-https",
+  "trustBundleRef": "secret://demo/trust",
+  "serviceCredentialRef": "secret://demo/connector",
+  "stateStoreRef": "state.connector.demo",
+  "auditSinkRef": "audit.connector.demo",
+  "allowedEgress": [
+    "https://wallet.example.invalid:8443"
+  ]
+}

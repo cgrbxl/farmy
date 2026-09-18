@@ -1,0 +1,743 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:integration:0.1-draft",
+  "title": "Farmy minimum integration foundation \u2014 draft",
+  "$defs": {
+    "resourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "walletId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "resourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "versionId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "walletId",
+        "resourceId",
+        "versionId"
+      ]
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "capabilityId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "contractVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "capabilityId",
+        "contractVersion",
+        "operations",
+        "features"
+      ]
+    },
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "farmy.integration/0.1-draft"
+        },
+        "implementationId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "implementationVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+        },
+        "family": {
+          "enum": [
+            "wallet",
+            "registry",
+            "workflow",
+            "connectors",
+            "processing",
+            "knowledge",
+            "model-access",
+            "assistance",
+            "exchange"
+          ]
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/capability"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "capabilityId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "contractVersion": {
+                "type": "string",
+                "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+              },
+              "operations": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              "required": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "capabilityId",
+              "contractVersion",
+              "operations",
+              "features",
+              "required"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "securityProfiles": {
+          "type": "array",
+          "items": {
+            "const": "farmy.mtls-online/0.1-draft"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "connectivityModes": {
+          "type": "array",
+          "items": {
+            "const": "direct-https"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "target": {
+                "enum": [
+                  "macos",
+                  "windows",
+                  "linux",
+                  "kubernetes"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "untested",
+                  "experimental",
+                  "tested",
+                  "unsupported"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "status"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "permissionsRequired": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "state": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ownership": {
+              "const": "implementation-private"
+            },
+            "migration": {
+              "enum": [
+                "none",
+                "export-import",
+                "rebuild",
+                "implementation-specific"
+              ]
+            }
+          },
+          "required": [
+            "ownership",
+            "migration"
+          ]
+        }
+      },
+      "required": [
+        "profile",
+        "implementationId",
+        "implementationVersion",
+        "family",
+        "capabilities",
+        "dependencies",
+        "securityProfiles",
+        "connectivityModes",
+        "targets",
+        "permissionsRequired",
+        "state"
+      ]
+    },
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "farmy.integration/0.1-draft"
+        },
+        "instanceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "implementationId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "implementationVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+        },
+        "endpoint": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://",
+          "maxLength": 2048
+        },
+        "securityProfile": {
+          "const": "farmy.mtls-online/0.1-draft"
+        },
+        "connectivityMode": {
+          "const": "direct-https"
+        },
+        "peerIdentity": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "environmentId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "status": {
+          "enum": [
+            "registered",
+            "ready",
+            "degraded",
+            "draining",
+            "stopped"
+          ]
+        }
+      },
+      "required": [
+        "profile",
+        "instanceId",
+        "implementationId",
+        "implementationVersion",
+        "endpoint",
+        "securityProfile",
+        "connectivityMode",
+        "peerIdentity",
+        "environmentId",
+        "status"
+      ]
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "farmy.integration/0.1-draft"
+        },
+        "bindingId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "walletId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "instanceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "capabilityId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "contractVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "requiredFeatures": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "scopeId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "profile",
+        "bindingId",
+        "revision",
+        "walletId",
+        "instanceId",
+        "capabilityId",
+        "contractVersion",
+        "operations",
+        "requiredFeatures",
+        "scopeId"
+      ]
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "farmy.integration/0.1-draft"
+        },
+        "environmentId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "target": {
+          "enum": [
+            "macos",
+            "windows",
+            "linux",
+            "kubernetes"
+          ]
+        },
+        "securityProfile": {
+          "const": "farmy.mtls-online/0.1-draft"
+        },
+        "connectivityMode": {
+          "const": "direct-https"
+        },
+        "trustBundleRef": {
+          "type": "string",
+          "pattern": "^secret://[A-Za-z0-9][A-Za-z0-9/._-]*$",
+          "maxLength": 256
+        },
+        "serviceCredentialRef": {
+          "type": "string",
+          "pattern": "^secret://[A-Za-z0-9][A-Za-z0-9/._-]*$",
+          "maxLength": 256
+        },
+        "stateStoreRef": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "auditSinkRef": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "allowedEgress": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://",
+            "maxLength": 2048
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "provider": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "landingZoneProfile": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "profile",
+        "environmentId",
+        "target",
+        "securityProfile",
+        "connectivityMode",
+        "trustBundleRef",
+        "serviceCredentialRef",
+        "stateStoreRef",
+        "auditSinkRef",
+        "allowedEgress"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "target": {
+                "const": "kubernetes"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "provider",
+              "landingZoneProfile"
+            ]
+          },
+          "else": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "provider"
+                  ]
+                },
+                {
+                  "required": [
+                    "landingZoneProfile"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "farmy.integration/0.1-draft"
+        },
+        "requestId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "correlationId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "walletId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "targetInstanceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "capabilityId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "contractVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+        },
+        "operation": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "actorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "subjectId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "grantRef": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "inputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resourceRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "payloadSchema": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "payload": {
+          "type": "object"
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "profile",
+        "requestId",
+        "correlationId",
+        "walletId",
+        "targetInstanceId",
+        "capabilityId",
+        "contractVersion",
+        "operation",
+        "purpose",
+        "actorId",
+        "subjectId",
+        "grantRef",
+        "deadline",
+        "inputRefs",
+        "payloadSchema",
+        "payload"
+      ]
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "farmy.integration/0.1-draft"
+        },
+        "requestId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "producerInstanceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "implementationVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[A-Za-z0-9.-]+)?$"
+        },
+        "status": {
+          "enum": [
+            "succeeded",
+            "failed"
+          ]
+        },
+        "inputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resourceRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "outputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resourceRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "resultSchema": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "result": {
+          "type": "object"
+        },
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "enum": [
+                "invalid_request",
+                "unauthenticated",
+                "denied",
+                "not_found",
+                "conflict",
+                "unsupported",
+                "expired",
+                "unavailable",
+                "internal"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "retryable": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "retryable"
+          ]
+        }
+      },
+      "required": [
+        "profile",
+        "requestId",
+        "producerInstanceId",
+        "implementationVersion",
+        "status",
+        "inputRefs",
+        "outputRefs"
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "status": {
+              "const": "succeeded"
+            }
+          },
+          "required": [
+            "resultSchema",
+            "result"
+          ],
+          "not": {
+            "required": [
+              "error"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "status": {
+              "const": "failed"
+            },
+            "outputRefs": {
+              "maxItems": 0
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "result"
+                ]
+              },
+              {
+                "required": [
+                  "resultSchema"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/module"
+    },
+    {
+      "$ref": "#/$defs/instance"
+    },
+    {
+      "$ref": "#/$defs/binding"
+    },
+    {
+      "$ref": "#/$defs/environment"
+    },
+    {
+      "$ref": "#/$defs/request"
+    },
+    {
+      "$ref": "#/$defs/response"
+    },
+    {
+      "$ref": "#/$defs/resourceRef"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "profile": "farmy.integration/0.1-draft",
+  "implementationId": "example.local-folder",
+  "implementationVersion": "0.1.0",
+  "family": "connectors",
+  "capabilities": [
+    {
+      "capabilityId": "farmy.storage",
+      "contractVersion": "0.1-draft",
+      "operations": [
+        "read.version"
+      ],
+      "features": [
+        "exact-version"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "capabilityId": "farmy.authorization",
+      "contractVersion": "0.1-draft",
+      "operations": [
+        "authorize"
+      ],
+      "features": [],
+      "required": true
+    }
+  ],
+  "securityProfiles": [
+    "farmy.mtls-online/0.1-draft"
+  ],
+  "connectivityModes": [
+    "direct-https"
+  ],
+  "targets": [
+    {
+      "target": "macos",
+      "status": "untested"
+    },
+    {
+      "target": "windows",
+      "status": "untested"
+    },
+    {
+      "target": "linux",
+      "status": "untested"
+    },
+    {
+      "target": "kubernetes",
+      "status": "untested"
+    }
+  ],
+  "permissionsRequired": [
+    "resource.read"
+  ],
+  "state": {
+    "ownership": "implementation-private",
+    "migration": "implementation-specific"
+  }
+}
