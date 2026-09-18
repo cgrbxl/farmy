@@ -6,6 +6,8 @@ Purpose: Local Folder and S3 sources → authorised Document Processing → Know
 
 Build on the [Core recipe](../core/README.md), adding Workflow, Document Processing, Knowledge, Model access, Assistance and Exchange. Select individual Connector implementations and an independent model runtime or external endpoint. Do not embed source-provider credentials into processors.
 
+Use the [delivery queue](../../docs/delivery-backlog.md) for current ordering and the [working method](../../docs/working-method.md) for each slice. The cases below describe solution outcomes, not separate up-front design phases.
+
 Incremental cases:
 
 1. Extract and retrieve a known field from a synthetic report with its exact source/version; duplicate ingestion produces one accepted result. No model is needed yet.

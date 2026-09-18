@@ -10,21 +10,19 @@ The actual project root is `/Users/Shared/projects/farmy`; there is no nested `f
 
 FarmWallet owns a coherent resource and policy namespace independently of storage. Capabilities, implementations, offerings, instances, bindings and grants are separate concepts. Services communicate through public contracts, own their internal state, and may run independently. Bindings confer no permission. Originals and exact versions remain authoritative; derived knowledge retains provenance. Permission checks precede disclosure to workers, models and recipients. The dashboard is not a background execution dependency.
 
-## Immediate work: consolidate the architecture
+## Immediate work: one running vertical slice
 
-Review the [capability/module map and technical designs](module-architecture.md), then [communication and security](module-communication.md). Establish ownership, contracts, trust, persistence and failure semantics before implementation. Deployment-specific work follows; do not request Scaleway project, region or budget as the next step. This order is recorded in [ADR 0006](decisions/0006-architecture-first.md).
+Use the draft [working method](working-method.md) and ordered [delivery queue](delivery-backlog.md). The first concrete card is [UC-001](../solutions/core/use-cases/UC-001-controlled-memory.md): controlled local document memory using Wallet, Local Folder Connector, minimal binding and a thin client.
 
-## First milestone: M1 contract foundation
+Define only the resource/version, local identity/authorisation, binding and read contracts required by that case. Implement their real boundaries, persistence and success/denial/restart tests in the same increment. No full catalogue, copilot, workflow engine or cloud setup is needed first.
 
-Deliver a small, executable contract validation and conformance harness using synthetic plain-text documents. This milestone does not claim a working wallet, secure deployment or model integration.
+The architecture-first order still applies within the slice: clarify ownership and security before implementing that boundary. It does not require finishing the entire platform design before any running outcome.
 
-1. Record decisions for resource identity/versioning, transport, authentication, delegation, key custody and bounded offline authorisation. Use the accepted reference stack in ADR 0002.
-2. Define versioned schemas for resources, immutable source versions, provenance, implementation descriptors, instances, bindings, grants, jobs and evidence. Keep existing examples illustrative until explicitly migrated.
-3. Specify the minimal document path: resolve/read an authorised version, submit and inspect an ingestion job, propose/accept derived output, index/retrieve evidence, invoke an approved model and prepare/authorise export. Define errors and idempotency per mutation.
-4. Supply positive and negative fixtures plus a runnable harness. Exercise wrong-wallet/audience/purpose/action, expired/revoked authority, stale versions, duplicate requests, unsupported operations and content attempting to expand permissions. Clearly distinguish schema checks from runtime enforcement tests.
-5. Define the independent-provider substitution scenario before implementing either provider: readiness, rebuild from authorised originals, binding cutover, old-grant revocation, rollback and evidence equivalence. Two instances of one implementation do not prove substitution.
+## M1 and M2 progress together
 
-M1 is complete when the decisions are accepted, schemas and operation specifications agree, and the harness reproducibly accepts valid fixtures and rejects invalid ones. Runtime security claims require subsequent tests against running implementations.
+Contract specifications, synthetic fixtures and conformance checks grow with each useful case. Keep unimplemented operations clearly marked and current examples illustrative until migrated. Accept a contract through meaningful runtime tests, not schema parsing alone.
+
+The first milestone is a reproducible local outcome with explicit limits, then a working extraction/retrieval path. Continue the broader document solution below incrementally, preserving earlier cases as regression checks.
 
 ## Next: M2 document path
 

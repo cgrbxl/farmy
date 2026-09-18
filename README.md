@@ -19,7 +19,9 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 ## Current focus
 
-Consolidate capabilities, module ownership, secure communication and per-module technical design before environment-specific deployment. Start with the [abstract capability review](docs/capability-review.md), [module integration profile](docs/module-integration.md), [module architecture](docs/module-architecture.md) and [communication design](docs/module-communication.md). Broad capability coverage, MVP delivery and the [nine-family reference grouping](docs/module-architecture.md) are the current baseline; detailed contracts and implementations remain to be built. See [ADR 0006](docs/decisions/0006-architecture-first.md) and [ADR 0007](docs/decisions/0007-incremental-modularity.md).
+Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place; no runtime is implemented yet.
+
+Start with the draft [working method](docs/working-method.md), [delivery queue](docs/delivery-backlog.md) and [UC-001 controlled local memory](solutions/core/use-cases/UC-001-controlled-memory.md). Contracts, security and implementation evolve together per slice; deployment across all target environments follows proven module needs.
 
 ## Repository deliverables
 

@@ -6,15 +6,13 @@ No runtime work is marked complete.
 
 Document vision, service boundaries, trust, composition, examples, decision process and acceptance criteria. Licensing is resolved through [ADR 0003](decisions/0003-apache-2.0.md): Apache 2.0 applies to original repository materials. This does not imply a working runtime.
 
-## Current priority — Architecture consolidation
+## Current priority — First vertical increment
 
-Following [ADR 0006](decisions/0006-architecture-first.md), review capabilities and module ownership, communication contracts, security boundaries and each module’s technical design before deployment. Review drafts: [abstract capability coverage](capability-review.md), [module integration profile](module-integration.md), [module architecture](module-architecture.md) and [communication](module-communication.md). Resolve the proposed minimal core, identity/trust bootstrap, grant/delegation model, persistence/key protection and offline semantics. Scaleway setup is deferred.
+The accepted reference grouping and architecture are sufficient to scope the first small implementation. Use the draft [working method](working-method.md) and [delivery queue](delivery-backlog.md), starting with [UC-001 controlled local memory](../solutions/core/use-cases/UC-001-controlled-memory.md). Resolve only its contracts/security decisions, build the real path and demonstrate it before expanding.
 
-## MVP delivery rule
+The milestones below are outcome areas, not waterfall phases. Contract, implementation, security and conformance work happen together inside each use-case increment; M1 does not need to be complete for all families before M2 begins. Platform-specific packaging follows working module needs, while a reproducible local run is part of every slice.
 
-Use concrete end-to-end cases to test a small subset of capabilities, then extend based on evidence, following [ADR 0007](decisions/0007-incremental-modularity.md). Review the proposed [module grouping and change scenarios](module-architecture.md). For every increment, record changed implementations, contracts, configuration and migration, and prove that unaffected modules can remain on their existing versions.
-
-The [repository structure](repository-structure.md) now separates family guides, public profiles, solution recipes, deployment adapters, conformance and optional SDKs. These are documentation scaffolds; runtime and deployable artifacts remain unimplemented.
+The repository organisation is in place, but recipes, deployment profiles and test plans remain documentation scaffolds. No runtime behaviour is marked implemented.
 
 ## M1 — Contract foundation
 
@@ -36,7 +34,7 @@ Provide versioned core/solution and individual module packages for macOS, Window
 
 Catalogue validation, deployment controller, signed/versioned releases and supply-chain checks; additional email, sensor, data-space and credential connectors; agronomic copilots with domain-specific evaluation.
 
-## Initial work items
+## Contract areas delivered as use cases need them
 
 - Define resource/version/provenance schema.
 - Define grant and offline-revocation model.

@@ -4,7 +4,7 @@ Farmy welcomes discussion of the architecture and independently provided modules
 
 Start with the [repository contributor path](docs/repository-structure.md), your [module family guide](modules/README.md), and the [common integration/security profile](contracts/profiles/README.md). Current solution recipes and deployment profiles are design-only; do not describe them as runnable.
 
-1. Open an architecture proposal or issue describing the user need and affected capability.
+1. Frame a small use-case card or issue describing the outcome and affected capabilities; use the draft [working method](docs/working-method.md). An architecture proposal is needed when changing lasting boundaries, not for every routine increment.
 2. Distinguish new contract requirements from implementation-specific choices.
 3. Describe data access, trust boundary, failure behaviour, portability and compatibility.
 4. Keep changes focused and update the relevant ADR when changing architecture.
