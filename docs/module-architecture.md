@@ -1,6 +1,6 @@
 # Capability, module and technical architecture
 
-Status: consolidated review draft. Existing architectural principles and the Python/HTTP/JSON/local SQLite reference stack are accepted; the module grouping, core composition and detailed implementation choices below are proposals, not implemented behaviour.
+Status: consolidated review draft. Existing architectural principles and the Python/HTTP/JSON/local SQLite reference stack are accepted; the nine-family grouping is the agreed reference baseline, while core composition and detailed implementation choices remain proposals, not implemented behaviour.
 
 Read this before deployment design. The sequence is capability ownership, module boundaries, communication/security, module implementation, then environment-specific packaging. See [ADR 0006](decisions/0006-architecture-first.md).
 
@@ -14,9 +14,9 @@ Bindings select instances; grants authorise actions. An offering advertises a pr
 
 The [capability review](capability-review.md) expands the document-oriented map to source/event acquisition, general processing, model execution and controlled actions, with clear ownership of approvals and data lifecycle. These additions are proposals, not extra first-release deliverables. The [integration profile](module-integration.md) defines what independent modules must declare and prove.
 
-## Proposed grouping: nine service module families
+## Reference grouping: nine service module families
 
-The broad capability catalogue is not a deployment inventory. Group implementations by cohesive responsibility, owned state, privilege boundary and independent change. The following nine families cover the first document solution; they are a proposal to review, not nine mandatory servers or a limit on future modules. A family defines contracts, not a central service hosting every implementation.
+The broad capability catalogue is not a deployment inventory. Group implementations by cohesive responsibility, owned state, privilege boundary and independent change. The following nine families cover the first document solution; they are the agreed reference grouping, not nine mandatory servers or a limit on future modules. A family defines contracts, not a central service hosting every implementation.
 
 | Module family | Capabilities grouped | Owned state / reason to group | Must stay outside |
 | --- | --- | --- | --- |
@@ -78,6 +78,8 @@ These are planned architectural acceptance tests, not executed results. For each
 | Add physical actuation | New Action implementation and safety/authorisation contract | Coordinator, policy and UI changes may be necessary; not a generic processing extension |
 
 Repeated co-changes are evidence to revisit a boundary. If provider additions repeatedly edit Wallet or Coordinator, domain detail is leaking into the core. If one module accumulates unrelated credentials, dependencies, operators and failure modes, split it. If two modules are always changed together and need synchronous back-and-forth for every operation, review whether they should be one module or use a better contract. Security/trust boundaries can justify separation even when that costs performance.
+
+Contributor guidance is organised by family in [modules](../modules/README.md), with [solution recipes](../solutions/README.md) and separate [deployment profiles](../deployments/README.md). All are design-only until executable artifacts and tests exist.
 
 ## Proposed core and first solution
 
@@ -159,7 +161,7 @@ These are proposed test cases, not a claim of agronomic accuracy or deployed fun
 
 ## What to review next
 
-1. Review the nine-family grouping and minimal core against the change scenarios; the broad capability coverage is accepted, while this exact grouping remains proposed.
+1. Review the nine-family grouping and minimal core against the change scenarios; the grouping is the reference baseline and should evolve with measured MVP evidence.
 2. Review the exact document/query/export sequences and security proposal in [module communication](module-communication.md).
 3. Record accepted security decisions for service identity, grants, keys and offline execution; then turn the contracts into schemas and conformance fixtures.
 4. Implement the smallest working path, verify boundaries and substitution, then create independent packages for macOS, Windows, Linux and Kubernetes.

@@ -6,6 +6,8 @@ The [module interaction map](../docs/module-communication.md) assigns callers, r
 
 Review the broader [capability catalogue](../docs/capability-review.md) and [module integration profile](../docs/module-integration.md) before expanding the document-path operations below. Connectivity and authentication alone do not establish semantic or migration compatibility.
 
+The [common profiles entry point](profiles/README.md) links integration and security requirements. Implementations follow [family guides](../modules/README.md); environment-specific mechanisms belong in [deployment profiles](../deployments/README.md), not divergent copies of the wire contracts. [Conformance](../conformance/README.md) will verify implementations independently of their language or SDK.
+
 ## Common envelope
 
 Requests need contract version, request/job identifier, caller identity, wallet identifier, scoped authorisation reference, purpose and input versions. Mutating requests need idempotency and expected-version semantics.

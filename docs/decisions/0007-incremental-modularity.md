@@ -3,6 +3,8 @@
 Date: 2026-09-18
 Status: Accepted MVP approach and broad capability coverage; exact module grouping remains proposed for review.
 
+Follow-up: [ADR 0008](0008-repository-organisation.md) accepts the nine-family reference grouping and organises its deliverables. The proposal status below records this ADR’s original decision point.
+
 ## Context
 
 The maintainer accepted broad abstract capability coverage with incremental implementation through concrete use cases. The main concern is a useful balance: additions should not routinely require changes throughout the system, and no module should accumulate every capability.

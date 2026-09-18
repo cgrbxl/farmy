@@ -1,6 +1,6 @@
 # Abstract capability review
 
-Status: broad coverage and incremental implementation approach accepted by the maintainer, 2026-09-18; exact module boundaries remain proposed. This tests coverage against Farmy's current vision, not every possible future agricultural use. No new capability or module is implemented, and this review does not silently accept new technical decisions.
+Status: broad coverage and incremental implementation approach accepted by the maintainer, 2026-09-18; the nine-family reference grouping is now accepted in ADR 0008; detailed contracts remain proposed. This tests coverage against Farmy's current vision, not every possible future agricultural use. No new capability or module is implemented, and this review does not silently accept new technical decisions.
 
 ## Finding
 
@@ -30,7 +30,7 @@ Use cases are compositions of configured, bound module instances. Some fit one i
 | Explain activity and operate services | Audit, health and lifecycle | Audit collector plus per-module contracts; later deployment controller | Existing; data deletion, backup and retirement responsibilities must be explicit |
 | Interact with people or other applications | User/API interaction | Dashboard, CLI or external clients | Existing; background capabilities cannot depend on an open UI |
 
-This is a capability catalogue, not a requirement to build seventeen services now. The current [nine-family grouping proposal](module-architecture.md) maps these responsibilities onto implementation boundaries. The latest grouping puts ordinary source acquisition with Connectors and reserves consequential action execution for separate later modules; Exchange focuses on controlled disclosure and delivery. Inference may be an externally supplied endpoint. Processing implementations may supply several functions, without a central interpreter that must understand every domain algorithm.
+This is a capability catalogue, not a requirement to build seventeen services now. The current [nine-family reference grouping](module-architecture.md) maps these responsibilities onto implementation boundaries. The latest grouping puts ordinary source acquisition with Connectors and reserves consequential action execution for separate later modules; Exchange focuses on controlled disclosure and delivery. Inference may be an externally supplied endpoint. Processing implementations may supply several functions, without a central interpreter that must understand every domain algorithm.
 
 ## Boundaries that must remain precise
 

@@ -2,6 +2,8 @@
 
 Farmy welcomes discussion of the architecture and independently provided modules. The project is at documentation-baseline stage. Original repository materials are licensed under [Apache 2.0](LICENSE).
 
+Start with the [repository contributor path](docs/repository-structure.md), your [module family guide](modules/README.md), and the [common integration/security profile](contracts/profiles/README.md). Current solution recipes and deployment profiles are design-only; do not describe them as runnable.
+
 1. Open an architecture proposal or issue describing the user need and affected capability.
 2. Distinguish new contract requirements from implementation-specific choices.
 3. Describe data access, trust boundary, failure behaviour, portability and compatibility.

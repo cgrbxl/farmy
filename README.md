@@ -19,7 +19,21 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 ## Current focus
 
-Consolidate capabilities, module ownership, secure communication and per-module technical design before environment-specific deployment. Start with the [abstract capability review](docs/capability-review.md), [module integration profile](docs/module-integration.md), [module architecture](docs/module-architecture.md) and [communication design](docs/module-communication.md). Broad capability coverage and MVP delivery are accepted; the exact [module grouping and change scenarios](docs/module-architecture.md) remain the current review focus. See [ADR 0006](docs/decisions/0006-architecture-first.md) and [ADR 0007](docs/decisions/0007-incremental-modularity.md).
+Consolidate capabilities, module ownership, secure communication and per-module technical design before environment-specific deployment. Start with the [abstract capability review](docs/capability-review.md), [module integration profile](docs/module-integration.md), [module architecture](docs/module-architecture.md) and [communication design](docs/module-communication.md). Broad capability coverage, MVP delivery and the [nine-family reference grouping](docs/module-architecture.md) are the current baseline; detailed contracts and implementations remain to be built. See [ADR 0006](docs/decisions/0006-architecture-first.md) and [ADR 0007](docs/decisions/0007-incremental-modularity.md).
+
+## Repository deliverables
+
+| Area | Entry point |
+| --- | --- |
+| Reference architecture and decisions | [Architecture](docs/module-architecture.md) |
+| Public integration, communication and security contracts | [Contracts](contracts/README.md) |
+| Guidelines for each module family | [Module guides](modules/README.md) |
+| Core and document solution templates | [Design recipes — not yet deployable](solutions/README.md) |
+| macOS, Windows, Linux, Kubernetes and Scaleway | [Deployment profiles — not yet implemented](deployments/README.md) |
+| Compatibility and security verification | [Conformance plan](conformance/README.md) |
+| Optional integration helpers | [SDK scope](sdk/README.md) |
+
+See [repository structure and contributor path](docs/repository-structure.md). Environment profiles implement common requirements; they do not redefine module contracts or permissions.
 
 ## Start here
 
