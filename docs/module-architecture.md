@@ -10,6 +10,10 @@ A capability is a function. A module is a replaceable software boundary implemen
 
 Bindings select instances; grants authorise actions. An offering advertises a provider's implementation or hosted service and is not itself an instance, binding or grant.
 
+## Review of abstract coverage
+
+The [capability review](capability-review.md) expands the document-oriented map to source/event acquisition, general processing, model execution and controlled actions, with clear ownership of approvals and data lifecycle. These additions are proposals, not extra first-release deliverables. The [integration profile](module-integration.md) defines what independent modules must declare and prove.
+
 ## Capability ownership map
 
 Names below are descriptive working names, not product or package commitments.
@@ -20,17 +24,21 @@ Names below are descriptive working names, not product or package commitments.
 | Service registry | Implementation/instance discovery, endpoint and contract records, scoped bindings and compatibility checks | Trusted instance registrations, bindings and configuration references | Discovery and bindings never grant farm-data access; public catalogues are separate inputs |
 | Workflow coordinator | Durable ingestion/indexing/export workflows, retries, cancellation and reconciliation | Job ownership, pinned inputs/bindings, step status and idempotency records | Exactly one coordinator owns each job; it cannot approve its own extra permissions |
 | Storage connector | Inventory, read exact versions, optional write/delete, source change detection and controlled staging | Provider credentials by reference, source cursors, object/location mappings and temporary-copy records | Multiple implementations: local folder, S3, later Drive/synchronised folders; no content interpretation |
+| Source adapters | Acquire structured records, batches, events and external changes | Source credentials by reference, cursors and delivery/deduplication state | Distinct from storage and parsing; may initially share an Exchange implementation |
+| Processing | Transform, validate, aggregate, calculate and render proposed outputs | Algorithm/configuration references, job results and input provenance | No automatic authority to commit or disclose transformed results |
 | Ingestion | Parse/extract, normalise, chunk and propose derived records | Attempt status, temporary authorised snapshots and result references | Cannot overwrite originals or make proposed results authoritative |
 | Knowledge | Index/remove authorised versions, retrieve evidence and report freshness | Derived indexes, source/version references, index job state and permissions metadata | Indexes are rebuildable; cannot invent authoritative facts or permissions |
+| Model runtime / adapter | Execute model inference | Model/version artifacts or external-provider references, execution state | Separate from routing policy; may be external and accessed through the gateway |
 | Model gateway | Model profiles, parameter validation, approved routing, invocation and usage accounting | Profiles, endpoint/secret references and minimal invocation metadata | Does not own chat reasoning or issue tool permissions; local failure cannot select an unapproved cloud model |
 | Copilot | Query interpretation, evidence synthesis, controlled tool proposals and source-linked answers | Scoped task/conversation state, evidence references and answer provenance | Uses Knowledge and Model APIs; cannot bypass grants by following document or model instructions |
 | Exchange | Prepare disclosures, authorised delivery, external-source import and ecosystem-specific adapters | Disclosure manifests, recipient/purpose records and delivery acknowledgements | Read permission is insufficient to export; signatures do not turn inference into official certification |
+| Action/tool adapters | Execute authorised external commands or writes | Command identity, execution attempts and outcome receipts | Separate from Copilot reasoning; physical actions need a later safety profile |
 | Audit collector | Receive, deduplicate and query security/operational events | Collected event records, retention and access policies | Each producer must durably record locally first; collector unavailability must not erase events |
 | Dashboard / CLI | User interaction, viewing sources/jobs, requesting bindings/grants, reviewing exports | Minimal client preferences and session state | No authoritative policy, source store or durable background execution |
 | Identity/trust integration | Human/service authentication, trusted issuer mapping, credential lifecycle | Identity provider state and service trust material under their respective owners | Integrate established identity infrastructure; authentication is separate from wallet authorisation |
 | Deployment controller (later) | Install/upgrade/retire instances and report actual deployment state | Deployment plans, artifact versions and infrastructure references | Privileged infrastructure actions do not confer farm-data grants |
 
-External catalogues supply offerings to the registry after validation. Weather, market and scientific inputs use Exchange adapters with source identity, retrieval time, licence and trust metadata; private farm context may only be sent with explicit permission. Agriculture-specific modules implement declared ingestion, knowledge, model, copilot or exchange contracts; propose a new capability only when those do not express the real boundary. Sensors, equipment actuation and production credentials remain later capabilities requiring their own safety and trust contracts.
+External catalogues supply offerings to the registry after validation. Weather, market and scientific inputs use Exchange adapters with source identity, retrieval time, licence and trust metadata; private farm context may only be sent with explicit permission. Agriculture-specific modules implement declared acquisition, ingestion, processing, knowledge, model, copilot, action or exchange contracts; propose a new capability only when those do not express the real boundary. Sensors, equipment actuation and production credentials remain later capabilities requiring their own safety and trust contracts.
 
 ## Proposed core and first solution
 
@@ -90,6 +98,8 @@ Python services, HTTP/JSON APIs, OpenAPI/JSON Schema and service-owned local SQL
 | Deployment controller | Deferred implementation; later consumes release manifests and acts via target-specific adapters. It accesses health/registration contracts and records instance identity, not private module databases. | Cannot create data grants or run with unbounded infrastructure privileges implicitly |
 
 These are per-module technical designs, not selected frameworks or runnable components. Each implementation needs a configuration schema, private persistence schema/migrations, credential handling, failure limits and contract tests before its first release.
+
+The newly explicit Source, Processing, Model runtime and Action boundaries in the capability review still need implementation designs after their contracts are reviewed. Their appearance in the map does not silently select a framework or add them to the first document release.
 
 ## Shared data boundaries
 

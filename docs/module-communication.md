@@ -2,6 +2,8 @@
 
 Status: proposed protocol/security design for architecture review. HTTP/JSON with versioned OpenAPI/JSON Schema and durable polling are accepted in ADR 0002; authentication, credential binding and offline grant details below need their own accepted security ADRs. No controls are implemented yet.
 
+This draft specifies the first document path. The broader [capability review](capability-review.md) reserves additional acquisition, processing, inference and action contracts; they must not be claimed as supported by these document operations. All implementations also need the [module integration profile](module-integration.md).
+
 ## Interaction contracts
 
 Operation names describe required semantics, not final URLs or a stable API. Callers authenticate and supply explicit wallet-scoped authority; a row is not an automatic permission.

@@ -8,7 +8,7 @@ Document vision, service boundaries, trust, composition, examples, decision proc
 
 ## Current priority — Architecture consolidation
 
-Following [ADR 0006](decisions/0006-architecture-first.md), review capabilities and module ownership, communication contracts, security boundaries and each module’s technical design before deployment. Review drafts: [module architecture](module-architecture.md) and [communication](module-communication.md). Resolve the proposed minimal core, identity/trust bootstrap, grant/delegation model, persistence/key protection and offline semantics. Scaleway setup is deferred.
+Following [ADR 0006](decisions/0006-architecture-first.md), review capabilities and module ownership, communication contracts, security boundaries and each module’s technical design before deployment. Review drafts: [abstract capability coverage](capability-review.md), [module integration profile](module-integration.md), [module architecture](module-architecture.md) and [communication](module-communication.md). Resolve the proposed minimal core, identity/trust bootstrap, grant/delegation model, persistence/key protection and offline semantics. Scaleway setup is deferred.
 
 ## M1 — Contract foundation
 

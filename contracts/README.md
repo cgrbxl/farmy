@@ -4,6 +4,8 @@ Status: proposed v0.1 vocabulary and illustrative examples. No interoperable wir
 
 The [module interaction map](../docs/module-communication.md) assigns callers, receivers, operation semantics and authority checks. It is a review draft, not a published wire API.
 
+Review the broader [capability catalogue](../docs/capability-review.md) and [module integration profile](../docs/module-integration.md) before expanding the document-path operations below. Connectivity and authentication alone do not establish semantic or migration compatibility.
+
 ## Common envelope
 
 Requests need contract version, request/job identifier, caller identity, wallet identifier, scoped authorisation reference, purpose and input versions. Mutating requests need idempotency and expected-version semantics.
