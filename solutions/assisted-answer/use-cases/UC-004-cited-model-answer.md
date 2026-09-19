@@ -1,6 +1,6 @@
 # UC-004 — Cited local-model answer
 
-Status: done for the synthetic macOS 26.6.2 arm64 development target, Python 3.14.6. Implementation/evidence revision: the repository commit adding UC-004; retained automatically in Git history. See the [runnable solution](../uc004/README.md).
+Status: done for the synthetic macOS 26.6.2 arm64 development target, Python 3.14.6. Implementation/evidence revision: [`b24d0cb`](https://github.com/cgrbxl/farmy/commit/b24d0cb). See the [runnable solution](../uc004/README.md).
 
 Actor: an enrolled reader asks which crop an exact report version records. The synthetic report contains `crop: wheat`. The observable result is a model-selected crop rendered as a sentence with the original version, SHA-256 digest, quote, byte range and proposal ID, plus selected-model provenance.
 

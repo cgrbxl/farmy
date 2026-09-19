@@ -83,7 +83,7 @@ No prior module database migrations are needed. The optional transport helper ad
 
 ## Limits and evidence
 
-Validated on macOS 26.6.2 (arm64), Python 3.14.6, with ten new runtime tests, all 45 earlier tests and all four demos. The implementation is contained in the commit adding UC-004; [use-case evidence](../use-cases/UC-004-cited-model-answer.md) records the scope and impact.
+Validated on macOS 26.6.2 (arm64), Python 3.14.6, with ten new runtime tests, all 45 earlier tests and all four demos. The implementation revision is [`b24d0cb`](https://github.com/cgrbxl/farmy/commit/b24d0cb); [use-case evidence](../use-cases/UC-004-cited-model-answer.md) records the scope and impact.
 
 Farmy service boundaries use mutual TLS 1.3. The Ollama adapter boundary uses plain HTTP restricted to numeric loopback; it is an explicitly trusted same-host development dependency, not an authenticated remote model channel. The model process is not sandboxed by Farmy, and application route checks are not an OS firewall. Remote/cloud models, provider secrets, streaming, cancellation, prompt injection resistance for general documents and unrestricted questions remain unsupported.
 
