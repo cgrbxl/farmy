@@ -2,7 +2,7 @@
 
 Farmer-controlled digital memory and a composable ecosystem of agricultural intelligence services.
 
-**Status: architecture baseline plus a draft integration schema/compatibility validator. No working Farmy application, deployment package or verified runtime security is provided yet.**
+**Status: architecture baseline, draft integration contracts, and a runnable synthetic macOS slice with separate Wallet/Connector services. This is an experimental development build, not a production application or cross-platform release.**
 
 Farmy connects information held in local folders, managed encrypted vaults and cloud stores. Farmers choose independently supplied ingestion, knowledge, model and copilot services, deciding what each may access and transmit. Services can run on a laptop, private infrastructure or provider infrastructure in the same installation.
 
@@ -19,7 +19,7 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 ## Current focus
 
-Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place; no runtime is implemented yet.
+Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place. [Run UC-001](solutions/core/uc001/README.md) to exercise registration, controlled reads, immutable versions, restarts and revocation across two services.
 
 The [minimum integration foundation](contracts/v0.1-draft/README.md) now provides a runnable structural validator and outlines the common technical profile. Start with the draft [working method](docs/working-method.md), [delivery queue](docs/delivery-backlog.md) and [UC-001 controlled local memory](solutions/core/use-cases/UC-001-controlled-memory.md). Contracts, security and implementation evolve together per slice; deployment across all target environments follows proven module needs.
 
@@ -56,7 +56,7 @@ Contributors: read [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERN
 
 ## Repository scope
 
-This repository holds shared architecture and future interoperability contracts. Contributors may maintain their implementations in independent repositories. Farmy should not require one vendor, one model, one storage provider or a shared internal database.
+This repository holds shared architecture, draft interoperability contracts and narrow reference implementations. Contributors may maintain their implementations in independent repositories. Farmy should not require one vendor, one model, one storage provider or a shared internal database.
 
 All examples are synthetic. Do not commit farm data, credentials or private endpoints.
 

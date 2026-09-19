@@ -1,6 +1,6 @@
 # Connectors
 
-Status: family guidance; no reference runtime or stable public API is implemented yet.
+Status: family guidance plus a narrow experimental [UC-001 reference runtime](../../solutions/core/uc001/README.md). Its draft operations do not implement this entire family or a stable public API.
 
 ## Responsibility and state
 

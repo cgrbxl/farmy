@@ -1,10 +1,10 @@
 # Incremental delivery queue
 
-Status: proposed order, not a schedule or implementation report. All slices remain unimplemented. Follow the [working method](working-method.md); only one implementation slice should be active at a time.
+Status: proposed order, not a schedule or implementation report. UC-001 has a passing synthetic macOS demonstration and runtime acceptance suite; later slices remain unimplemented. Follow the [working method](working-method.md); only one implementation slice should be active at a time.
 
 | Order | Slice and observable result | Main families | Next action / status |
 | --- | --- | --- | --- |
-| 1 | [UC-001 controlled memory](../solutions/core/use-cases/UC-001-controlled-memory.md): register/read/move/version a synthetic local document and deny unauthorised access | Wallet, Connector, minimal Registry | Proposed; resolve the narrow local trust and version contracts, then implement and run |
+| 1 | [UC-001 controlled memory](../solutions/core/use-cases/UC-001-controlled-memory.md): register/read/move/version a synthetic local document and deny unauthorised access | Wallet, Connector, minimal Registry | Implemented for synthetic macOS development; [run/evidence](../solutions/core/uc001/README.md); eight runtime acceptance tests pass |
 | 2 | Extract a known field and retrieve it with its exact source version; duplicate execution produces one accepted result | Processing, Workflow, Knowledge | Queued; write its small case from UC-001 learning |
 | 3 | Use an explicitly selected model for a cited answer; unapproved model egress is denied | Model access, Assistance | Queued; select a model integration only when needed |
 | 4 | Preview and deliver exact approved content; altered recipient/payload and missing export permission are rejected | Exchange | Queued; local synthetic export first |

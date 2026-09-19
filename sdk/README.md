@@ -1,6 +1,6 @@
 # Optional integration SDKs
 
-Status: scope only; no SDK is implemented.
+Status: [optional Python development transport](python/farmy_transport/http.py) supports UC-001 with envelope validation and mutual TLS. It is not a general-purpose stable SDK.
 
 Future SDKs may provide typed clients, descriptor/config validation, common errors, authenticated transport integration, evidence helpers and audit envelopes. They must follow versioned public contracts and should be exercised by the same conformance suite as independent implementations.
 

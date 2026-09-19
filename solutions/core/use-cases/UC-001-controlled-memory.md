@@ -1,6 +1,6 @@
 # UC-001 — Controlled local document memory
 
-Status: proposed first implementation slice. No runtime, passing acceptance evidence or installer exists yet.
+Status: implemented and verified as a synthetic macOS development slice on 2026-09-19. [Run instructions, evidence and limits](../uc001/README.md). No production installer or other platform support is provided.
 
 ## Outcome
 
@@ -24,7 +24,7 @@ Exclude parsing/PDF, search, model calls, export, S3, streaming, offline delegat
 4. Moving the source and updating its location under authority preserves resource identity. A content update registers a new immutable version and does not relabel new bytes as the old version.
 5. Restart the components and demonstrate persistence and continued enforcement. Record access/change events without copying content or credentials into ordinary logs.
 
-## Decisions to resolve within this slice
+## Decisions resolved within this slice
 
 - Minimal local service/caller authentication and trust bootstrap; do not use an unverified caller-name header as authentication. Record the chosen development security profile and its limits.
 - Resource/version and grant/read semantics, expected revisions, structured denial/conflict errors and narrow public schemas.
@@ -47,12 +47,12 @@ Use accepted Python/HTTP/JSON reference choices. Select only the libraries neede
 | Component restart | Resource/grant state persists and enforcement remains active |
 | Dependency unavailable | Explicit bounded failure; no unauthorised bypass or misleading success |
 
-These are test requirements, not tests already executed. Add exact API-level assertions when the contracts are specified.
+These cases are exercised by the [eight runtime acceptance tests](../../../conformance/uc001/test_runtime.py), including real TLS requests and process restarts. The concurrent-capture case uses deterministic mutation injection. See the [operation contract](../../../contracts/uc001/README.md) for API semantics.
 
-## Delivery evidence to fill when implemented
+## Delivery evidence
 
-Record actual source revision, environment, prerequisite/bootstrap steps, startup/demo/test/shutdown commands and observed results here or link to executable tests. Include state cleanup/recovery and known limitations. Do not invent commands now.
+Verified on macOS arm64, Python 3.14.6, OpenSSL 3.6.3: five demo stages passed, eight runtime tests passed, and the foundation regression suite remains passing. Evidence belongs to the commit introducing this runtime and its tests; use `git log -1 -- conformance/uc001/test_runtime.py` to identify that revision. [Reproduction, independent startup, shutdown, cleanup and limitations](../uc001/README.md). [ADR 0010](../../../docs/decisions/0010-uc001-local-runtime.md) records the security and snapshot decisions.
 
-Expected family impact: Wallet, Local Folder Connector and minimal Registry/binding, with a client and common identity/audit support. Workflow, Processing, Knowledge, Model access, Assistance and Exchange should not need implementation merely to complete this case.
+Expected and actual family impact: Wallet, Local Folder Connector and minimal Registry/binding, with a client and common identity/audit support. Workflow, Processing, Knowledge, Model access, Assistance and Exchange should not need implementation merely to complete this case.
 
 After completion, the proposed next slice is extraction/retrieval with exact evidence and durable duplicate handling. Follow the [working method](../../../docs/working-method.md).

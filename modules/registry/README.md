@@ -1,6 +1,6 @@
 # Service registry
 
-Status: family guidance; no reference runtime or stable public API is implemented yet.
+Status: family guidance with a minimal [UC-001 binding-file adapter](reference/bindings.py). There is no running catalogue service or stable public API yet.
 
 ## Responsibility and state
 

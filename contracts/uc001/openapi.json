@@ -1,0 +1,781 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Farmy UC-001 loopback operations",
+    "version": "0.1.0"
+  },
+  "security": [
+    {
+      "mutualTLS": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "mutualTLS": {
+        "type": "mutualTLS"
+      }
+    }
+  },
+  "paths": {
+    "/farmy/v0/resource.register": {
+      "post": {
+        "operationId": "resource.register",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "resource.register"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/resource.register.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/resource.register.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/resource.inspect": {
+      "post": {
+        "operationId": "resource.inspect",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "resource.inspect"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/resource.inspect.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/resource.inspect.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/resource.move": {
+      "post": {
+        "operationId": "resource.move",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "resource.move"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/resource.move.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/resource.move.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/resource.update": {
+      "post": {
+        "operationId": "resource.update",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "resource.update"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/resource.update.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/resource.update.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/grant.issue": {
+      "post": {
+        "operationId": "grant.issue",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "grant.issue"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/grant.issue.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/grant.issue.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/grant.revoke": {
+      "post": {
+        "operationId": "grant.revoke",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "grant.revoke"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/grant.revoke.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/grant.revoke.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/snapshot.capture": {
+      "post": {
+        "operationId": "snapshot.capture",
+        "tags": [
+          "connector"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "snapshot.capture"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/snapshot.capture.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/snapshot.capture.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/read.version": {
+      "post": {
+        "operationId": "read.version",
+        "tags": [
+          "connector"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "read.version"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/read.version.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmy/v0/authorize.read": {
+      "post": {
+        "operationId": "authorize.read",
+        "tags": [
+          "wallet"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "authorize.read"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/authorize.read.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; read.version includes X-Farmy-SHA256 and X-Farmy-Version headers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/authorize.read.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx denial or failure; a valid request receives the foundation error envelope. Malformed requests receive only error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "error"
+                      ],
+                      "properties": {
+                        "error": {
+                          "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response/properties/error"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

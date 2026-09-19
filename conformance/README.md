@@ -1,6 +1,6 @@
 # Conformance and composition tests
 
-Status: [foundation document/compatibility checks](foundation/README.md) are executable. Runtime security, operation and deployment conformance remain a test plan. The separate repository documentation script checks Markdown links and JSON parsing only.
+Status: [foundation document/compatibility checks](foundation/README.md) are executable. [UC-001 runtime acceptance tests](uc001/test_runtime.py) exercise the synthetic macOS slice; broader security, operation and deployment conformance remain a test plan. [Run the suites](../solutions/core/uc001/README.md). The separate repository documentation script checks Markdown links and JSON parsing only.
 
 | Layer | Required evidence |
 | --- | --- |
