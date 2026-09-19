@@ -12,3 +12,5 @@
 .path-diagram h3{font-size:19px}.path-diagram>div>span{font-size:10px;color:var(--muted)}
 .diagram-scroll{overflow:auto}.diagram-scroll img{width:100%;min-width:690px}
 @media(max-width:680px){.path-diagram{padding:18px 12px}.path-diagram>div:first-child{display:block}.path-diagram>div>span{display:block;margin-top:8px}.diagram-scroll{padding-bottom:8px}}
+
+.architecture-overview{margin:0 0 28px}.architecture-overview figcaption{font-size:13px;line-height:1.7;color:var(--muted);margin-top:16px}.architecture-overview .diagram-scroll img{min-width:960px}

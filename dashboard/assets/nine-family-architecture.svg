@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">Farmy: connectivity and data flow across all nine families</title>
+<desc id="desc">Wallet supplies authority checks, Registry supplies instance bindings, and Workflow coordinates jobs. Connectors supply exact inputs to Processing, which produces evidence for Knowledge. Planned Assistance retrieves evidence from Knowledge, invokes models through Model access, and proposes disclosures through Exchange. Exchange releases only separately approved content to recipients. Control connections are distinct from content flow and do not grant access.</desc>
+<defs><marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#356747"/></marker><marker id="copper" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#997144"/></marker></defs>
+<style>text{font-family:system-ui,sans-serif;fill:#294b3b}.heading{font-size:22px;font-weight:650}.body{font-size:15px}.small{font-size:13px;fill:#64715e}.label{font-size:14px;font-weight:550}.live{fill:none;stroke:#356747;stroke-width:2.5;marker-end:url(#green)}.future{fill:none;stroke:#997144;stroke-width:2.5;stroke-dasharray:8 6;marker-end:url(#copper)}.control{fill:none;stroke:#778788;stroke-width:2;stroke-dasharray:2 6}</style>
+<rect x="5" y="5" width="1190" height="890" rx="18" fill="#fafbf6"/>
+<text x="30" y="35" class="label">CONTROL &amp; COMPOSITION — shared contracts, not a central data bus</text>
+<rect x="40" y="55" width="310" height="120" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="58" y="84" class="heading">Wallet</text>
+<text x="58" y="109" class="body">Resource identity, ownership, grants</text>
+<text x="58" y="129" class="body">Check current access; record provenance</text>
+<text x="58" y="160" class="small">Reference behaviour</text>
+<rect x="445" y="55" width="310" height="120" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="463" y="84" class="heading">Registry</text>
+<text x="463" y="109" class="body">Resolve capability → chosen instance</text>
+<text x="463" y="129" class="body">Bindings do not grant permission</text>
+<text x="463" y="160" class="small">Binding-file adapter today</text>
+<rect x="850" y="55" width="310" height="120" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="868" y="84" class="heading">Workflow</text>
+<text x="868" y="109" class="body">Coordinate jobs through public APIs</text>
+<text x="868" y="129" class="body">Persist steps, retries and outcomes</text>
+<text x="868" y="160" class="small">Fixed extract / index job today</text>
+<path class="control" d="M195 175v28m405-28v28m405-28v28M195 203h810M600 203v17"/>
+<rect x="40" y="220" width="1120" height="95" rx="12" fill="#edf0ec" stroke="#d1d9cd"/>
+<text x="60" y="246" class="label">Applies at participating service boundaries — explicit connections only</text>
+<text x="60" y="271" class="body">Services → Wallet: permission checks · Modules / composition → Registry: bindings</text>
+<text x="60" y="295" class="body">Workflow → selected workers: job requests / status (Processing + Knowledge exercised today)</text>
+<path class="control" d="M195 315v25m405-25v25m405-25v25"/>
+<text x="40" y="359" class="label">CONTENT FLOW — arrows describe information direction, not every request / response</text>
+<text x="40" y="391" class="small">Source systems → Connectors (local folder / synthetic sensor today)</text>
+<rect x="40" y="410" width="310" height="120" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="58" y="439" class="heading">Connectors</text>
+<text x="58" y="464" class="body">Read source bytes / observations</text>
+<text x="58" y="484" class="body">Preserve exact versions and membership</text>
+<text x="58" y="515" class="small">Reference behaviour</text>
+<rect x="445" y="410" width="310" height="120" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="463" y="439" class="heading">Processing</text>
+<text x="463" y="464" class="body">Extract, normalise and compute</text>
+<text x="463" y="484" class="body">Return claims with source evidence</text>
+<text x="463" y="515" class="small">One-field extraction today</text>
+<rect x="850" y="410" width="310" height="120" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="868" y="439" class="heading">Knowledge</text>
+<text x="868" y="464" class="body">Index and retrieve derived evidence</text>
+<text x="868" y="484" class="body">Recheck the reader’s access</text>
+<text x="868" y="515" class="small">Exact-source retrieval today</text>
+<path class="live" d="M350 455h95"/><text x="397" y="445" text-anchor="middle" class="small">exact inputs</text>
+<path class="live" d="M755 485h95"/><text x="802" y="472" text-anchor="middle" class="small">evidence</text>
+<path class="future" d="M1005 530v100"/><text x="1020" y="577" class="small">permitted</text><text x="1020" y="598" class="small">evidence</text>
+<text x="40" y="566" class="small">Observations can also go directly to an authorised consumer.</text>
+<text x="40" y="588" class="small">This is a representative route; it does not require every family per use case.</text>
+<rect x="40" y="630" width="310" height="120" rx="12" fill="#f5eee2" stroke="#b59e7a" stroke-dasharray="7 5"/>
+<text x="58" y="659" class="heading">Exchange</text>
+<text x="58" y="684" class="body">Preview exact content + recipient</text>
+<text x="58" y="704" class="body">Release under separate export authority</text>
+<text x="58" y="735" class="small">Planned</text>
+<rect x="445" y="630" width="310" height="120" rx="12" fill="#f5eee2" stroke="#b59e7a" stroke-dasharray="7 5"/>
+<text x="463" y="659" class="heading">Model access</text>
+<text x="463" y="684" class="body">Enforce approved model route / egress</text>
+<text x="463" y="704" class="body">Invoke chosen local or remote runtime</text>
+<text x="463" y="735" class="small">Planned</text>
+<rect x="850" y="630" width="310" height="120" rx="12" fill="#f5eee2" stroke="#b59e7a" stroke-dasharray="7 5"/>
+<text x="868" y="659" class="heading">Assistance</text>
+<text x="868" y="684" class="body">Combine evidence into cited answers</text>
+<text x="868" y="704" class="body">Propose controlled actions / disclosures</text>
+<text x="868" y="735" class="small">Planned</text>
+<path class="future" d="M850 665h-95"/><text x="802" y="655" text-anchor="middle" class="small">prompt</text>
+<path class="future" d="M755 715h95"/><text x="802" y="705" text-anchor="middle" class="small">result</text>
+<path class="future" d="M1005 750v40H195v-40"/><text x="600" y="781" text-anchor="middle" class="small">Proposed disclosure — approval remains independent of model output</text>
+<path class="future" d="M100 750v90"/><text x="40" y="866" class="small">Approved recipient (external)</text>
+<text x="457" y="866" class="small">approved model runtime (external).</text>
+<text x="600" y="821" text-anchor="middle" class="small">Model access also connects to an</text>
+<text x="840" y="831" class="small">Solid green: exercised content path</text>
+<text x="840" y="853" class="small">Dashed copper: planned content path</text>
+<text x="840" y="875" class="small">Dotted grey: shared control contracts</text>
+</svg>
