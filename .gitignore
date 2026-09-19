@@ -7,3 +7,5 @@ __pycache__/
 *.py[cod]
 node_modules/
 .farmy/
+# Local external feedback and review notes; not for publication.
+/ext_feedback/
