@@ -61,7 +61,7 @@ Stopping this `dashboard` process leaves modules alive. Restarting it reuses its
 
 Nine UC-005 tests verify real contents, receiver-enforced monitoring policy, a monitor unable to mutate/read raw data, browser token/Host/Origin restrictions, static-file containment, outages/recovery, access removal, fresh counts and independent bridge shutdown. The last command retains all earlier checks and runs all five demos with local Qwen. Without its model flag, the verification runner executes all suites and four demos without requiring Ollama.
 
-Tested on macOS 26.6.2 arm64 / Python 3.14.6. The completed baseline contains 64 tests (19 foundation + 45 slice tests). This is not Windows/Linux/Kubernetes validation.
+Implementation revision: [`47ff0f2`](https://github.com/cgrbxl/farmy/commit/47ff0f2). Tested on macOS 26.6.2 arm64 / Python 3.14.6. The completed baseline contains 64 tests (19 foundation + 45 slice tests). This is not Windows/Linux/Kubernetes validation.
 
 ## Security and module impact
 

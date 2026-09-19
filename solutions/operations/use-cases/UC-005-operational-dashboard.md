@@ -1,6 +1,6 @@
 # UC-005 — Read-only operational dashboard
 
-Status: done for synthetic macOS 26.6.2 arm64 / Python 3.14.6. Evidence revision: the commit implementing UC-005 (linked after verification).
+Status: done for synthetic macOS 26.6.2 arm64 / Python 3.14.6. Evidence revision: [`47ff0f2`](https://github.com/cgrbxl/farmy/commit/47ff0f2).
 
 Actor: the local installation operator wants to see which modules exist, what categories of state they hold and whether checks succeed. The owner explicitly bootstraps a dedicated monitoring identity; ordinary readers receive no metadata rights.
 
