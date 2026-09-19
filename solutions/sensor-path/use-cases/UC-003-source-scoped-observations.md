@@ -1,6 +1,6 @@
 # UC-003 — Source-scoped synthetic observations
 
-Status: ready for implementation; no runtime or acceptance evidence yet.
+Status: done for synthetic macOS development, verified 2026-09-19. [Run instructions](../uc003/README.md).
 
 ## Outcome
 
@@ -30,4 +30,14 @@ Exact delivered observation/batch references support provenance and audit, indep
 
 Physical devices, high-volume streaming infrastructure, dynamic consumer groups, offline authorisation, general terms evaluation, external credential wallets, watermarking, model invocation, production security and other deployment targets.
 
-Define the narrow schemas, delivery semantics and reproducible demo during implementation, following the [working method](../../../docs/working-method.md). These are acceptance requirements, not claims that source-level permissions already exist.
+The [versioned contract](../../../contracts/uc003/README.md), [runner](../uc003/README.md) and [nine acceptance tests](../../../conformance/uc003/test_runtime.py) implement and exercise these requirements for the stated development scope.
+
+## Evidence and actual module impact
+
+Verified on macOS arm64, Python 3.14.6 and OpenSSL 3.6.3: nine UC-003 acceptance tests, the prior 36 tests, structural/documentation checks and all three demos passed. Run `.venv/bin/python scripts/verify.py`; identify the delivery revision using `git log -1 -- conformance/uc003/test_runtime.py`.
+
+Actual changes: Wallet 0.3.0 adds generic source ownership and grants through two additive tables; the new Synthetic Sensor Connector 0.1.0 owns observation storage, membership and release records. Client/bootstrap and optional transport dispatch include the new contract. Local Folder Connector, Processing, Knowledge, Workflow and Registry implementation sources remain unchanged. The UC-002 runner advertises the upgraded Wallet version.
+
+The composition retains the existing Local Folder Connector to satisfy Wallet's document dependency; only Wallet and Sensor participate in source reads. Splitting optional readiness dependencies can be considered later. No new family is introduced.
+
+Release records are committed before the response and identify exact authorised output, not proof of receipt or downstream consumption. Earlier resources and grants survive the additive Wallet upgrade. No physical hardware, signed audit trail or production deployment claim follows from these results.

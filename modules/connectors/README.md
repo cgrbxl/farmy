@@ -25,3 +25,7 @@ Filesystem/device or provider reachability, platform permissions and secret inte
 Follow the common [integration profile](../../docs/module-integration.md), [communication/security design](../../docs/module-communication.md) and [conformance plan](../../conformance/README.md). Advertise implemented features, dependencies and limits. Missing grants, incompatible contracts and unreachable authority fail according to the public profile, not silently.
 
 Supply configuration with secret references, owned persistence/migrations, health/readiness, bounded retries/cancellation where relevant, audit and backup/restore/removal behaviour. Environment-specific mechanisms belong in [deployment profiles](../../deployments/README.md); capability meaning and permission requirements remain common. Per-target support is untested until evidence exists.
+
+## Synthetic source reference
+
+[UC-003](../../solutions/sensor-path/uc003/README.md) adds a separate Synthetic Sensor Connector with immutable source membership, bounded temperature observations and traceable releases under source/owner/consumer permission. The Local Folder Connector implementation is unchanged. No physical device provider is supported by this slice.

@@ -1,0 +1,580 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Farmy source-scoped observations",
+    "version": "0.3-draft"
+  },
+  "security": [
+    {
+      "mutualTLS": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "mutualTLS": {
+        "type": "mutualTLS"
+      }
+    }
+  },
+  "paths": {
+    "/farmy/v0/source.register": {
+      "post": {
+        "operationId": "source.register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "source.register"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.sources"
+                      },
+                      "purpose": {
+                        "const": "uc003.manage"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:source.register.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/source.register.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:source.register.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/source.register.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    },
+    "/farmy/v0/source.grant": {
+      "post": {
+        "operationId": "source.grant",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "source.grant"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.sources"
+                      },
+                      "purpose": {
+                        "const": "uc003.manage"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:source.grant.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/source.grant.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:source.grant.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/source.grant.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    },
+    "/farmy/v0/source.revoke": {
+      "post": {
+        "operationId": "source.revoke",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "source.revoke"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.sources"
+                      },
+                      "purpose": {
+                        "const": "uc003.manage"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:source.revoke.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/source.revoke.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey",
+                      "expectedRevision"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:source.revoke.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/source.revoke.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    },
+    "/farmy/v0/source.authorize": {
+      "post": {
+        "operationId": "source.authorize",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "source.authorize"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.sources"
+                      },
+                      "purpose": {
+                        "const": "uc003.authorize"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:source.authorize.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/source.authorize.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:source.authorize.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/source.authorize.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    },
+    "/farmy/v0/sensor.append": {
+      "post": {
+        "operationId": "sensor.append",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "sensor.append"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.observations"
+                      },
+                      "purpose": {
+                        "const": "uc003.manage"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:sensor.append.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/sensor.append.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:sensor.append.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/sensor.append.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    },
+    "/farmy/v0/sensor.read": {
+      "post": {
+        "operationId": "sensor.read",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "sensor.read"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.observations"
+                      },
+                      "purpose": {
+                        "const": "uc003.read"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:sensor.read.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/sensor.read.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:sensor.read.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/sensor.read.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    },
+    "/farmy/v0/sensor.audit": {
+      "post": {
+        "operationId": "sensor.audit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "sensor.audit"
+                      },
+                      "contractVersion": {
+                        "const": "0.3-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.observations"
+                      },
+                      "purpose": {
+                        "const": "uc003.manage"
+                      },
+                      "inputRefs": {
+                        "maxItems": 0
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc003:sensor.audit.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/sensor.audit.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc003:sensor.audit.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/sensor.audit.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx failure; foundation error envelope for valid requests, generic error for invalid envelopes or authentication failures."
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 errors = []
-excluded = {".git", ".venv", "node_modules", "__pycache__"}
+excluded = {".git", ".venv", "node_modules", "__pycache__", ".farmy", "ext_feedback"}
 for path in root.rglob("*.json"):
     if not excluded.intersection(path.relative_to(root).parts):
         try:

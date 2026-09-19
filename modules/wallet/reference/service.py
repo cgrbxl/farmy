@@ -9,13 +9,14 @@ import sqlite3
 import time
 from uuid import uuid4
 
+import sources
 from bindings import resolve
 from farmy_transport.http import Fault, PROFILE, descriptor, exchange, request, serve, timestamp
 
 
 class Wallet:
     def __init__(self, config):
-        config.setdefault('implementationVersion', '0.2.0')
+        config['implementationVersion'] = '0.3.0'
         self.config = config
         os.umask(0o077)
         self.state = Path(config['state'])
@@ -42,6 +43,9 @@ class Wallet:
                 CREATE TABLE IF NOT EXISTS audit (id INTEGER PRIMARY KEY, time REAL, actor TEXT,
                     event TEXT, outcome TEXT, resource TEXT);
             ''')
+
+        with self.db() as db:
+            db.executescript(sources.SCHEMA)
 
     @contextmanager
     def db(self):
@@ -74,6 +78,7 @@ class Wallet:
             {'farmy.wallet': ['resource.register', 'resource.inspect', 'resource.move',
                              'resource.update', 'grant.issue', 'grant.revoke'],
              'farmy.permissions': ['access.issue', 'access.revoke', 'access.check'],
+             'farmy.sources': ['source.register', 'source.grant', 'source.revoke', 'source.authorize'],
              'farmy.authorization': ['authorize.read']},
             {'farmy.storage': ['snapshot.capture']})
 
@@ -104,6 +109,8 @@ class Wallet:
 
     def mutate(self, db, body):
         operation, payload = body['operation'], body['payload']
+        if operation.startswith('source.'):
+            return sources.mutate(self, db, body)
         if operation == 'resource.register':
             if body['inputRefs']:
                 raise Fault('invalid_request')
@@ -223,6 +230,8 @@ class Wallet:
                     'size': version['size'], 'decisionRevision': row['revision']}
 
     def handle(self, peer, body):
+        if body['operation'] == 'source.authorize':
+            return sources.authorize(self, peer, body)
         if body['operation'] == 'access.check':
             return self.check_access(peer, body)
         if body['operation'] == 'authorize.read':
@@ -234,7 +243,7 @@ class Wallet:
                 result = self.inspect(db, body['payload']['resourceId'])
                 self.event(db, peer, 'resource.inspect', 'succeeded', result['resourceId'])
                 return result
-        if body['operation'] not in {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke', 'access.issue', 'access.revoke'}:
+        if body['operation'] not in {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke', 'access.issue', 'access.revoke', 'source.register', 'source.grant', 'source.revoke'}:
             raise Fault('unsupported')
         canonical = {key: body.get(key) for key in ('operation','payload','inputRefs','expectedRevision','purpose','grantRef','subjectId')}
         canonical['bindingRevision'] = self.binding['revision']

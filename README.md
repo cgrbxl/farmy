@@ -2,7 +2,7 @@
 
 Farmer-controlled digital memory and a composable ecosystem of agricultural intelligence services.
 
-**Status: architecture baseline, draft integration contracts, and two runnable synthetic macOS slices covering controlled memory and exact-source extraction/retrieval across separate services. This is an experimental development build, not a production application or cross-platform release.**
+**Status: architecture baseline, draft integration contracts, and three runnable synthetic macOS slices covering controlled memory, exact-source evidence and source-scoped observations across separate services. This is an experimental development build, not a production application or cross-platform release.**
 
 Farmy connects information held in local folders, managed encrypted vaults and cloud stores. Farmers choose independently supplied ingestion, knowledge, model and copilot services, deciding what each may access and transmit. Services can run on a laptop, private infrastructure or provider infrastructure in the same installation.
 
@@ -19,7 +19,7 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 ## Current focus
 
-Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place. [Run UC-001](solutions/core/uc001/README.md) for controlled memory, or [run UC-002](solutions/document-path/uc002/README.md) for extraction, evidence retrieval and recoverable jobs across five services. Verify both with `.venv/bin/python scripts/verify.py`.
+Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place. [Run UC-001](solutions/core/uc001/README.md) for controlled memory, or [run UC-002](solutions/document-path/uc002/README.md) for extraction, evidence retrieval and recoverable jobs across five services. [Run UC-003](solutions/sensor-path/uc003/README.md) for source permissions covering ongoing observations. Verify all three with `.venv/bin/python scripts/verify.py`.
 
 The [minimum integration foundation](contracts/v0.1-draft/README.md) now provides a runnable structural validator and outlines the common technical profile. Start with the draft [working method](docs/working-method.md), [delivery queue](docs/delivery-backlog.md) and [UC-001 controlled local memory](solutions/core/use-cases/UC-001-controlled-memory.md). Contracts, security and implementation evolve together per slice; deployment across all target environments follows proven module needs.
 

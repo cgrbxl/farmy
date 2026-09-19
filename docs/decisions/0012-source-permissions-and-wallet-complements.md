@@ -1,7 +1,7 @@
 # ADR 0012 — Source permissions, consumer accountability and external wallets
 
 Date: 2026-09-19
-Status: Accepted direction from maintainer clarification; requirements below are not yet implemented. This records the maintainer's decisions, not adoption of an external proposal.
+Status: Accepted direction from maintainer clarification; source permissions are now implemented narrowly in UC-003; external-wallet and broader usage-conditions requirements remain deferred. This records the maintainer's decisions, not adoption of an external proposal.
 
 ## Product and module boundaries
 

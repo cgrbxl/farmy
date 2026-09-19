@@ -28,4 +28,4 @@ Supply configuration with secret references, owned persistence/migrations, healt
 
 ## Accepted extensions
 
-[ADR 0012](../../docs/decisions/0012-source-permissions-and-wallet-complements.md) scopes ongoing-data permissions to source, owner and consumer. Observation identifiers remain evidence references, not individual approval requirements. External credential wallets complement FarmWallet through adapters; they do not automatically replace its authority role. These extensions are requirements, not implemented features.
+[ADR 0012](../../docs/decisions/0012-source-permissions-and-wallet-complements.md) scopes ongoing-data permissions to source, owner and consumer. Observation identifiers remain evidence references, not individual approval requirements. External credential wallets complement FarmWallet through adapters; they do not automatically replace its authority role. Source permissions are implemented narrowly in [UC-003](../../solutions/sensor-path/uc003/README.md); external-wallet integration remains a requirement, not an implemented feature.

@@ -1,0 +1,37 @@
+{
+  "source.register": {
+    "capabilityId": "farmy.sources",
+    "purpose": "uc003.manage",
+    "mutation": true
+  },
+  "source.grant": {
+    "capabilityId": "farmy.sources",
+    "purpose": "uc003.manage",
+    "mutation": true
+  },
+  "source.revoke": {
+    "capabilityId": "farmy.sources",
+    "purpose": "uc003.manage",
+    "mutation": true
+  },
+  "source.authorize": {
+    "capabilityId": "farmy.sources",
+    "purpose": "uc003.authorize",
+    "mutation": false
+  },
+  "sensor.append": {
+    "capabilityId": "farmy.observations",
+    "purpose": "uc003.manage",
+    "mutation": true
+  },
+  "sensor.read": {
+    "capabilityId": "farmy.observations",
+    "purpose": "uc003.read",
+    "mutation": false
+  },
+  "sensor.audit": {
+    "capabilityId": "farmy.observations",
+    "purpose": "uc003.manage",
+    "mutation": false
+  }
+}

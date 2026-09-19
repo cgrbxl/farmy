@@ -1,0 +1,464 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc003:0.3-draft",
+  "$defs": {
+    "source.register.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "connectorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "connectorId"
+      ]
+    },
+    "source.register.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "connectorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "connectorId"
+      ]
+    },
+    "source.grant.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "consumerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$",
+          "maxLength": 40
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "consumerId",
+        "expiresAt"
+      ]
+    },
+    "source.grant.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "grantId",
+        "revision"
+      ]
+    },
+    "source.revoke.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "grantId"
+      ]
+    },
+    "source.revoke.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "revoked": {
+          "const": true
+        }
+      },
+      "required": [
+        "grantId",
+        "revision",
+        "revoked"
+      ]
+    },
+    "source.authorize.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "action": {
+          "enum": [
+            "append",
+            "read",
+            "audit"
+          ]
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "action"
+      ]
+    },
+    "source.authorize.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "const": true
+        },
+        "decisionRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "allowed",
+        "decisionRevision"
+      ]
+    },
+    "sensor.append.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$",
+          "maxLength": 40
+        },
+        "value": {
+          "type": "number",
+          "minimum": -80,
+          "maximum": 80
+        },
+        "unit": {
+          "const": "degC"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "observedAt",
+        "value",
+        "unit"
+      ]
+    },
+    "sensor.append.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "observationId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$",
+          "maxLength": 40
+        },
+        "value": {
+          "type": "number",
+          "minimum": -80,
+          "maximum": 80
+        },
+        "unit": {
+          "const": "degC"
+        }
+      },
+      "required": [
+        "observationId",
+        "sourceId",
+        "ownerId",
+        "sequence",
+        "observedAt",
+        "value",
+        "unit"
+      ]
+    },
+    "sensor.read.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "afterSequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "afterSequence",
+        "limit"
+      ]
+    },
+    "sensor.read.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "deliveryId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "observationId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "sourceId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "ownerId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "sequence": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "observedAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "Z$",
+                "maxLength": 40
+              },
+              "value": {
+                "type": "number",
+                "minimum": -80,
+                "maximum": 80
+              },
+              "unit": {
+                "const": "degC"
+              }
+            },
+            "required": [
+              "observationId",
+              "sourceId",
+              "ownerId",
+              "sequence",
+              "observedAt",
+              "value",
+              "unit"
+            ]
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "deliveryId",
+        "observations"
+      ]
+    },
+    "sensor.audit.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "limit"
+      ]
+    },
+    "sensor.audit.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "receipts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "deliveryId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "sourceId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "ownerId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "consumerId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "grantId": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+              },
+              "decisionRevision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "recordedAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "Z$",
+                "maxLength": 40
+              },
+              "event": {
+                "const": "release_authorized"
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "observationId": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                    },
+                    "sequence": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "observationId",
+                    "sequence",
+                    "sha256"
+                  ]
+                },
+                "maxItems": 100
+              }
+            },
+            "required": [
+              "deliveryId",
+              "sourceId",
+              "ownerId",
+              "consumerId",
+              "grantId",
+              "decisionRevision",
+              "recordedAt",
+              "event",
+              "observations"
+            ]
+          },
+          "maxItems": 10
+        }
+      },
+      "required": [
+        "receipts"
+      ]
+    }
+  }
+}

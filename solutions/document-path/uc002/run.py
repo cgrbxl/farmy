@@ -33,7 +33,7 @@ def bootstrap(directory):
                       compositionRevision=1)
         if identity == 'wallet.local':
             config.update(readSubjects=['owner', 'reader', 'denied', 'processing.local'], permissionScopes=SCOPES,
-                          implementationVersion='0.2.0')
+                          implementationVersion='0.3.0')
         path.write_text(json.dumps(config, indent=2))
     return directory
 

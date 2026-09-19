@@ -19,6 +19,8 @@ FOUNDATION = json.loads((ROOT / 'contracts/v0.1-draft/foundation.schema.json').r
 OPERATIONS = json.loads((ROOT / 'contracts/uc001/operations.schema.json').read_text())
 EXTRA_SCHEMA = json.loads((ROOT / 'contracts/uc002/operations.schema.json').read_text())
 EXTRA_OPERATIONS = json.loads((ROOT / 'contracts/uc002/operations.json').read_text())
+SENSOR_SCHEMA = json.loads((ROOT / 'contracts/uc003/operations.schema.json').read_text())
+SENSOR_OPERATIONS = json.loads((ROOT / 'contracts/uc003/operations.json').read_text())
 PROFILE = 'farmy.integration/0.1-draft'
 MAX_BYTES = 1048576
 MUTATIONS = {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}
@@ -85,6 +87,9 @@ def request(config, target, operation, payload, *, refs=None, grant='grant.owner
 
 
 def operation_spec(operation):
+    if operation in SENSOR_OPERATIONS:
+        data = SENSOR_OPERATIONS[operation]
+        return SENSOR_SCHEMA, 'uc003', '0.3-draft', data['capabilityId'], data['purpose'], data['mutation']
     if operation in EXTRA_OPERATIONS:
         data = EXTRA_OPERATIONS[operation]
         return EXTRA_SCHEMA, 'uc002', '0.2-draft', data['capabilityId'], data['purpose'], data['mutation']
@@ -174,7 +179,7 @@ def check_request(config, peer, body, route):
             raise Fault('denied')
         if mutation and 'idempotencyKey' not in body:
             raise Fault('invalid_request')
-        if operation in {'resource.move', 'resource.update', 'grant.revoke', 'access.revoke'} and 'expectedRevision' not in body:
+        if operation in {'resource.move', 'resource.update', 'grant.revoke', 'access.revoke', 'source.revoke'} and 'expectedRevision' not in body:
             raise Fault('invalid_request')
     except (ValidationError, ValueError, KeyError):
         raise Fault('invalid_request') from None
@@ -313,7 +318,7 @@ def serve(app):
 
 def descriptor(config, family, capabilities, dependencies):
     """Foundation records; target status is deliberately experimental."""
-    implementation = 'farmy.reference.' + ('local-folder' if family == 'connectors' else family)
+    implementation = config.get('implementationId', 'farmy.reference.' + ('local-folder' if family == 'connectors' else family))
     def capability(name, operations):
         return {'capabilityId': name, 'contractVersion': '0.1-draft', 'operations': operations,
                 'features': ['exact-version'] if name == 'farmy.storage' else []}

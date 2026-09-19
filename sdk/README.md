@@ -1,6 +1,6 @@
 # Optional integration SDKs
 
-Status: [optional Python development transport](python/farmy_transport/http.py) supports UC-001 and UC-002 with versioned envelope/payload validation and mutual TLS. [Development state helpers](python/farmy_transport/local.py) provide per-service connections and audit writes; module schemas and policy stay in the modules. It is not a general-purpose stable SDK.
+Status: [optional Python development transport](python/farmy_transport/http.py) supports UC-001, UC-002 and UC-003 with versioned envelope/payload validation and mutual TLS. [Development state helpers](python/farmy_transport/local.py) provide per-service connections and audit writes; module schemas and policy stay in the modules. It is not a general-purpose stable SDK.
 
 Future SDKs may provide typed clients, descriptor/config validation, common errors, authenticated transport integration, evidence helpers and audit envelopes. They must follow versioned public contracts and should be exercised by the same conformance suite as independent implementations.
 

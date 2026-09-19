@@ -1,6 +1,6 @@
 # Conformance and composition tests
 
-Status: [foundation document/compatibility checks](foundation/README.md) are executable. [UC-001 runtime acceptance tests](uc001/test_runtime.py) exercise the synthetic macOS slice; broader security, operation and deployment conformance remain a test plan. [UC-002 tests](uc002/test_runtime.py) add extraction, disclosure, duplicate/recovery and Wallet upgrade checks. Run all local checks and both demos with `.venv/bin/python scripts/verify.py`; see [instructions](../solutions/document-path/uc002/README.md). The separate repository documentation script checks Markdown links and JSON parsing only.
+Status: [foundation document/compatibility checks](foundation/README.md) are executable. [UC-001 runtime acceptance tests](uc001/test_runtime.py) exercise the synthetic macOS slice; broader security, operation and deployment conformance remain a test plan. [UC-002 tests](uc002/test_runtime.py) add extraction, disclosure, duplicate/recovery and Wallet upgrade checks. [UC-003 tests](uc003/test_runtime.py) add source permissions, immutable observation membership and release auditing. Run all local checks and all three demos with `.venv/bin/python scripts/verify.py`; see [instructions](../solutions/document-path/uc002/README.md). The separate repository documentation script checks Markdown links and JSON parsing only.
 
 | Layer | Required evidence |
 | --- | --- |
