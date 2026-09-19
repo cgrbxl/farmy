@@ -1,6 +1,6 @@
 # Roadmap
 
-The [UC-001 macOS slice](../solutions/core/uc001/README.md) has a passing synthetic demo and eight runtime tests. The [draft integration foundation](../contracts/v0.1-draft/README.md) also has executable document/declared-compatibility checks. Broader runtime and deployment conformance remains pending.
+The [UC-001 macOS slice](../solutions/core/uc001/README.md) and [UC-002 extraction/evidence slice](../solutions/document-path/uc002/README.md) provide runnable synthetic demos and acceptance tests. The [draft integration foundation](../contracts/v0.1-draft/README.md) also has executable document/declared-compatibility checks. Broader runtime and deployment conformance remains pending.
 
 ## M0 — Architecture repository (this baseline)
 
@@ -12,7 +12,7 @@ The accepted reference grouping and architecture are sufficient to scope the fir
 
 The milestones below are outcome areas, not waterfall phases. Contract, implementation, security and conformance work happen together inside each use-case increment; M1 does not need to be complete for all families before M2 begins. Platform-specific packaging follows working module needs, while a reproducible local run is part of every slice.
 
-The repository organisation is in place. UC-001 implements controlled local memory; deployment profiles and broader solution recipes remain documentation scaffolds.
+The repository organisation is in place. UC-001 implements controlled local memory and UC-002 adds extraction, evidence and recoverable jobs; deployment profiles and broader solution recipes remain documentation scaffolds.
 
 ## M1 — Contract foundation
 

@@ -1,11 +1,11 @@
 # Solution templates
 
-Status: design recipes only. No runnable solution, release lock manifest or installation command exists yet.
+Status: broad solution recipes plus runnable synthetic macOS increments. Production installers and release lock manifests remain future work.
 
 | Recipe | Purpose | Current state |
 | --- | --- | --- |
-| [Core](core/README.md) | Resource authority and composition with a useful source connector | Design-only |
-| [Document path](document-path/README.md) | Authorised document ingestion, retrieval, answer and controlled export | Design-only |
+| [Core](core/README.md) | Resource authority and composition with a useful source connector | [UC-001 development demo](core/uc001/README.md) |
+| [Document path](document-path/README.md) | Authorised document ingestion, retrieval, answer and controlled export | [UC-002 extraction/retrieval demo](document-path/uc002/README.md); answer/export deferred |
 
 A solution composes module implementations through bindings and separately authorised grants. It does not own their private databases or require one release number for all modules. An individual module can be installed without a complete solution when its declared dependencies are satisfied.
 

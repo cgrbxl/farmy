@@ -1,6 +1,6 @@
 # Working method: use case to running increment
 
-Status: draft for adoption. Builds on the accepted MVP approach and module families. No application increment has been implemented yet.
+Status: draft for adoption. Builds on the accepted MVP approach and module families. UC-001 and UC-002 provide runnable synthetic macOS increments; broader deployment remains future work.
 
 ## Unit of delivery
 
@@ -35,7 +35,7 @@ Keep each card in its solution directory, close to the composition it tests. It 
 - Required decisions/dependencies and the simplest run/demo path.
 - When completed: source revision, tested environment, exact commands/results, migration notes and next learning.
 
-Use a small status set: proposed, ready, in progress, blocked, done. “Ready” means the slice is understood and execution can begin; it does not mean its code exists. Record a real blocker and a next action rather than leaving a stalled slice ambiguously active. The first proposed card is [UC-001](../solutions/core/use-cases/UC-001-controlled-memory.md).
+Use a small status set: proposed, ready, in progress, blocked, done. “Ready” means the slice is understood and execution can begin; it does not mean its code exists. Record a real blocker and a next action rather than leaving a stalled slice ambiguously active. The first implemented card is [UC-001](../solutions/core/use-cases/UC-001-controlled-memory.md).
 
 ## Definition of done for an increment
 

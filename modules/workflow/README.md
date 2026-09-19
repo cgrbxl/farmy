@@ -1,6 +1,6 @@
 # Workflow coordinator
 
-Status: family guidance; no reference runtime or stable public API is implemented yet.
+Status: family guidance plus a narrow experimental [UC-002 implementation](../../solutions/document-path/uc002/README.md). It does not implement this whole family or a stable public API.
 
 ## Responsibility and state
 

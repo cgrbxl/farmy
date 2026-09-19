@@ -1,0 +1,47 @@
+{
+  "access.issue": {
+    "capabilityId": "farmy.permissions",
+    "purpose": "uc002.manage",
+    "mutation": true
+  },
+  "access.revoke": {
+    "capabilityId": "farmy.permissions",
+    "purpose": "uc002.manage",
+    "mutation": true
+  },
+  "access.check": {
+    "capabilityId": "farmy.permissions",
+    "purpose": "uc002.authorize",
+    "mutation": false
+  },
+  "extraction.compute": {
+    "capabilityId": "farmy.processing",
+    "purpose": "uc002.extract",
+    "mutation": true
+  },
+  "extraction.get": {
+    "capabilityId": "farmy.processing",
+    "purpose": "uc002.index",
+    "mutation": false
+  },
+  "evidence.index": {
+    "capabilityId": "farmy.knowledge",
+    "purpose": "uc002.index",
+    "mutation": true
+  },
+  "evidence.query": {
+    "capabilityId": "farmy.knowledge",
+    "purpose": "uc002.query",
+    "mutation": false
+  },
+  "job.run": {
+    "capabilityId": "farmy.workflow",
+    "purpose": "uc002.workflow",
+    "mutation": true
+  },
+  "job.inspect": {
+    "capabilityId": "farmy.workflow",
+    "purpose": "uc002.workflow",
+    "mutation": false
+  }
+}

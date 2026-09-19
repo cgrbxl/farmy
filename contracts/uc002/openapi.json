@@ -1,0 +1,712 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Farmy UC-002 exact-source evidence",
+    "version": "0.2-draft"
+  },
+  "security": [
+    {
+      "mutualTLS": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "mutualTLS": {
+        "type": "mutualTLS"
+      }
+    }
+  },
+  "paths": {
+    "/farmy/v0/access.issue": {
+      "post": {
+        "operationId": "access.issue",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "access.issue"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.permissions"
+                      },
+                      "purpose": {
+                        "const": "uc002.manage"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:access.issue.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/access.issue.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:access.issue.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/access.issue.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/access.revoke": {
+      "post": {
+        "operationId": "access.revoke",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "access.revoke"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.permissions"
+                      },
+                      "purpose": {
+                        "const": "uc002.manage"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:access.revoke.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/access.revoke.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey",
+                      "expectedRevision"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:access.revoke.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/access.revoke.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/access.check": {
+      "post": {
+        "operationId": "access.check",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "access.check"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.permissions"
+                      },
+                      "purpose": {
+                        "const": "uc002.authorize"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:access.check.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/access.check.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:access.check.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/access.check.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/extraction.compute": {
+      "post": {
+        "operationId": "extraction.compute",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "extraction.compute"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.processing"
+                      },
+                      "purpose": {
+                        "const": "uc002.extract"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:extraction.compute.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/extraction.compute.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:extraction.compute.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/extraction.compute.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/extraction.get": {
+      "post": {
+        "operationId": "extraction.get",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "extraction.get"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.processing"
+                      },
+                      "purpose": {
+                        "const": "uc002.index"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:extraction.get.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/extraction.get.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:extraction.get.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/extraction.get.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/evidence.index": {
+      "post": {
+        "operationId": "evidence.index",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "evidence.index"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.knowledge"
+                      },
+                      "purpose": {
+                        "const": "uc002.index"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:evidence.index.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/evidence.index.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:evidence.index.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/evidence.index.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/evidence.query": {
+      "post": {
+        "operationId": "evidence.query",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "evidence.query"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.knowledge"
+                      },
+                      "purpose": {
+                        "const": "uc002.query"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:evidence.query.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/evidence.query.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:evidence.query.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/evidence.query.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/job.run": {
+      "post": {
+        "operationId": "job.run",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "job.run"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.workflow"
+                      },
+                      "purpose": {
+                        "const": "uc002.workflow"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:job.run.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/job.run.input"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:job.run.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/job.run.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    },
+    "/farmy/v0/job.inspect": {
+      "post": {
+        "operationId": "job.inspect",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "const": "job.inspect"
+                      },
+                      "contractVersion": {
+                        "const": "0.2-draft"
+                      },
+                      "capabilityId": {
+                        "const": "farmy.workflow"
+                      },
+                      "purpose": {
+                        "const": "uc002.workflow"
+                      },
+                      "payloadSchema": {
+                        "const": "urn:farmy:uc002:job.inspect.input"
+                      },
+                      "payload": {
+                        "$ref": "./operations.schema.json#/$defs/job.inspect.input"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "../v0.1-draft/foundation.schema.json#/$defs/response"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "succeeded"
+                        },
+                        "resultSchema": {
+                          "const": "urn:farmy:uc002:job.inspect.output"
+                        },
+                        "result": {
+                          "$ref": "./operations.schema.json#/$defs/job.inspect.output"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Non-2xx error; foundation failure envelope for valid requests, generic error object for malformed/unauthenticated requests."
+          }
+        }
+      }
+    }
+  }
+}

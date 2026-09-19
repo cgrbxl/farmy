@@ -1,11 +1,11 @@
 # Incremental delivery queue
 
-Status: proposed order, not a schedule or implementation report. UC-001 has a passing synthetic macOS demonstration and runtime acceptance suite; later slices remain unimplemented. Follow the [working method](working-method.md); only one implementation slice should be active at a time.
+Status: proposed order, not a schedule or implementation report. UC-001 and UC-002 have runnable synthetic macOS demonstrations and acceptance suites; later slices remain unimplemented. Follow the [working method](working-method.md); only one implementation slice should be active at a time.
 
 | Order | Slice and observable result | Main families | Next action / status |
 | --- | --- | --- | --- |
 | 1 | [UC-001 controlled memory](../solutions/core/use-cases/UC-001-controlled-memory.md): register/read/move/version a synthetic local document and deny unauthorised access | Wallet, Connector, minimal Registry | Implemented for synthetic macOS development; [run/evidence](../solutions/core/uc001/README.md); eight runtime acceptance tests pass |
-| 2 | Extract a known field and retrieve it with its exact source version; duplicate execution produces one accepted result | Processing, Workflow, Knowledge | Queued; write its small case from UC-001 learning |
+| 2 | [UC-002 exact-source evidence](../solutions/document-path/use-cases/UC-002-exact-source-evidence.md): extract/retrieve one field; duplicate execution produces one accepted derived entry | Processing, Workflow, Knowledge; generic Wallet permissions | Implemented for synthetic macOS development; [run/evidence](../solutions/document-path/uc002/README.md) |
 | 3 | Use an explicitly selected model for a cited answer; unapproved model egress is denied | Model access, Assistance | Queued; select a model integration only when needed |
 | 4 | Preview and deliver exact approved content; altered recipient/payload and missing export permission are rejected | Exchange | Queued; local synthetic export first |
 | 5 | Add a second source through S3 and reuse the working path without changing unrelated module source | Connectors | Queued; verify actual provider semantics, not just an emulator |

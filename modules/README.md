@@ -1,6 +1,6 @@
 # Module families
 
-Status: reference grouping and contributor guides. No module runtime is implemented here yet.
+Status: reference grouping and contributor guides, plus narrow experimental implementations for [UC-001](../solutions/core/uc001/README.md) and [UC-002](../solutions/document-path/uc002/README.md). No family is complete and no production deployment package is supplied.
 
 The [technical architecture](../docs/module-architecture.md) defines ownership and change scenarios. A family can have several independently supplied implementations; it is not one universal process. Each guide defines what belongs inside, what stays outside and the first useful increment.
 

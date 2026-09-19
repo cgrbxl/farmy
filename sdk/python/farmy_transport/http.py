@@ -1,4 +1,4 @@
-"""Loopback-only UC-001 transport. Not a production application server."""
+"""Loopback-only development transport. Not a production application server."""
 import hashlib
 import http.client
 import json
@@ -17,6 +17,8 @@ from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 ROOT = Path(__file__).resolve().parents[3]
 FOUNDATION = json.loads((ROOT / 'contracts/v0.1-draft/foundation.schema.json').read_text())
 OPERATIONS = json.loads((ROOT / 'contracts/uc001/operations.schema.json').read_text())
+EXTRA_SCHEMA = json.loads((ROOT / 'contracts/uc002/operations.schema.json').read_text())
+EXTRA_OPERATIONS = json.loads((ROOT / 'contracts/uc002/operations.json').read_text())
 PROFILE = 'farmy.integration/0.1-draft'
 MAX_BYTES = 1048576
 MUTATIONS = {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}
@@ -66,19 +68,29 @@ def fingerprint(path):
 def request(config, target, operation, payload, *, refs=None, grant='grant.owner-bootstrap',
             subject=None, revision=None, key=None):
     actor = config['identity']
+    _, namespace, version, capability, purpose, mutation = operation_spec(operation)
     result = {'profile': PROFILE, 'requestId': 'request.' + uuid4().hex,
               'correlationId': 'correlation.' + uuid4().hex, 'walletId': config['walletId'],
-              'targetInstanceId': target, 'capabilityId': CAPABILITY.get(operation, 'farmy.wallet'),
-              'contractVersion': '0.1-draft', 'operation': operation,
-              'purpose': 'uc001.read' if operation in {'read.version', 'authorize.read'} else 'uc001.manage',
+              'targetInstanceId': target, 'capabilityId': capability,
+              'contractVersion': version, 'operation': operation,
+              'purpose': purpose,
               'actorId': actor, 'subjectId': subject or actor, 'grantRef': grant,
               'deadline': utc(20), 'inputRefs': refs or [],
-              'payloadSchema': 'urn:farmy:uc001:' + operation + '.input', 'payload': payload}
-    if operation in MUTATIONS:
+              'payloadSchema': 'urn:farmy:' + namespace + ':' + operation + '.input', 'payload': payload}
+    if mutation:
         result['idempotencyKey'] = key or 'key.' + uuid4().hex
     if revision is not None:
         result['expectedRevision'] = revision
     return result
+
+
+def operation_spec(operation):
+    if operation in EXTRA_OPERATIONS:
+        data = EXTRA_OPERATIONS[operation]
+        return EXTRA_SCHEMA, 'uc002', '0.2-draft', data['capabilityId'], data['purpose'], data['mutation']
+    return (OPERATIONS, 'uc001', '0.1-draft', CAPABILITY.get(operation, 'farmy.wallet'),
+            'uc001.read' if operation in {'read.version', 'authorize.read'} else 'uc001.manage',
+            operation in MUTATIONS)
 
 
 def client_context(config):
@@ -123,10 +135,11 @@ def exchange(config, target, body=None, path=None):
         if body is None:
             return data
         schema_check(FOUNDATION, 'response', data)
+        operation_schema, namespace, *_ = operation_spec(body['operation'])
         if (data['requestId'] != body['requestId'] or data['producerInstanceId'] != target
-                or data['resultSchema'] != 'urn:farmy:uc001:' + body['operation'] + '.output'):
+                or data['resultSchema'] != 'urn:farmy:' + namespace + ':' + body['operation'] + '.output'):
             raise Fault('unavailable')
-        schema_check(OPERATIONS, body['operation'] + '.output', data['result'])
+        schema_check(operation_schema, body['operation'] + '.output', data['result'])
         return data['result']
     except (OSError, http.client.HTTPException, ValueError, ValidationError) as exc:
         raise Fault('unavailable') from exc
@@ -138,14 +151,15 @@ def check_request(config, peer, body, route):
     try:
         schema_check(FOUNDATION, 'request', body)
         operation = body['operation']
-        if route != '/farmy/v0/' + operation or operation + '.input' not in OPERATIONS['$defs']:
+        operation_schema, namespace, version, capability, purpose, mutation = operation_spec(operation)
+        if route != '/farmy/v0/' + operation or operation + '.input' not in operation_schema['$defs']:
             raise Fault('unsupported')
-        schema_check(OPERATIONS, operation + '.input', body['payload'])
-        if body['payloadSchema'] != 'urn:farmy:uc001:' + operation + '.input':
+        schema_check(operation_schema, operation + '.input', body['payload'])
+        if body['payloadSchema'] != 'urn:farmy:' + namespace + ':' + operation + '.input':
             raise Fault('invalid_request')
-        if body['capabilityId'] != CAPABILITY.get(operation, 'farmy.wallet'):
+        if body['capabilityId'] != capability:
             raise Fault('unsupported')
-        if body['contractVersion'] != '0.1-draft':
+        if body['contractVersion'] != version:
             raise Fault('unsupported')
         if body['actorId'] != peer or body['targetInstanceId'] != config['identity']:
             raise Fault('denied')
@@ -155,12 +169,12 @@ def check_request(config, peer, body, route):
         deadline = timestamp(body['deadline'])
         if deadline <= time.time() or deadline > time.time() + 60:
             raise Fault('expired')
-        expected_purpose = 'uc001.read' if operation in {'read.version', 'authorize.read'} else 'uc001.manage'
+        expected_purpose = purpose
         if body['purpose'] != expected_purpose:
             raise Fault('denied')
-        if operation in MUTATIONS and 'idempotencyKey' not in body:
+        if mutation and 'idempotencyKey' not in body:
             raise Fault('invalid_request')
-        if operation in {'resource.move', 'resource.update', 'grant.revoke'} and 'expectedRevision' not in body:
+        if operation in {'resource.move', 'resource.update', 'grant.revoke', 'access.revoke'} and 'expectedRevision' not in body:
             raise Fault('invalid_request')
     except (ValidationError, ValueError, KeyError):
         raise Fault('invalid_request') from None
@@ -240,11 +254,12 @@ class Handler(BaseHTTPRequestHandler):
                 self.send(200, result, {'X-Farmy-SHA256': hashlib.sha256(result).hexdigest(),
                                        'X-Farmy-Version': body['inputRefs'][0]['versionId']})
             else:
-                schema_check(OPERATIONS, body['operation'] + '.output', result)
+                operation_schema, namespace, *_ = operation_spec(body['operation'])
+                schema_check(operation_schema, body['operation'] + '.output', result)
                 response = {'profile': PROFILE, 'requestId': body['requestId'],
-                            'producerInstanceId': config['identity'], 'implementationVersion': '0.1.0',
+                            'producerInstanceId': config['identity'], 'implementationVersion': config.get('implementationVersion', '0.1.0'),
                             'status': 'succeeded', 'inputRefs': body['inputRefs'], 'outputRefs': [],
-                            'resultSchema': 'urn:farmy:uc001:' + body['operation'] + '.output', 'result': result}
+                            'resultSchema': 'urn:farmy:' + namespace + ':' + body['operation'] + '.output', 'result': result}
                 schema_check(FOUNDATION, 'response', response)
                 self.send(200, response)
         except Fault as exc:
@@ -264,7 +279,7 @@ class Handler(BaseHTTPRequestHandler):
         if body is not None:
             response.update(profile=PROFILE, requestId=body['requestId'],
                             producerInstanceId=self.server.app.config['identity'],
-                            implementationVersion='0.1.0', status='failed',
+                            implementationVersion=self.server.app.config.get('implementationVersion', '0.1.0'), status='failed',
                             inputRefs=body['inputRefs'], outputRefs=[])
             schema_check(FOUNDATION, 'response', response)
         self.send(CODES.get(code, 500), response)
@@ -302,19 +317,27 @@ def descriptor(config, family, capabilities, dependencies):
     def capability(name, operations):
         return {'capabilityId': name, 'contractVersion': '0.1-draft', 'operations': operations,
                 'features': ['exact-version'] if name == 'farmy.storage' else []}
-    module = {'profile': PROFILE, 'implementationId': implementation, 'implementationVersion': '0.1.0',
-              'family': family, 'capabilities': [capability(k, v) for k, v in capabilities.items()],
-              'dependencies': [dict(capability(k, v), required=True) for k, v in dependencies.items()],
+    def declarations(items):
+        result = []
+        for name, operations in items.items():
+            for version in sorted({operation_spec(op)[2] for op in operations}):
+                item = capability(name, [op for op in operations if operation_spec(op)[2] == version])
+                item['contractVersion'] = version
+                result.append(item)
+        return result
+    module = {'profile': PROFILE, 'implementationId': implementation, 'implementationVersion': config.get('implementationVersion', '0.1.0'),
+              'family': family, 'capabilities': declarations(capabilities),
+              'dependencies': [dict(item, required=True) for item in declarations(dependencies)],
               'securityProfiles': ['farmy.mtls-online/0.1-draft'], 'connectivityModes': ['direct-https'],
               'targets': [{'target': name, 'status': 'experimental' if name == 'macos' else 'unsupported'}
                           for name in ('macos', 'windows', 'linux', 'kubernetes')],
-              'permissionsRequired': ['uc001.bootstrap'],
+              'permissionsRequired': [config.get('bootstrapProfile', 'uc001.bootstrap')],
               'state': {'ownership': 'implementation-private', 'migration': 'none'}}
     instance = {'profile': PROFILE, 'instanceId': config['identity'], 'implementationId': implementation,
-                'implementationVersion': '0.1.0', 'endpoint': config['endpoints'][config['identity']]['url'],
+                'implementationVersion': config.get('implementationVersion', '0.1.0'), 'endpoint': config['endpoints'][config['identity']]['url'],
                 'securityProfile': 'farmy.mtls-online/0.1-draft', 'connectivityMode': 'direct-https',
                 'peerIdentity': 'urn:farmy:identity:' + config['identity'],
-                'environmentId': 'environment.uc001-local', 'status': 'registered'}
+                'environmentId': config.get('environmentId', 'environment.uc001-local'), 'status': 'registered'}
     schema_check(FOUNDATION, 'module', module)
     schema_check(FOUNDATION, 'instance', instance)
     return {'module': module, 'instance': instance}

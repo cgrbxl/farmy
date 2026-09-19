@@ -19,7 +19,8 @@ SERVICES = {'wallet.local': 'modules/wallet/reference/service.py',
             'connector.local': 'modules/connectors/local_folder/service.py'}
 
 
-def bootstrap(directory):
+def bootstrap(directory, services=None):
+    services = SERVICES if services is None else services
     directory = Path(directory).resolve()
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
     if any(directory.iterdir()):
@@ -35,7 +36,7 @@ def bootstrap(directory):
             '-nodes', '-days', '2', '-subj', '/CN=Farmy UC001 development CA',
             '-addext', 'basicConstraints=critical,CA:TRUE',
             '-addext', 'keyUsage=critical,keyCertSign,cRLSign', '-keyout', cakey, '-out', ca)
-    identities = ['wallet.local', 'connector.local', 'owner', 'reader', 'denied', 'unknown']
+    identities = list(services) + ['owner', 'reader', 'denied', 'unknown']
     for serial, identity in enumerate(identities, 1):
         key, csr, cert = [certs / (identity + suffix) for suffix in ('.key', '.csr', '.pem')]
         openssl('req', '-new', '-newkey', 'ec', '-pkeyopt', 'ec_paramgen_curve:P-256',
@@ -50,11 +51,11 @@ def bootstrap(directory):
     cakey.unlink()
     held = []
     try:
-        for _ in SERVICES:
+        for _ in services:
             sock = socket.socket()
             sock.bind(('127.0.0.1', 0))
             held.append(sock)
-        ports = dict(zip(SERVICES, [s.getsockname()[1] for s in held]))
+        ports = dict(zip(services, [s.getsockname()[1] for s in held]))
     finally:
         for sock in held:
             sock.close()
@@ -74,7 +75,7 @@ def bootstrap(directory):
         config = {'identity': identity, 'walletId': 'wallet.demo', 'ca': str(ca),
                   'cert': str(certs / (identity + '.pem')), 'key': str(certs / (identity + '.key')),
                   'endpoints': endpoints, 'peers': peers,
-                  'operators': ['owner', 'wallet.local', 'connector.local'],
+                  'operators': ['owner', *services],
                   'state': str(directory / ('state-' + identity)), 'sourceRoot': str(source),
                   'binding': str(directory / 'binding.json')}
         if identity in ports:
@@ -87,8 +88,9 @@ def config(directory, identity='owner'):
     return json.loads((Path(directory) / (identity + '.json')).read_text())
 
 
-def command(directory, identity):
-    return [sys.executable, str(ROOT / SERVICES[identity]), '--config',
+def command(directory, identity, services=None):
+    services = SERVICES if services is None else services
+    return [sys.executable, str(ROOT / services[identity]), '--config',
             str(Path(directory).resolve() / (identity + '.json'))]
 
 
@@ -98,7 +100,8 @@ def environment():
 
 
 class Processes:
-    def __init__(self, directory):
+    def __init__(self, directory, services=None):
+        self.services = SERVICES if services is None else services
         self.directory = Path(directory)
         self.children = {}
 
@@ -106,7 +109,7 @@ class Processes:
         if identity in self.children:
             raise ValueError('Process already owned by this runner')
         with (self.directory / (identity + '.log')).open('ab') as log:
-            child = subprocess.Popen(command(self.directory, identity), env=environment(), stdout=log, stderr=log)
+            child = subprocess.Popen(command(self.directory, identity, self.services), env=environment(), stdout=log, stderr=log)
         self.children[identity] = child
         until = time.monotonic() + 10
         while time.monotonic() < until:
@@ -131,7 +134,7 @@ class Processes:
 
     def __enter__(self):
         try:
-            for identity in SERVICES:
+            for identity in self.services:
                 self.start(identity)
         except BaseException:
             self.__exit__(None, None, None)

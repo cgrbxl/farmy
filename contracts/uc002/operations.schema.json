@@ -1,0 +1,475 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc002:0.2-draft",
+  "$defs": {
+    "access.issue.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "versionId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "subjectId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "audience": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "operation": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        }
+      },
+      "required": [
+        "resourceId",
+        "versionId",
+        "subjectId",
+        "audience",
+        "operation",
+        "purpose",
+        "expiresAt"
+      ]
+    },
+    "access.issue.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "grantId",
+        "revision"
+      ]
+    },
+    "access.revoke.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "grantId"
+      ]
+    },
+    "access.revoke.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "revoked": {
+          "const": true
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "grantId",
+        "revoked",
+        "revision"
+      ]
+    },
+    "access.check.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "operation",
+        "purpose"
+      ]
+    },
+    "access.check.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "const": true
+        },
+        "decisionRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "allowed",
+        "decisionRevision"
+      ]
+    },
+    "extraction.compute.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceReadGrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceReadGrant"
+      ]
+    },
+    "extraction.compute.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "proposalId"
+      ]
+    },
+    "extraction.get.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "proposalId"
+      ]
+    },
+    "extraction.get.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "walletId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "resourceId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "versionId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            }
+          },
+          "required": [
+            "walletId",
+            "resourceId",
+            "versionId"
+          ]
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "extractor": {
+          "const": "farmy.text-field/0.1.0"
+        },
+        "field": {
+          "const": "crop"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-z][a-z -]{0,63}$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "byteStart": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "byteEnd": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "proposalId",
+        "source",
+        "sourceSha256",
+        "extractor",
+        "field",
+        "value",
+        "quote",
+        "line",
+        "byteStart",
+        "byteEnd"
+      ]
+    },
+    "evidence.index.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "disclosureGrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "proposalId",
+        "disclosureGrant"
+      ]
+    },
+    "evidence.index.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "proposalId"
+      ]
+    },
+    "evidence.query.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "const": "crop"
+        }
+      },
+      "required": [
+        "field"
+      ]
+    },
+    "evidence.query.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "proposalId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "walletId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "resourceId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "versionId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                }
+              },
+              "required": [
+                "walletId",
+                "resourceId",
+                "versionId"
+              ]
+            },
+            "sourceSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "extractor": {
+              "const": "farmy.text-field/0.1.0"
+            },
+            "field": {
+              "const": "crop"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[a-z][a-z -]{0,63}$"
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "line": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "byteStart": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "byteEnd": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "proposalId",
+            "source",
+            "sourceSha256",
+            "extractor",
+            "field",
+            "value",
+            "quote",
+            "line",
+            "byteStart",
+            "byteEnd"
+          ]
+        }
+      },
+      "required": [
+        "evidence"
+      ]
+    },
+    "job.run.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceReadGrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "disclosureGrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "indexGrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceReadGrant",
+        "disclosureGrant",
+        "indexGrant"
+      ]
+    },
+    "job.run.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "extracted",
+            "succeeded"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "jobId",
+        "status",
+        "proposalId"
+      ]
+    },
+    "job.inspect.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "jobId"
+      ]
+    },
+    "job.inspect.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "extracted",
+            "succeeded"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "jobId",
+        "status",
+        "proposalId"
+      ]
+    }
+  }
+}

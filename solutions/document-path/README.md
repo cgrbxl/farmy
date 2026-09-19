@@ -1,6 +1,6 @@
 # Document-path solution recipe
 
-Status: design-only; not deployable.
+Status: [UC-002](uc002/README.md) implements the narrow synthetic text-to-evidence case on macOS. The broader document path, model/export steps and deployment packages remain future work.
 
 Purpose: Local Folder and S3 sources → authorised Document Processing → Knowledge → explicitly selected model → source-linked answer → controlled export.
 

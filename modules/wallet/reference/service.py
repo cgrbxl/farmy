@@ -15,6 +15,7 @@ from farmy_transport.http import Fault, PROFILE, descriptor, exchange, request, 
 
 class Wallet:
     def __init__(self, config):
+        config.setdefault('implementationVersion', '0.2.0')
         self.config = config
         os.umask(0o077)
         self.state = Path(config['state'])
@@ -31,6 +32,10 @@ class Wallet:
                 CREATE TABLE IF NOT EXISTS grants (id TEXT PRIMARY KEY, subject TEXT NOT NULL,
                     resource TEXT NOT NULL, version TEXT NOT NULL, expires REAL NOT NULL,
                     expiry_text TEXT NOT NULL, audience TEXT NOT NULL, purpose TEXT NOT NULL,
+                    revoked INTEGER NOT NULL, revision INTEGER NOT NULL, binding_revision INTEGER NOT NULL);
+                CREATE TABLE IF NOT EXISTS permissions (id TEXT PRIMARY KEY, subject TEXT NOT NULL,
+                    resource TEXT NOT NULL, version TEXT NOT NULL, audience TEXT NOT NULL,
+                    operation TEXT NOT NULL, purpose TEXT NOT NULL, expires REAL NOT NULL,
                     revoked INTEGER NOT NULL, revision INTEGER NOT NULL, binding_revision INTEGER NOT NULL);
                 CREATE TABLE IF NOT EXISTS idempotency (actor TEXT, operation TEXT, key TEXT,
                     digest TEXT NOT NULL, result TEXT NOT NULL, PRIMARY KEY(actor,operation,key));
@@ -68,6 +73,7 @@ class Wallet:
         return descriptor(self.config, 'wallet',
             {'farmy.wallet': ['resource.register', 'resource.inspect', 'resource.move',
                              'resource.update', 'grant.issue', 'grant.revoke'],
+             'farmy.permissions': ['access.issue', 'access.revoke', 'access.check'],
              'farmy.authorization': ['authorize.read']},
             {'farmy.storage': ['snapshot.capture']})
 
@@ -127,7 +133,7 @@ class Wallet:
             expires = timestamp(payload['expiresAt'])
             if not time.time() < expires <= time.time() + 3600:
                 raise Fault('invalid_request')
-            if payload['subjectId'] not in {'owner', 'reader', 'denied'}:
+            if payload['subjectId'] not in set(self.config.get('readSubjects', ['owner', 'reader', 'denied'])):
                 raise Fault('denied')
             if db.execute('SELECT 1 FROM versions WHERE id=? AND resource=?',
                           (payload['versionId'], payload['resourceId'])).fetchone() is None:
@@ -150,7 +156,52 @@ class Wallet:
                 raise Fault('conflict')
             db.execute('UPDATE grants SET revoked=1,revision=revision+1 WHERE id=?', (payload['grantId'],))
             return {'grantId': payload['grantId'], 'revoked': True, 'revision': row['revision'] + 1}
+        if operation == 'access.issue':
+            scope = {key: payload[key] for key in ('audience', 'operation', 'purpose')}
+            if (scope not in self.config.get('permissionScopes', [])
+                    or payload['subjectId'] not in set(self.config['peers'].values())):
+                raise Fault('denied')
+            expires = timestamp(payload['expiresAt'])
+            if not time.time() < expires <= time.time() + 3600:
+                raise Fault('invalid_request')
+            expected = [{'walletId': self.config['walletId'], 'resourceId': payload['resourceId'],
+                         'versionId': payload['versionId']}]
+            if body['inputRefs'] != expected:
+                raise Fault('invalid_request')
+            if db.execute('SELECT 1 FROM versions WHERE id=? AND resource=?',
+                          (payload['versionId'], payload['resourceId'])).fetchone() is None:
+                raise Fault('not_found')
+            grant = 'permission.' + uuid4().hex
+            db.execute('INSERT INTO permissions VALUES(?,?,?,?,?,?,?,?,0,1,?)',
+                       (grant, payload['subjectId'], payload['resourceId'], payload['versionId'],
+                        payload['audience'], payload['operation'], payload['purpose'], expires,
+                        self.config.get('compositionRevision', 1)))
+            return {'grantId': grant, 'revision': 1}
+        if operation == 'access.revoke':
+            row = db.execute('SELECT * FROM permissions WHERE id=?', (payload['grantId'],)).fetchone()
+            if row is None:
+                raise Fault('not_found')
+            if body['expectedRevision'] != row['revision']:
+                raise Fault('conflict')
+            db.execute('UPDATE permissions SET revoked=1,revision=revision+1 WHERE id=?', (payload['grantId'],))
+            return {'grantId': payload['grantId'], 'revoked': True, 'revision': row['revision'] + 1}
         raise Fault('unsupported')
+
+    def check_access(self, peer, body):
+        if len(body['inputRefs']) != 1:
+            raise Fault('denied')
+        ref = body['inputRefs'][0]
+        with self.db() as db:
+            row = db.execute('SELECT * FROM permissions WHERE id=?', (body['grantRef'],)).fetchone()
+            if (row is None or row['revoked'] or row['expires'] <= time.time()
+                    or row['subject'] != body['subjectId'] or row['audience'] != peer
+                    or row['operation'] != body['payload']['operation']
+                    or row['purpose'] != body['payload']['purpose']
+                    or row['resource'] != ref['resourceId'] or row['version'] != ref['versionId']
+                    or row['binding_revision'] != self.config.get('compositionRevision', 1)):
+                raise Fault('denied')
+            self.event(db, body['subjectId'], 'access.check', 'allowed', ref['resourceId'])
+            return {'allowed': True, 'decisionRevision': row['revision']}
 
     def authorize(self, peer, body):
         if peer != 'connector.local' or len(body['inputRefs']) != 1:
@@ -172,6 +223,8 @@ class Wallet:
                     'size': version['size'], 'decisionRevision': row['revision']}
 
     def handle(self, peer, body):
+        if body['operation'] == 'access.check':
+            return self.check_access(peer, body)
         if body['operation'] == 'authorize.read':
             return self.authorize(peer, body)
         if peer != 'owner' or body['subjectId'] != peer or body['grantRef'] != 'grant.owner-bootstrap':
@@ -181,10 +234,12 @@ class Wallet:
                 result = self.inspect(db, body['payload']['resourceId'])
                 self.event(db, peer, 'resource.inspect', 'succeeded', result['resourceId'])
                 return result
-        if body['operation'] not in {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}:
+        if body['operation'] not in {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke', 'access.issue', 'access.revoke'}:
             raise Fault('unsupported')
         canonical = {key: body.get(key) for key in ('operation','payload','inputRefs','expectedRevision','purpose','grantRef','subjectId')}
         canonical['bindingRevision'] = self.binding['revision']
+        if body['operation'].startswith('access.'):
+            canonical['compositionRevision'] = self.config.get('compositionRevision', 1)
         digest = hashlib.sha256(json.dumps(canonical, sort_keys=True).encode()).hexdigest()
         with self.db() as db:
             db.execute('BEGIN IMMEDIATE')
