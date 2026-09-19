@@ -25,3 +25,7 @@ Identity adapter, metadata storage, key custody/recovery and durable audit; no s
 Follow the common [integration profile](../../docs/module-integration.md), [communication/security design](../../docs/module-communication.md) and [conformance plan](../../conformance/README.md). Advertise implemented features, dependencies and limits. Missing grants, incompatible contracts and unreachable authority fail according to the public profile, not silently.
 
 Supply configuration with secret references, owned persistence/migrations, health/readiness, bounded retries/cancellation where relevant, audit and backup/restore/removal behaviour. Environment-specific mechanisms belong in [deployment profiles](../../deployments/README.md); capability meaning and permission requirements remain common. Per-target support is untested until evidence exists.
+
+## Accepted extensions
+
+[ADR 0012](../../docs/decisions/0012-source-permissions-and-wallet-complements.md) scopes ongoing-data permissions to source, owner and consumer. Observation identifiers remain evidence references, not individual approval requirements. External credential wallets complement FarmWallet through adapters; they do not automatically replace its authority role. These extensions are requirements, not implemented features.
