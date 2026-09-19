@@ -1,6 +1,6 @@
 # Capability contracts
 
-Status: a [minimum 0.1-draft foundation](v0.1-draft/README.md) now supplies schemas, examples and executable structural/declared-compatibility checks. [UC-001 operation APIs](uc001/README.md), [UC-002 extraction/evidence/permissions/job APIs](uc002/README.md), [UC-003 source/observation APIs](uc003/README.md) and their narrow runtime checks are implemented; broader capability APIs and full conformance remain future work. Earlier examples below remain illustrative.
+Status: a [minimum 0.1-draft foundation](v0.1-draft/README.md) now supplies schemas, examples and executable structural/declared-compatibility checks. [UC-001 operation APIs](uc001/README.md), [UC-002 extraction/evidence/permissions/job APIs](uc002/README.md), [UC-003 source/observation APIs](uc003/README.md), [UC-004 selected-model/answer APIs](uc004/README.md) and their narrow runtime checks are implemented; broader capability APIs and full conformance remain future work. Earlier examples below remain illustrative.
 
 The [module interaction map](../docs/module-communication.md) assigns callers, receivers, operation semantics and authority checks. It is a review draft, not a published wire API.
 

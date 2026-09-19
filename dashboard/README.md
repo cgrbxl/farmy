@@ -1,6 +1,6 @@
 # Farmy visual project guide
 
-An interactive explanation of Farmy's purpose, nine module families, capabilities, security boundaries, data flows and incremental delivery method. The progress view maps the three runnable slices to the wider architecture and distinguishes demonstrated behaviour from planned work.
+An interactive explanation of Farmy's purpose, nine module families, capabilities, security boundaries, data flows and incremental delivery method. The progress view maps the four runnable slices to the wider architecture and distinguishes demonstrated behaviour from planned work.
 
 ## Open it
 
@@ -20,13 +20,13 @@ When served over HTTP, documentation links open the public GitHub repository. Wh
 
 This is a curated documentation snapshot, not an operational control panel or live monitoring system. It calls no Farmy services and includes no external libraries, analytics or remotely loaded assets.
 
-The initial evidence baseline is commit `9cfa481`: three synthetic macOS slices, 19 foundation tests and 26 runtime acceptance tests. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
+The current evidence baseline is the UC-004 implementation revision linked in the dashboard: four synthetic macOS slices, 19 foundation tests and 36 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
 
 After accepting another slice:
 
 1. Update the slice, family participation, walkthrough and delivery queue in [data.js](data.js).
 2. Update the snapshot date and evidence revision in that file.
-3. Reconcile summary counts, test labels and deployment statements in [index.html](index.html), and the foundation test count in [app.js](app.js).
+3. Counts and test legends derive from [data.js](data.js). Reconcile narrative and deployment statements in [index.html](index.html), and update both architectural SVG diagrams when a route changes.
 4. Keep the root README and delivery backlog consistent. Use public repository evidence; private feedback is not dashboard content.
 5. Check module selection, flow navigation, method stages, command copying and mobile navigation in a browser. Check both wide and narrow layouts and documentation links.
 

@@ -1,6 +1,6 @@
 # Model access
 
-Status: family guidance; no reference runtime or stable public API is implemented yet.
+Status: [UC-004](../../solutions/assisted-answer/uc004/README.md) implements a pinned local Ollama adapter with independently authorised evidence and invocation journal. The [0.4-draft interface](../../contracts/uc004/README.md) is experimental; broader family capabilities remain unimplemented.
 
 ## Responsibility and state
 

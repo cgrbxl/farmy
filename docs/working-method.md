@@ -1,6 +1,6 @@
 # Working method: use case to running increment
 
-Status: draft for adoption. Builds on the accepted MVP approach and module families. UC-001, UC-002 and UC-003 provide runnable synthetic macOS increments; broader deployment remains future work.
+Status: draft for adoption. Builds on the accepted MVP approach and module families. UC-001, UC-002, UC-003 and UC-004 provide runnable synthetic macOS increments; broader deployment remains future work.
 
 ## Unit of delivery
 
@@ -48,6 +48,7 @@ Keep essential evidence proportionate:
 - The happy path, relevant denied action and meaningful failure/recovery behaviour for the changed boundary.
 - Owned state/migration behaviour and regression results for affected earlier cases.
 - Updated contract/implementation/solution status and known unsupported features or environments.
+- Updated [project dashboard](../dashboard/README.md): slice outcome, evidence baseline, counts, family coverage, data-flow diagrams and next queue. Dashboard and repository documentation updates are required for every completed slice, in the same delivery cycle.
 
 Mocks can help development, but a mocked external dependency cannot establish real-provider compatibility. Synthetic data is appropriate for the MVP; it does not justify omitting access checks. Persistent development storage must state its protection and limits; do not advertise suitability for private data until the required key/storage controls are verified.
 

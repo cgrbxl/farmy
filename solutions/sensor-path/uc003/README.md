@@ -52,7 +52,7 @@ Ctrl-C stops each service. Restarting with the same configuration preserves stat
 .venv/bin/python scripts/verify.py
 ```
 
-This runs all three slice suites, foundation checks, documentation checks and all three demos. Run only this slice's nine acceptance tests with:
+This runs all four slice suites, foundation checks, documentation checks and the original three demos. Add `--with-local-model` for the [UC-004 real-model demo](../../assisted-answer/uc004/README.md). Run only this slice's nine acceptance tests with:
 
 ```sh
 .venv/bin/python -m unittest discover -s conformance/uc003 -v

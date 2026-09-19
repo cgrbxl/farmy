@@ -21,6 +21,8 @@ EXTRA_SCHEMA = json.loads((ROOT / 'contracts/uc002/operations.schema.json').read
 EXTRA_OPERATIONS = json.loads((ROOT / 'contracts/uc002/operations.json').read_text())
 SENSOR_SCHEMA = json.loads((ROOT / 'contracts/uc003/operations.schema.json').read_text())
 SENSOR_OPERATIONS = json.loads((ROOT / 'contracts/uc003/operations.json').read_text())
+ANSWER_SCHEMA = json.loads((ROOT / 'contracts/uc004/operations.schema.json').read_text())
+ANSWER_OPERATIONS = json.loads((ROOT / 'contracts/uc004/operations.json').read_text())
 PROFILE = 'farmy.integration/0.1-draft'
 MAX_BYTES = 1048576
 MUTATIONS = {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}
@@ -87,6 +89,9 @@ def request(config, target, operation, payload, *, refs=None, grant='grant.owner
 
 
 def operation_spec(operation):
+    if operation in ANSWER_OPERATIONS:
+        data = ANSWER_OPERATIONS[operation]
+        return ANSWER_SCHEMA, 'uc004', '0.4-draft', data['capabilityId'], data['purpose'], data['mutation']
     if operation in SENSOR_OPERATIONS:
         data = SENSOR_OPERATIONS[operation]
         return SENSOR_SCHEMA, 'uc003', '0.3-draft', data['capabilityId'], data['purpose'], data['mutation']
@@ -112,7 +117,7 @@ def exchange(config, target, body=None, path=None):
     if parsed.scheme != 'https' or parsed.hostname != '127.0.0.1' or parsed.path not in ('', '/'):
         raise Fault('unavailable')
     connection = http.client.HTTPSConnection(parsed.hostname, parsed.port,
-                                              context=client_context(config), timeout=3)
+                                              context=client_context(config), timeout=min(55, max(0.1, endpoint.get('timeoutSeconds', 3))))
     try:
         connection.connect()
         peer = hashlib.sha256(connection.sock.getpeercert(binary_form=True)).hexdigest()

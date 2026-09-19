@@ -1,6 +1,6 @@
 # Assistance
 
-Status: family guidance; no reference runtime or stable public API is implemented yet.
+Status: [UC-004](../../solutions/assisted-answer/uc004/README.md) implements a bounded crop-answer service with independently checked citations and retained answers. The [0.4-draft interface](../../contracts/uc004/README.md) is experimental; broader family capabilities remain unimplemented.
 
 ## Responsibility and state
 

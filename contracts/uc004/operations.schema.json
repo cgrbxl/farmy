@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc004:0.4-draft",
+  "$defs": {
+    "model.invoke.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "routeId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "evidenceGrant": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "routeId",
+        "evidenceGrant"
+      ]
+    },
+    "model.invoke.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selection": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "crop": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "citationId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "crop",
+            "citationId"
+          ]
+        },
+        "route": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "routeId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "modelDigest": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "profileDigest": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "routeId",
+            "model",
+            "modelDigest",
+            "profileDigest"
+          ]
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "proposalId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "walletId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "resourceId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "versionId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                }
+              },
+              "required": [
+                "walletId",
+                "resourceId",
+                "versionId"
+              ]
+            },
+            "sourceSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "extractor": {
+              "const": "farmy.text-field/0.1.0"
+            },
+            "field": {
+              "const": "crop"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[a-z][a-z -]{0,63}$"
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "line": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "byteStart": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "byteEnd": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "proposalId",
+            "source",
+            "sourceSha256",
+            "extractor",
+            "field",
+            "value",
+            "quote",
+            "line",
+            "byteStart",
+            "byteEnd"
+          ]
+        }
+      },
+      "required": [
+        "selection",
+        "route",
+        "evidence"
+      ]
+    },
+    "answer.create.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "question": {
+          "const": "Which crop is recorded?"
+        },
+        "routeId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "knowledgeGrant": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "modelGrant": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "modelEvidenceGrant": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "question",
+        "routeId",
+        "knowledgeGrant",
+        "modelGrant",
+        "modelEvidenceGrant"
+      ]
+    },
+    "answer.create.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "answerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "citation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "proposalId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "walletId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "resourceId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                },
+                "versionId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+                }
+              },
+              "required": [
+                "walletId",
+                "resourceId",
+                "versionId"
+              ]
+            },
+            "sourceSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "extractor": {
+              "const": "farmy.text-field/0.1.0"
+            },
+            "field": {
+              "const": "crop"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[a-z][a-z -]{0,63}$"
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "line": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "byteStart": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "byteEnd": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "proposalId",
+            "source",
+            "sourceSha256",
+            "extractor",
+            "field",
+            "value",
+            "quote",
+            "line",
+            "byteStart",
+            "byteEnd"
+          ]
+        },
+        "route": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "routeId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "modelDigest": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "profileDigest": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "routeId",
+            "model",
+            "modelDigest",
+            "profileDigest"
+          ]
+        }
+      },
+      "required": [
+        "answerId",
+        "text",
+        "citation",
+        "route"
+      ]
+    }
+  }
+}

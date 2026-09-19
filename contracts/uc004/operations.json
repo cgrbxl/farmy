@@ -1,0 +1,12 @@
+{
+  "model.invoke": {
+    "capabilityId": "farmy.models",
+    "purpose": "uc004.invoke",
+    "mutation": true
+  },
+  "answer.create": {
+    "capabilityId": "farmy.assistance",
+    "purpose": "uc004.answer",
+    "mutation": true
+  }
+}
