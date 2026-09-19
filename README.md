@@ -6,6 +6,8 @@ Farmer-controlled digital memory and a composable ecosystem of agricultural inte
 
 Farmy connects information held in local folders, managed encrypted vaults and cloud stores. Farmers choose independently supplied ingestion, knowledge, model and copilot services, deciding what each may access and transmit. Services can run on a laptop, private infrastructure or provider infrastructure in the same installation.
 
+Explore the [interactive visual project guide](dashboard/README.md): architecture, capabilities, data flows and delivery progress. Open `dashboard/index.html` locally; no installation or build is needed.
+
 ## Principles
 
 - Separate control of information from its storage location.
