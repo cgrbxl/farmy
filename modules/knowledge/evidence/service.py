@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, descriptor, serve
 from farmy_transport.local import LocalService, digest
 
@@ -12,6 +13,11 @@ class Knowledge(LocalService):
                 CREATE TABLE IF NOT EXISTS requests (actor TEXT, key TEXT, input TEXT NOT NULL, result TEXT NOT NULL,
                                                     PRIMARY KEY(actor,key));'''
     dependencies = ('wallet.local', 'processing.local')
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Evidence entries', 'SELECT count(*) FROM evidence'),
+        ], self.dependencies)
 
     def descriptor(self):
         return descriptor(self.config, 'knowledge', {'farmy.knowledge': ['evidence.index', 'evidence.query']},

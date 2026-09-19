@@ -11,12 +11,13 @@ from uuid import uuid4
 
 import sources
 from bindings import resolve
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, PROFILE, descriptor, exchange, request, serve, timestamp
 
 
 class Wallet:
     def __init__(self, config):
-        config['implementationVersion'] = '0.3.0'
+        config['implementationVersion'] = '0.4.0' if config.get('monitorSubjects') else '0.3.0'
         self.config = config
         os.umask(0o077)
         self.state = Path(config['state'])
@@ -72,6 +73,16 @@ class Wallet:
             return True
         except Fault:
             return False
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Documents', 'SELECT count(*) FROM resources'),
+            ('Versions', 'SELECT count(*) FROM versions'),
+            ('Sources', 'SELECT count(*) FROM sources'),
+            ('Document grants (retained)', 'SELECT count(*) FROM grants'),
+            ('Capability grants (retained)', 'SELECT count(*) FROM permissions'),
+            ('Source grants (retained)', 'SELECT count(*) FROM source_grants'),
+        ], ('connector.local',))
 
     def descriptor(self):
         return descriptor(self.config, 'wallet',

@@ -1,6 +1,6 @@
 # Working method: use case to running increment
 
-Status: draft for adoption. Builds on the accepted MVP approach and module families. UC-001, UC-002, UC-003 and UC-004 provide runnable synthetic macOS increments; broader deployment remains future work.
+Status: draft for adoption. Builds on the accepted MVP approach and module families. UC-001 through UC-005 provide runnable synthetic macOS increments; broader deployment remains future work.
 
 ## Unit of delivery
 

@@ -14,14 +14,16 @@ steps = [
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc002', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc003', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc004', '-v'],
+    ['-m', 'unittest', 'discover', '-s', 'conformance/uc005', '-v'],
     ['conformance/foundation/check.py'],
     ['scripts/check_docs.py'],
     ['solutions/core/uc001/run.py', 'demo'],
     ['solutions/document-path/uc002/run.py', 'demo'],
     ['solutions/sensor-path/uc003/run.py', 'demo'],
+    ['solutions/operations/uc005/run.py', 'demo'],
 ]
 if args.with_local_model:
     steps.append(['solutions/assisted-answer/uc004/run.py', 'demo'])
 for step in steps:
     subprocess.run([sys.executable, *step], cwd=ROOT, check=True)
-print('All local synthetic checks and ' + ('four' if args.with_local_model else 'three (UC-004 real-model demo not requested)') + ' demos passed.')
+print('All local synthetic checks and ' + ('five' if args.with_local_model else 'four (UC-004 real-model demo not requested)') + ' demos passed.')

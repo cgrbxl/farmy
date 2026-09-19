@@ -19,7 +19,8 @@ const FARMY = {
         "UC-001",
         "UC-002",
         "UC-003",
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/wallet/README.md"
     },
@@ -39,7 +40,8 @@ const FARMY = {
         "UC-001",
         "UC-002",
         "UC-003",
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/registry/README.md"
     },
@@ -57,7 +59,8 @@ const FARMY = {
       "next": "Additional reviewed workflows, scheduling and cancellation when needed.",
       "slices": [
         "UC-002",
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/workflow/README.md"
     },
@@ -77,7 +80,8 @@ const FARMY = {
         "UC-001",
         "UC-002",
         "UC-003",
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/connectors/README.md"
     },
@@ -95,7 +99,8 @@ const FARMY = {
       "next": "More formats and specialised computations under explicit contracts.",
       "slices": [
         "UC-002",
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/processing/README.md"
     },
@@ -113,7 +118,8 @@ const FARMY = {
       "next": "Richer retrieval, index removal/rebuild and independent alternatives.",
       "slices": [
         "UC-002",
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/knowledge/README.md"
     },
@@ -130,7 +136,8 @@ const FARMY = {
       "now": "One pinned local Ollama model route, independently authorised evidence and a durable invocation journal.",
       "next": "Additional approved providers, richer model features and runtime isolation.",
       "slices": [
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/model-access/README.md"
     },
@@ -147,7 +154,8 @@ const FARMY = {
       "now": "One crop question with a validated source citation; retained answers remain subject to current permissions.",
       "next": "Broader questions with explicit evidence and validation semantics.",
       "slices": [
-        "UC-004"
+        "UC-004",
+        "UC-005"
       ],
       "doc": "modules/assistance/README.md"
     },
@@ -263,6 +271,33 @@ const FARMY = {
       "lesson": "Model output remains untrusted until checked; reading evidence does not authorise every model destination.",
       "services": "7 services + Ollama",
       "scope": "One question · synthetic crop evidence · local Qwen"
+    },
+    {
+      "id": "UC-005",
+      "title": "The installation, in view",
+      "label": "Live operations",
+      "tests": 9,
+      "families": [
+        "wallet",
+        "registry",
+        "workflow",
+        "connectors",
+        "processing",
+        "knowledge",
+        "model-access",
+        "assistance"
+      ],
+      "path": "solutions/operations/uc005/README.md",
+      "command": ".venv/bin/python solutions/operations/uc005/run.py launch",
+      "outcome": "Inspect eight running module instances, their declared dependencies, actual content counts and recent service outcomes.",
+      "proof": [
+        "Dedicated monitoring identity; no raw-content or write rights",
+        "Unavailable and denied summaries never appear as fresh counts",
+        "Closing the browser or bridge leaves independent modules running"
+      ],
+      "lesson": "Observability belongs at each service boundary. A client can compose the view without reading private databases.",
+      "services": "8 services + UI bridge",
+      "scope": "Read-only metadata · synthetic local installation"
     }
   ],
   "queue": [
@@ -478,6 +513,52 @@ const FARMY = {
         ],
         "text": "Replay rechecks permissions and returns a completed answer without another inference. An interrupted or uncertain model call requires an explicit new attempt.",
         "check": "Revocation blocks replay; already authorised in-flight prompts cannot be recalled."
+      }
+    ],
+    "UC-005": [
+      {
+        "title": "Compose the installation",
+        "actors": [
+          "registry",
+          "wallet",
+          "connectors"
+        ],
+        "text": "Bootstrap explicit module instances and a dedicated monitoring certificate. Registry remains a binding-file adapter; Exchange is not deployed.",
+        "check": "No automatic discovery or inferred permission."
+      },
+      {
+        "title": "Inspect public service boundaries",
+        "actors": [
+          "wallet",
+          "connectors",
+          "processing",
+          "workflow",
+          "knowledge",
+          "model-access",
+          "assistance"
+        ],
+        "text": "Each receiver authenticates the monitor and checks its local summary allowlist. It reads only its own state and returns counts and six recent outcomes.",
+        "check": "Ordinary readers and unconfigured monitors are denied."
+      },
+      {
+        "title": "Visualise contents and connections",
+        "actors": [
+          "knowledge",
+          "workflow",
+          "model-access",
+          "assistance"
+        ],
+        "text": "The browser bridge combines summaries, service versions and readiness checks. A selected module shows its actual counts, with no raw farm content.",
+        "check": "Dependency arrows are declared connections, not measured traffic."
+      },
+      {
+        "title": "Handle missing or stale information",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "A stopped module loses its counts in the view. An unavailable bridge hides the snapshot. Old observations are marked stale rather than silently refreshed.",
+        "check": "Unknown is never displayed as zero or healthy."
       }
     ]
   },

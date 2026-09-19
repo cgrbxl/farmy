@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:monitoring:0.5-draft",
+  "$defs": {
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instanceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dependencies": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "counts": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "label",
+              "value"
+            ]
+          }
+        },
+        "activity": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "at": {
+                "type": "number"
+              },
+              "event": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "outcome": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              }
+            },
+            "required": [
+              "at",
+              "event",
+              "outcome"
+            ]
+          }
+        }
+      },
+      "required": [
+        "instanceId",
+        "observedAt",
+        "dependencies",
+        "counts",
+        "activity"
+      ]
+    }
+  }
+}

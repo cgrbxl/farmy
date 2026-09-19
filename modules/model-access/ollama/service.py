@@ -6,6 +6,7 @@ from pathlib import Path
 import time
 from urllib.parse import urlsplit
 
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, descriptor, serve, strict_json, timestamp
 from farmy_transport.local import LocalService, digest
 
@@ -45,6 +46,13 @@ class ModelAccess(LocalService):
                 (actor TEXT, key TEXT, input TEXT NOT NULL, result TEXT,
                  PRIMARY KEY(actor,key));'''
     dependencies = ('wallet.local', 'knowledge.local')
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Model invocations', 'SELECT count(*) FROM invocations'),
+            ('Validated invocations', 'SELECT count(*) FROM invocations WHERE result IS NOT NULL'),
+            ('Unresolved invocations', 'SELECT count(*) FROM invocations WHERE result IS NULL'),
+        ], self.dependencies)
 
     def descriptor(self):
         return descriptor(self.config, 'model-access', {'farmy.models': ['model.invoke']},

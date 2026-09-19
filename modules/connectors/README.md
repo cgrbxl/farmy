@@ -29,3 +29,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Synthetic source reference
 
 [UC-003](../../solutions/sensor-path/uc003/README.md) adds a separate Synthetic Sensor Connector with immutable source membership, bounded temperature observations and traceable releases under source/owner/consumer permission. The Local Folder Connector implementation is unchanged. No physical device provider is supported by this slice.
+
+## Operational monitoring
+
+[UC-005](../../solutions/operations/uc005/README.md) adds an optional, receiver-authorised [summary API](../../contracts/uc005/README.md). This implementation owns its count queries and exposes only metadata/recent outcomes to an explicitly enrolled monitor. Existing compositions keep monitoring disabled; no private database is shared.

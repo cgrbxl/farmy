@@ -23,6 +23,7 @@ SENSOR_SCHEMA = json.loads((ROOT / 'contracts/uc003/operations.schema.json').rea
 SENSOR_OPERATIONS = json.loads((ROOT / 'contracts/uc003/operations.json').read_text())
 ANSWER_SCHEMA = json.loads((ROOT / 'contracts/uc004/operations.schema.json').read_text())
 ANSWER_OPERATIONS = json.loads((ROOT / 'contracts/uc004/operations.json').read_text())
+MONITOR_SCHEMA = json.loads((ROOT / 'contracts/uc005/monitoring.schema.json').read_text())
 PROFILE = 'farmy.integration/0.1-draft'
 MAX_BYTES = 1048576
 MUTATIONS = {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}
@@ -89,6 +90,8 @@ def request(config, target, operation, payload, *, refs=None, grant='grant.owner
 
 
 def operation_spec(operation):
+    if operation == 'monitor.summary':
+        return MONITOR_SCHEMA, 'uc005', '0.5-draft', 'farmy.monitoring', 'uc005.inspect', False
     if operation in ANSWER_OPERATIONS:
         data = ANSWER_OPERATIONS[operation]
         return ANSWER_SCHEMA, 'uc004', '0.4-draft', data['capabilityId'], data['purpose'], data['mutation']
@@ -237,6 +240,13 @@ class Handler(BaseHTTPRequestHandler):
             if peer is None:
                 raise Fault('unauthenticated')
             if self.command == 'GET':
+                if self.path == '/farmy/v0/monitor/summary':
+                    if peer not in config.get('monitorSubjects', []):
+                        raise Fault('denied')
+                    result = self.server.app.monitoring_summary()
+                    schema_check(MONITOR_SCHEMA, 'summary', result)
+                    self.send(200, result)
+                    return
                 if self.path in ('/farmy/v0/health/live', '/farmy/v0/health/ready') and peer in config['operators']:
                     ready = self.path.endswith('/live') or self.server.app.ready()
                     self.send(200 if ready else 503, {'status': 'ready' if ready else 'degraded'})
@@ -335,6 +345,8 @@ def descriptor(config, family, capabilities, dependencies):
                 item['contractVersion'] = version
                 result.append(item)
         return result
+    if config.get('monitorSubjects'):
+        capabilities = dict(capabilities, **{'farmy.monitoring': ['monitor.summary']})
     module = {'profile': PROFILE, 'implementationId': implementation, 'implementationVersion': config.get('implementationVersion', '0.1.0'),
               'family': family, 'capabilities': declarations(capabilities),
               'dependencies': [dict(item, required=True) for item in declarations(dependencies)],

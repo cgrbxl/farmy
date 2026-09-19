@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, descriptor, serve
 from farmy_transport.local import LocalService, digest
 
@@ -39,6 +40,11 @@ class Processing(LocalService):
                 CREATE TABLE IF NOT EXISTS requests (actor TEXT, key TEXT, input TEXT NOT NULL, proposal TEXT NOT NULL,
                                                     PRIMARY KEY(actor,key));'''
     dependencies = ('wallet.local', 'connector.local')
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Extraction proposals', 'SELECT count(*) FROM proposals'),
+        ], self.dependencies)
 
     def descriptor(self):
         return descriptor(self.config, 'processing', {'farmy.processing': ['extraction.compute', 'extraction.get']},

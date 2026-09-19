@@ -67,8 +67,8 @@
 <path class="live" d="M755 715h95"/><text x="802" y="705" text-anchor="middle" class="small">result</text>
 <path class="future" d="M1005 750v40H195v-40"/><text x="600" y="781" text-anchor="middle" class="small">Proposed disclosure — approval remains independent of model output</text>
 <path class="future" d="M100 750v90"/><text x="40" y="866" class="small">Approved recipient (external)</text>
-<text x="457" y="866" class="small">Trusted loopback dependency (UC-004)</text>
-<text x="600" y="821" text-anchor="middle" class="small">Model access → local Ollama over HTTP</text>
+<text x="457" y="866" class="small">Ollama: trusted loopback HTTP dependency</text>
+<text x="600" y="821" text-anchor="middle" class="small">UC-005: read-only monitoring across services</text>
 <text x="840" y="831" class="small">Solid green: exercised content path</text>
 <text x="840" y="853" class="small">Dashed copper: planned content path</text>
 <text x="840" y="875" class="small">Dotted grey: shared control contracts</text>

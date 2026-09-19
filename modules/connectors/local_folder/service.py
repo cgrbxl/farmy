@@ -10,6 +10,7 @@ import stat
 import tempfile
 import time
 
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, MAX_BYTES, PROFILE, descriptor, exchange, request, serve, timestamp
 
 
@@ -90,6 +91,12 @@ class Connector:
     def failure(self, actor, code):
         with self.db() as db:
             self.event(db, actor, 'request', code)
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Snapshots', 'SELECT count(*) FROM snapshots'),
+            ('Snapshot bytes', 'SELECT coalesce(sum(size),0) FROM snapshots'),
+        ], ('wallet.local',))
 
     def descriptor(self):
         return descriptor(self.config, 'connectors',

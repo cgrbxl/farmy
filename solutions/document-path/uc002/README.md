@@ -58,7 +58,7 @@ Certificates expire after two days. Use a new empty development directory after 
 .venv/bin/python scripts/verify.py
 ```
 
-This runs the 19 foundation tests, eight UC-001 tests, nine UC-002 tests, nine UC-003 tests, ten UC-004 fault-injection tests, structural fixture checks, documentation checks and the original three demos. Add `--with-local-model` for the [UC-004 real-model demo](../../assisted-answer/uc004/README.md). Individual new acceptance tests:
+This runs the 19 foundation tests, eight UC-001 tests, nine UC-002 tests, nine UC-003 tests, ten UC-004 fault-injection tests, nine UC-005 monitoring tests, structural fixture checks, documentation checks and four model-independent demos. Add `--with-local-model` for the [UC-004 real-model demo](../../assisted-answer/uc004/README.md). Individual new acceptance tests:
 
 ```sh
 .venv/bin/python -m unittest discover -s conformance/uc002 -v

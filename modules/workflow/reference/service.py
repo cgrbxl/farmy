@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import threading
 
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, descriptor, serve
 from farmy_transport.local import LocalService, digest
 
@@ -16,6 +17,13 @@ class Workflow(LocalService):
     def __init__(self, config):
         super().__init__(config)
         self.lock = threading.Lock()
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Jobs', 'SELECT count(*) FROM jobs'),
+            ('Succeeded jobs', "SELECT count(*) FROM jobs WHERE status='succeeded'"),
+            ('Incomplete jobs', "SELECT count(*) FROM jobs WHERE status!='succeeded'"),
+        ], self.dependencies)
 
     def descriptor(self):
         return descriptor(self.config, 'workflow', {'farmy.workflow': ['job.run', 'job.inspect']},

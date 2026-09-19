@@ -1,0 +1,48 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Farmy read-only monitoring",
+    "version": "0.5-draft"
+  },
+  "security": [
+    {
+      "mutualTLS": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "mutualTLS": {
+        "type": "mutualTLS"
+      }
+    }
+  },
+  "paths": {
+    "/farmy/v0/monitor/summary": {
+      "get": {
+        "operationId": "monitor.summary",
+        "description": "Authenticated identity must be explicitly included in the receiver monitorSubjects allowlist.",
+        "responses": {
+          "200": {
+            "description": "Service-private state summary; no raw content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./monitoring.schema.json#/$defs/summary"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Monitoring identity not authorised"
+          },
+          "401": {
+            "description": "Identity not enrolled"
+          },
+          "500": {
+            "description": "Summary unavailable; no partial result"
+          }
+        }
+      }
+    }
+  }
+}

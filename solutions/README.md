@@ -4,6 +4,7 @@ Status: broad solution recipes plus runnable synthetic macOS increments. Product
 
 | Recipe | Purpose | Current state |
 | --- | --- | --- |
+| [Operations](operations/README.md) | Live read-only installation inventory, contents and monitoring | [UC-005 operational dashboard](operations/uc005/README.md) |
 | [Core](core/README.md) | Resource authority and composition with a useful source connector | [UC-001 development demo](core/uc001/README.md) |
 | [Assisted answer](assisted-answer/README.md) | Permission-checked local model answer with exact citation | [UC-004 development demo](assisted-answer/uc004/README.md) |
 | [Sensor path](sensor-path/README.md) | Source-scoped observations and traceable releases | [UC-003 development demo](sensor-path/uc003/README.md) |

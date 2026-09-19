@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from uuid import uuid4
 
+from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, descriptor, serve, utc
 from farmy_transport.local import LocalService, digest
 
@@ -17,6 +18,13 @@ class Sensor(LocalService):
         CREATE TABLE IF NOT EXISTS deliveries (id TEXT PRIMARY KEY, source TEXT NOT NULL, receipt TEXT NOT NULL);
     '''
     dependencies = ('wallet.local',)
+
+    def monitoring_summary(self):
+        return summarize(self, [
+            ('Observations', 'SELECT count(*) FROM observations'),
+            ('Sources with observations', 'SELECT count(DISTINCT source) FROM observations'),
+            ('Release records', 'SELECT count(*) FROM deliveries'),
+        ], self.dependencies)
 
     def descriptor(self):
         return descriptor(self.config, 'connectors',

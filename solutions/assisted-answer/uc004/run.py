@@ -31,7 +31,8 @@ SCOPES = previous.SCOPES + [
     {'audience': 'assistance.local', 'operation': 'answer.create', 'purpose': 'uc004.answer'}]
 
 
-def bootstrap(directory, model=MODEL, endpoint=ENDPOINT, profile=None):
+def bootstrap(directory, model=MODEL, endpoint=ENDPOINT, profile=None, services=None):
+    services = SERVICES if services is None else services
     if profile is None:
         profile = {'routeId': ROUTE, 'model': model, 'endpoint': endpoint}
         available = adapter.ollama(profile, '/api/tags')
@@ -39,9 +40,9 @@ def bootstrap(directory, model=MODEL, endpoint=ENDPOINT, profile=None):
         if len(matches) != 1:
             raise ValueError('The explicitly selected local model must already be installed; no automatic download or fallback.')
         profile.update(modelDigest=matches[0]['digest'])
-    directory = core.bootstrap(directory, SERVICES)
+    directory = core.bootstrap(directory, services)
     (directory / 'source/report.txt').write_bytes(previous.REPORT)
-    for identity in [*SERVICES, 'owner', 'reader', 'denied', 'unknown']:
+    for identity in [*services, 'owner', 'reader', 'denied', 'unknown']:
         path = directory / (identity + '.json')
         config = json.loads(path.read_text())
         config.update(environmentId='environment.uc004-local', bootstrapProfile='uc004.bootstrap', compositionRevision=1)
