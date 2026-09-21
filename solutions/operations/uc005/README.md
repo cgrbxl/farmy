@@ -61,7 +61,7 @@ Stopping this `dashboard` process leaves modules alive. Restarting it reuses its
 
 Eleven UC-005 tests verify real contents, receiver-enforced monitoring policy, a monitor unable to mutate/read raw data, browser token/Host/Origin restrictions, static-file containment, outages/recovery, access removal, fresh counts and independent bridge shutdown, port-conflict fallback and propagation of other binding errors. The last command retains all earlier checks and runs all five demos with local Qwen. Without its model flag, the verification runner executes all suites and four demos without requiring Ollama.
 
-Implementation revision: [`47ff0f2`](https://github.com/cgrbxl/farmy/commit/47ff0f2). Tested on macOS 26.6.2 arm64 / Python 3.14.6. The original baseline contains 64 tests (19 foundation + 45 slice tests). The port-conflict fix adds two regression checks, bringing the repository total to 66; all 11 UC-005 checks were rerun successfully. This is not Windows/Linux/Kubernetes validation.
+Implementation revision: [`47ff0f2`](https://github.com/cgrbxl/farmy/commit/47ff0f2). Tested on macOS 26.6.2 arm64 / Python 3.14.6. The original baseline contains 64 tests (19 foundation + 45 slice tests). The [port-conflict fix](https://github.com/cgrbxl/farmy/commit/0d366bd) adds two regression checks, bringing the repository total to 66; all 11 UC-005 checks were rerun successfully. This is not Windows/Linux/Kubernetes validation.
 
 ## Security and module impact
 
