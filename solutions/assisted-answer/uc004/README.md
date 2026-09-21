@@ -23,7 +23,7 @@ For repeatable fault injection without an installed model:
 .venv/bin/python -m unittest discover -s conformance/uc004 -v
 ```
 
-Those ten tests use a controlled Ollama-shaped HTTP double and real Farmy services. They establish security/recovery behaviour, not provider compatibility. The real-model demo establishes the latter separately. `scripts/verify.py` without the flag now runs all 64 tests and four model-independent demos without requiring Ollama.
+Those ten tests use a controlled Ollama-shaped HTTP double and real Farmy services. They establish security/recovery behaviour, not provider compatibility. The real-model demo establishes the latter separately. `scripts/verify.py` without the flag now runs all 80 tests and five model-independent demos without requiring Ollama.
 
 ## Compose independently
 

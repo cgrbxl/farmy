@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 370" role="img" aria-labelledby="title desc">
-<title id="title">Two implemented information paths share Wallet authority</title><desc id="desc">The document path connects Local Folder to Processing and Knowledge. The observation path connects Synthetic Sensor to a consumer. Dotted lines represent Wallet authorisation. A local model answer is verified; export remains planned.</desc>
+<title id="title">Two implemented information paths share Wallet authority</title><desc id="desc">The document path connects Local Folder to Processing and Knowledge. The observation path connects Synthetic Sensor to a consumer. Dotted lines represent Wallet authorisation. A local model answer is verified; exact-source export is verified in a separate UC-006 composition.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m0 0 10 5L0 10Z" fill="#759167"/></marker></defs>
 <rect x="22" y="100" width="770" height="234" rx="16" fill="#edf1e5"/>
 <text x="43" y="126" font-family="sans-serif" font-size="10" fill="#6f8266" letter-spacing="1">IMPLEMENTED REFERENCE PATHS</text>
@@ -17,7 +17,7 @@
 <path d="M238 280h93" stroke="#759167" stroke-width="2" marker-end="url(#arrow)"/><text x="282" y="267" font-size="9" fill="#72816a" text-anchor="middle">source grant</text>
 <path d="M28 181v-91h320M28 181v100h20" fill="none" stroke="#90a77b" stroke-width="1.6" stroke-dasharray="4 5"/>
 <text x="592" y="275" font-size="11" fill="#506b45">Workflow coordinates</text><text x="592" y="291" font-size="11" fill="#506b45">the extraction/indexing job.</text>
-<rect x="833" y="146" width="186" height="164" rx="12" fill="#f5f2e9" stroke="#c7c0ae" stroke-dasharray="5 5"/><text x="926" y="173" font-size="10" letter-spacing="1" fill="#8d7e61" text-anchor="middle">ANSWER &amp; EXPORT</text><text x="926" y="210" font-size="14" fill="#665d4c" text-anchor="middle">Model-assisted answers</text><text x="926" y="235" font-size="11" fill="#8d7e61" text-anchor="middle">Local Qwen verified</text><text x="926" y="280" font-size="14" fill="#665d4c" text-anchor="middle">Export · planned</text>
+<rect x="833" y="146" width="186" height="164" rx="12" fill="#edf1e5" stroke="#cdd9c0"/><text x="926" y="173" font-size="10" letter-spacing="1" fill="#8d7e61" text-anchor="middle">ANSWER &amp; EXPORT</text><text x="926" y="210" font-size="14" fill="#665d4c" text-anchor="middle">Model-assisted answers</text><text x="926" y="235" font-size="11" fill="#8d7e61" text-anchor="middle">Local Qwen verified</text><text x="926" y="280" font-size="11" fill="#665d4c" text-anchor="middle">Exact-source export verified</text>
 <path d="M765 182h57" stroke="#759167" stroke-width="2" marker-end="url(#arrow)"/>
 <text x="23" y="356" font-size="10" fill="#7e8975">Arrows show content direction, not every HTTP request. Each receiving service enforces its own boundary.</text>
 </g></svg>

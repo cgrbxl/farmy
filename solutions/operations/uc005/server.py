@@ -66,7 +66,11 @@ def snapshot(config):
         nodes = list(pool.map(lambda item: inspect(config, *item), config['inventory'].items()))
     return {'observedAt': utc(), 'environment': 'Synthetic local development', 'nodes': nodes,
             'adapters': [{'family': 'registry', 'name': 'Registry binding-file adapter', 'status': 'configuration only'}],
-            'planned': [{'family': 'exchange', 'name': 'Exchange', 'status': 'not deployed'}]}
+            'planned': [{'family': family, 'name': name, 'status': 'not deployed'}
+                        for family, name in [('exchange', 'Exchange'), ('workflow', 'Workflow'),
+                            ('processing', 'Processing'), ('knowledge', 'Knowledge'),
+                            ('model-access', 'Model access'), ('assistance', 'Assistance')]
+                        if family not in {n['family'] for n in nodes}]}
 
 
 class Server(ThreadingHTTPServer):

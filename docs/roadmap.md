@@ -1,6 +1,6 @@
 # Roadmap
 
-Five synthetic macOS slices now cover controlled memory, exact-source evidence, source permissions, a cited local-model answer and live operational monitoring. See the [delivery queue](delivery-backlog.md) for runnable evidence. Broader runtime and deployment conformance remains pending.
+Six synthetic macOS slices now cover controlled memory, exact-source evidence, source permissions, a cited local-model answer and live operational monitoring and controlled exact-document disclosure. See the [delivery queue](delivery-backlog.md) for runnable evidence. Broader runtime and deployment conformance remains pending.
 
 ## M0 — Architecture repository (this baseline)
 
@@ -8,13 +8,13 @@ Document vision, service boundaries, trust, composition, examples, decision proc
 
 ## Current priority — Continue vertical delivery
 
-Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is the next queued outcome. The clarified [core concepts](core-concepts.md) guide future acceptance cases without changing that order.
+Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is demonstrated in UC-006; a real S3 source is the next queued outcome. The clarified [core concepts](core-concepts.md) guide future acceptance cases without changing that order.
 
 A [future interactive track](interactive-modules.md) adds AI configuration, document-claim issuance, holder-signed presentation and external verification through interfaces or QR requests, followed by contribution chains and other family interactions. These are candidate vertical increments, not current dashboard features or a change to the next queued outcome.
 
 The milestones below are outcome areas, not waterfall phases. Contract, implementation, security and conformance work happen together inside each use-case increment; M1 does not need to be complete for all families before M2 begins. Platform-specific packaging follows working module needs, while a reproducible local run is part of every slice.
 
-The repository organisation is in place. UC-001 through UC-005 establish a narrow working local composition; deployment profiles and broader solution recipes remain documentation scaffolds.
+The repository organisation is in place. UC-001 through UC-006 establish a narrow working local composition; deployment profiles and broader solution recipes remain documentation scaffolds.
 
 ## M1 — Contract foundation
 

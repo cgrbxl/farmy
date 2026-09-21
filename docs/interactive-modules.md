@@ -1,6 +1,6 @@
 # Gradual interactive module interfaces
 
-Status: future backlog, not implemented functionality. UC-005 remains a read-only monitor. These increments extend the [delivery queue](delivery-backlog.md) as use cases justify them; controlled disclosure remains the next queued outcome. Candidate IDs below are planning references, not delivered slice numbers.
+Status: future backlog, not implemented functionality. UC-005 remains a read-only monitor. These increments extend the [delivery queue](delivery-backlog.md) as use cases justify them; UC-006 now supplies the controlled-disclosure prerequisite; a real S3 source remains next in the delivery queue. Candidate IDs below are planning references, not delivered slice numbers.
 
 ## Build one interaction at a time
 

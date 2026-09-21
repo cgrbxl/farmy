@@ -1,6 +1,6 @@
 # Three concepts brought together in Farmy
 
-Status: accepted product direction, clarified by the maintainer on 2026-09-21. The five runnable slices establish a narrow local foundation; they do **not** yet implement runtime-generated source interfaces, federated data-space governance or credential trust networks. This document describes where Farmy is going, not additional completed features. See [ADR 0013](decisions/0013-adaptive-federated-trust.md).
+Status: accepted product direction, clarified by the maintainer on 2026-09-21. The six runnable slices establish a narrow local foundation; they do **not** yet implement runtime-generated source interfaces, federated data-space governance or credential trust networks. This document describes where Farmy is going, not additional completed features. See [ADR 0013](decisions/0013-adaptive-federated-trust.md).
 
 Farmy brings together **AI-enabled adaptability**, **independently governed data sources** and **wallet-based networks of trust**. These reinforce one another: AI helps connect a new source; that source retains authority over its disclosure; signed claims make the origin and contributions to its information assessable by other participants. None of these requires all data or all authority to move into a central Farmy installation.
 

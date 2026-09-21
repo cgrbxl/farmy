@@ -24,6 +24,8 @@ SENSOR_OPERATIONS = json.loads((ROOT / 'contracts/uc003/operations.json').read_t
 ANSWER_SCHEMA = json.loads((ROOT / 'contracts/uc004/operations.schema.json').read_text())
 ANSWER_OPERATIONS = json.loads((ROOT / 'contracts/uc004/operations.json').read_text())
 MONITOR_SCHEMA = json.loads((ROOT / 'contracts/uc005/monitoring.schema.json').read_text())
+DISCLOSURE_SCHEMA = json.loads((ROOT / 'contracts/uc006/operations.schema.json').read_text())
+DISCLOSURE_OPERATIONS = json.loads((ROOT / 'contracts/uc006/operations.json').read_text())
 PROFILE = 'farmy.integration/0.1-draft'
 MAX_BYTES = 1048576
 MUTATIONS = {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}
@@ -90,6 +92,9 @@ def request(config, target, operation, payload, *, refs=None, grant='grant.owner
 
 
 def operation_spec(operation):
+    if operation in DISCLOSURE_OPERATIONS:
+        data = DISCLOSURE_OPERATIONS[operation]
+        return DISCLOSURE_SCHEMA, 'uc006', '0.6-draft', data['capabilityId'], data['purpose'], data['mutation']
     if operation == 'monitor.summary':
         return MONITOR_SCHEMA, 'uc005', '0.5-draft', 'farmy.monitoring', 'uc005.inspect', False
     if operation in ANSWER_OPERATIONS:

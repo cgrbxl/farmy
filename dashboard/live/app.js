@@ -5,9 +5,6 @@ let token = sessionStorage.getItem('farmyMonitorToken') || '';
 const incoming = new URLSearchParams(location.hash.slice(1)).get('access');
 if (incoming) { token = incoming; sessionStorage.setItem('farmyMonitorToken',token); history.replaceState(null,'',location.pathname); }
 let state = null, selected = 'wallet.local', busy = false, timer, lastSuccess = 0;
-const positions = {'wallet.local':[350,20], 'workflow.local':[690,20], 'connector.local':[35,160],
-  'processing.local':[350,160], 'knowledge.local':[665,160], 'sensor.local':[35,310],
-  'model.local':[350,310], 'assistance.local':[665,310]};
 function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}
 function shape(tag,attrs,text){const e=document.createElementNS(svgNS,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);if(text)e.textContent=text;return e;}
 function choose(id,scroll=false){selected=id;render();if(scroll)$('#detail').scrollIntoView({behavior:'smooth',block:'nearest'});}
@@ -16,6 +13,11 @@ function render(){
   const focused=document.activeElement;
   const focusId=focused?.getAttribute('data-instance'),focusArea=focused?.closest('#network')?'#network':'#inventory';
   const nodes=state.nodes;
+  const positions=Object.fromEntries(nodes.map((n,i)=>[n.instanceId,[35+(i%3)*315,20+Math.floor(i/3)*145]]));
+  $('#network').setAttribute('viewBox',`0 0 920 ${Math.max(200,Math.ceil(nodes.length/3)*145+40)}`);
+  const other=$('#nonservices');other.replaceChildren();
+  for(const item of [...state.adapters,...state.planned]){const card=el('div');card.append(el('strong',item.name),el('span',item.status));other.append(card);}
+
   $('#total').textContent=nodes.length;
   $('#available').textContent=nodes.filter(n=>n.status==='available').length;
   $('#degraded').textContent=nodes.filter(n=>n.status!=='available'||n.summaryStatus!=='available').length;
@@ -28,7 +30,7 @@ function render(){
     const ax=a[0]+105,ay=a[1]+35,bx=b[0]+105,by=b[1]+35,dx=bx-ax,dy=by-ay;
     const scale=1/Math.max(Math.abs(dx)/118,Math.abs(dy)/45);
     const endX=bx-dx*scale,endY=by-dy*scale;
-    const path=Math.abs(dx)<1&&Math.abs(dy)>200?`M${ax} ${ay}H${a[0]-30}V${by}H${b[0]}`:`M${ax} ${ay}L${endX} ${endY}`;
+    const path=Math.abs(dy)<1&&Math.abs(dx)>400?`M${ax} ${ay+41}V${ay+100}H${bx}V${by+45}`:Math.abs(dx)<1&&Math.abs(dy)>200?`M${ax} ${ay}H${a[0]-30}V${by}H${b[0]}`:`M${ax} ${ay}L${endX} ${endY}`;
     svg.append(shape('path',{d:path,class:'edge','marker-end':'url(#arrow)'}));
   }}
   for(const node of nodes){const pos=positions[node.instanceId];if(!pos)continue;
@@ -40,11 +42,12 @@ function render(){
   if(focusId)document.querySelector(`${focusArea} [data-instance="${CSS.escape(focusId)}"]`)?.focus({preventScroll:true});
   const node=nodes.find(n=>n.instanceId===selected)||nodes[0],detail=$('#detail');detail.replaceChildren();
   detail.append(el('span',node.family.toUpperCase(),'eyebrow'),el('h2',node.name),el('p',`${node.status} · ${node.instanceId}`),el('p',node.endpoint),el('p',`Last checked: ${new Date(node.observedAt).toLocaleTimeString()}`));
+  if(node.dependencies.length)detail.append(el('p','Declared dependencies: '+node.dependencies.map(id=>id+(nodes.some(n=>n.instanceId===id)?'':' (outside monitored inventory)')).join(', ')));
   if(node.summaryStatus!=='available'){detail.append(el('h3','Contents unavailable'),el('p',`Summary access: ${node.summaryStatus}. No previous counts are shown.`));return;}
   const metrics=el('div',undefined,'metrics');for(const count of node.counts){const card=el('div',undefined,'metric');card.append(el('strong',count.value.toLocaleString()),el('span',count.label));metrics.append(card);}detail.append(metrics,el('h3','Recent activity'));
   const activity=el('ul',undefined,'activity');for(const event of node.activity){const row=el('li');row.append(el('time',new Date(event.at*1000).toLocaleTimeString()),el('b',event.event+' · '+event.outcome));activity.append(row);}if(!node.activity.length)activity.append(el('li','No recorded activity.'));detail.append(activity,el('p','Latest six recorded outcomes; monitoring is not a complete audit viewer.'));
 }
-function clear(message){state=null;document.body.classList.add('stale');$('#notice').hidden=false;$('#notice').textContent=message;for(const id of ['total','available','degraded','summaries'])$('#'+id).textContent='—';$('#network').replaceChildren();$('#inventory').replaceChildren();$('#detail').replaceChildren(el('h2','Snapshot unavailable'),el('p','Counts are hidden until an authorised refresh succeeds.'));}
+function clear(message){state=null;document.body.classList.add('stale');$('#notice').hidden=false;$('#notice').textContent=message;for(const id of ['total','available','degraded','summaries'])$('#'+id).textContent='—';$('#network').replaceChildren();$('#nonservices').replaceChildren();$('#inventory').replaceChildren();$('#detail').replaceChildren(el('h2','Snapshot unavailable'),el('p','Counts are hidden until an authorised refresh succeeds.'));}
 async function refresh(){
   clearTimeout(timer);if(busy)return;if(!token){$('#login').hidden=false;return;}
   busy=true;$('#refresh').disabled=true;$('#freshness').textContent='Checking each service…';

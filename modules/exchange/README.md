@@ -1,6 +1,6 @@
 # Exchange
 
-Status: family guidance; no reference runtime or stable public API is implemented yet.
+Status: [UC-006](../../solutions/disclosure/uc006/README.md) implements a narrow exact-document disclosure runtime with immutable preview/approval, current permission checks and durable receipt recovery. Its [0.6-draft contract](../../contracts/uc006/README.md) is experimental; broader recipient protocols remain future work.
 
 ## Responsibility and state
 
@@ -33,3 +33,7 @@ Exchange supports the target data-space model by preserving source conditions, d
 ## Future interactive modes
 
 See the [interactive module backlog](../../docs/interactive-modules.md) for staged user interfaces, family ownership and acceptance criteria. These modes are planned; the current monitoring interface remains read-only.
+
+## Operational monitoring
+
+UC-006 exposes receiver-authorised counts for prepared, approved, acknowledged and unconfirmed disclosures through the existing read-only summary contract. The monitoring identity cannot approve or deliver. Private document bytes and recipient stores are never queried by the bridge.

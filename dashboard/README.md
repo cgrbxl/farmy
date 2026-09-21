@@ -1,6 +1,6 @@
 # Farmy visual project guide
 
-An interactive explanation of Farmy's purpose, nine module families, capabilities, security boundaries, data flows and incremental delivery method. The progress view maps the five runnable slices to the wider architecture and distinguishes demonstrated behaviour from planned work.
+An interactive explanation of Farmy's purpose, nine module families, capabilities, security boundaries, data flows and incremental delivery method. The progress view maps the six runnable slices to the wider architecture and distinguishes demonstrated behaviour from planned work.
 
 ## Open it
 
@@ -20,7 +20,7 @@ When served over HTTP, documentation links open the public GitHub repository. Wh
 
 This is a curated documentation snapshot, not an operational control panel or live monitoring system. It calls no Farmy services and includes no external libraries, analytics or remotely loaded assets.
 
-The current evidence baseline is the UC-005 implementation revision linked in the dashboard: five synthetic macOS slices, 19 foundation tests and 47 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
+The current evidence baseline is the UC-006 implementation revision linked in the dashboard: six synthetic macOS slices, 19 foundation tests and 61 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
 
 After accepting another slice:
 
@@ -38,6 +38,8 @@ All dashboard files use the repository's [Apache-2.0 licence](../LICENSE).
 
 The separate [UC-005 dashboard](../solutions/operations/uc005/README.md) is a real read-only installation monitor. Its files are under `dashboard/live/` and must be served by their authenticated local bridge. It is not a standalone static HTML guide. Launch it using the documented runner and its printed access link; it prefers port 8766 and automatically chooses a free port if that port is occupied. Always use the printed access link.
 
-The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the five implemented slices and their unchanged test baseline.
+The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the six implemented slices and their recorded test baseline.
 
 The progress section also shows a separate [future interactive backlog](../docs/interactive-modules.md): AI profile configuration, signed issuance, holder presentation, external verification and later family interactions. These cards do not change delivered slice/test counts or the next queued outcome.
+
+[UC-006 launch](../solutions/disclosure/uc006/README.md) reuses the live monitor for the three-service disclosure composition. Inventory positions and undeployed family labels derive from the active snapshot; the recipient is listed as a dependency outside the monitored inventory. The project guide includes the UC-006 flow and exact disclosure diagram.

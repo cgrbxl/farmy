@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc006:0.6-draft",
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "walletId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "resourceId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "versionId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "walletId",
+            "resourceId",
+            "versionId"
+          ]
+        },
+        "recipientId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "purpose": {
+          "const": "synthetic.review"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16384
+        },
+        "recipientFingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "disclosureId",
+        "source",
+        "recipientId",
+        "purpose",
+        "sha256",
+        "size",
+        "recipientFingerprint"
+      ]
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "manifestHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "recipientId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "status": {
+          "const": "received"
+        },
+        "receivedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        }
+      },
+      "required": [
+        "disclosureId",
+        "manifestHash",
+        "recipientId",
+        "status",
+        "receivedAt"
+      ]
+    },
+    "disclosure.prepare.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recipientId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "purpose": {
+          "const": "synthetic.review"
+        },
+        "sourceReadGrant": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "recipientId",
+        "purpose",
+        "sourceReadGrant"
+      ]
+    },
+    "disclosure.prepare.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifest": {
+          "$ref": "#/$defs/manifest"
+        },
+        "manifestHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "contentBase64": {
+          "type": "string",
+          "maxLength": 21848
+        }
+      },
+      "required": [
+        "manifest",
+        "manifestHash",
+        "contentBase64"
+      ]
+    },
+    "disclosure.approve.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifest": {
+          "$ref": "#/$defs/manifest"
+        },
+        "manifestHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        }
+      },
+      "required": [
+        "manifest",
+        "manifestHash",
+        "expiresAt"
+      ]
+    },
+    "disclosure.approve.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "manifestHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "status": {
+          "const": "approved"
+        }
+      },
+      "required": [
+        "disclosureId",
+        "manifestHash",
+        "expiresAt",
+        "status"
+      ]
+    },
+    "disclosure.deliver.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifest": {
+          "$ref": "#/$defs/manifest"
+        },
+        "manifestHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "manifest",
+        "manifestHash"
+      ]
+    },
+    "disclosure.deliver.output": {
+      "$ref": "#/$defs/receipt"
+    },
+    "disclosure.receive.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifest": {
+          "$ref": "#/$defs/manifest"
+        },
+        "manifestHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "contentBase64": {
+          "type": "string",
+          "maxLength": 21848
+        }
+      },
+      "required": [
+        "manifest",
+        "manifestHash",
+        "contentBase64"
+      ]
+    },
+    "disclosure.receive.output": {
+      "$ref": "#/$defs/receipt"
+    },
+    "receipt.inspect.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "disclosureId"
+      ]
+    },
+    "receipt.inspect.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "receipt": {
+          "$ref": "#/$defs/receipt"
+        },
+        "contentBase64": {
+          "type": "string",
+          "maxLength": 21848
+        }
+      },
+      "required": [
+        "receipt",
+        "contentBase64"
+      ]
+    }
+  }
+}

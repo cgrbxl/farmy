@@ -1,0 +1,171 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Farmy controlled disclosure",
+    "version": "0.6-draft"
+  },
+  "security": [
+    {
+      "mutualTLS": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "mutualTLS": {
+        "type": "mutualTLS"
+      }
+    }
+  },
+  "paths": {
+    "/farmy/v0/disclosure.prepare": {
+      "post": {
+        "operationId": "disclosure.prepare",
+        "summary": "disclosure.prepare",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Foundation response with operation-specific result; see operations.schema.json"
+          },
+          "403": {
+            "description": "Denied"
+          },
+          "409": {
+            "description": "Manifest or idempotency conflict"
+          },
+          "503": {
+            "description": "Unavailable; delivery may have reached recipient"
+          }
+        }
+      }
+    },
+    "/farmy/v0/disclosure.approve": {
+      "post": {
+        "operationId": "disclosure.approve",
+        "summary": "disclosure.approve",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Foundation response with operation-specific result; see operations.schema.json"
+          },
+          "403": {
+            "description": "Denied"
+          },
+          "409": {
+            "description": "Manifest or idempotency conflict"
+          },
+          "503": {
+            "description": "Unavailable; delivery may have reached recipient"
+          }
+        }
+      }
+    },
+    "/farmy/v0/disclosure.deliver": {
+      "post": {
+        "operationId": "disclosure.deliver",
+        "summary": "disclosure.deliver",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Foundation response with operation-specific result; see operations.schema.json"
+          },
+          "403": {
+            "description": "Denied"
+          },
+          "409": {
+            "description": "Manifest or idempotency conflict"
+          },
+          "503": {
+            "description": "Unavailable; delivery may have reached recipient"
+          }
+        }
+      }
+    },
+    "/farmy/v0/disclosure.receive": {
+      "post": {
+        "operationId": "disclosure.receive",
+        "summary": "disclosure.receive",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Foundation response with operation-specific result; see operations.schema.json"
+          },
+          "403": {
+            "description": "Denied"
+          },
+          "409": {
+            "description": "Manifest or idempotency conflict"
+          },
+          "503": {
+            "description": "Unavailable; delivery may have reached recipient"
+          }
+        }
+      }
+    },
+    "/farmy/v0/receipt.inspect": {
+      "post": {
+        "operationId": "receipt.inspect",
+        "summary": "receipt.inspect",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../v0.1-draft/foundation.schema.json#/$defs/request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Foundation response with operation-specific result; see operations.schema.json"
+          },
+          "403": {
+            "description": "Denied"
+          },
+          "409": {
+            "description": "Manifest or idempotency conflict"
+          },
+          "503": {
+            "description": "Unavailable; delivery may have reached recipient"
+          }
+        }
+      }
+    }
+  }
+}

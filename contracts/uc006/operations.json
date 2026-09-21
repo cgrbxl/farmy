@@ -1,0 +1,27 @@
+{
+  "disclosure.prepare": {
+    "capabilityId": "farmy.disclosure",
+    "purpose": "uc006.prepare",
+    "mutation": true
+  },
+  "disclosure.approve": {
+    "capabilityId": "farmy.disclosure",
+    "purpose": "uc006.approve",
+    "mutation": true
+  },
+  "disclosure.deliver": {
+    "capabilityId": "farmy.disclosure",
+    "purpose": "uc006.deliver",
+    "mutation": true
+  },
+  "disclosure.receive": {
+    "capabilityId": "farmy.disclosure",
+    "purpose": "uc006.receive",
+    "mutation": true
+  },
+  "receipt.inspect": {
+    "capabilityId": "farmy.disclosure",
+    "purpose": "uc006.inspect",
+    "mutation": false
+  }
+}

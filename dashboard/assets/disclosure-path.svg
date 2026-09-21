@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 330" role="img" aria-labelledby="title desc">
+<title id="title">UC-006 — exact approved disclosure and receipt recovery</title><desc id="desc">An owner previews exact bytes and approves their manifest. Exchange checks Wallet grants and Connector bytes, records an unconfirmed intent, and delivers to a pinned synthetic recipient. A stable receipt recovers lost replies without another accepted copy.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#356747"/></marker></defs>
+<style>text{font-family:system-ui,sans-serif;fill:#294b3b}.title{font-size:18px;font-weight:650}.body{font-size:14px}.note{font-size:12px;fill:#64715e}.line{fill:none;stroke:#356747;stroke-width:2;marker-end:url(#arrow)}</style>
+<rect width="1120" height="330" rx="16" fill="#fafbf6"/>
+<text x="24" y="30" class="title">UC-006 · APPROVE WHAT LEAVES</text>
+<rect x="25" y="65" width="235" height="130" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="42" y="93" class="title">Owner client</text><text x="42" y="120" class="body">Preview exact bytes + recipient</text><text x="42" y="146" class="body">Approve manifest + expiry</text><text x="42" y="177" class="note">Separate delivery permission</text>
+<rect x="440" y="65" width="240" height="130" rx="12" fill="#eaf0e2" stroke="#bbcdb0"/>
+<text x="457" y="93" class="title">Exchange</text><text x="457" y="120" class="body">Check current authority</text><text x="457" y="146" class="body">Persist unconfirmed intent</text><text x="457" y="177" class="note">Private preview / approval / receipt</text>
+<rect x="850" y="65" width="245" height="130" rx="12" fill="#edf0ec" stroke="#c4cec0"/>
+<text x="867" y="93" class="title">Synthetic recipient</text><text x="867" y="120" class="body">Pinned identity + certificate</text><text x="867" y="146" class="body">Commit once per disclosure ID</text><text x="867" y="177" class="note">Separate process and state</text>
+<path class="line" d="M260 105H440"/><text x="350" y="92" text-anchor="middle" class="note">Bound manifest</text>
+<path class="line" d="M680 105H850"/><text x="765" y="92" text-anchor="middle" class="note">Exact bytes · mTLS</text>
+<path class="line" d="M850 168H680"/><text x="765" y="155" text-anchor="middle" class="note">Stable receipt</text>
+<path class="line" d="M440 168H260"/><text x="350" y="155" text-anchor="middle" class="note">Confirmed result</text>
+<path class="line" d="M520 195V230"/><path class="line" d="M620 195V230"/>
+<rect x="395" y="232" width="335" height="52" rx="10" fill="#eaf0e2" stroke="#bbcdb0"/><text x="562" y="254" text-anchor="middle" class="body">Wallet + Local Folder Connector</text><text x="562" y="273" text-anchor="middle" class="note">Read / approval / delivery grants · exact version</text>
+<text x="25" y="244" class="note">Changed content or recipient → rejected</text><text x="25" y="266" class="note">Reading alone does not permit export</text>
+<text x="765" y="244" class="note">Lost reply → unconfirmed, not “unsent”</text><text x="765" y="266" class="note">Authorised retry → existing receipt</text>
+<text x="25" y="310" class="note">Synthetic local demonstration. Receipt means stored bytes, not human review or control over subsequent copies.</text>
+</svg>

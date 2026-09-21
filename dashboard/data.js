@@ -20,7 +20,8 @@ const FARMY = {
         "UC-002",
         "UC-003",
         "UC-004",
-        "UC-005"
+        "UC-005",
+        "UC-006"
       ],
       "doc": "modules/wallet/README.md"
     },
@@ -41,7 +42,8 @@ const FARMY = {
         "UC-002",
         "UC-003",
         "UC-004",
-        "UC-005"
+        "UC-005",
+        "UC-006"
       ],
       "doc": "modules/registry/README.md"
     },
@@ -81,7 +83,8 @@ const FARMY = {
         "UC-002",
         "UC-003",
         "UC-004",
-        "UC-005"
+        "UC-005",
+        "UC-006"
       ],
       "doc": "modules/connectors/README.md"
     },
@@ -164,14 +167,16 @@ const FARMY = {
       "name": "Exchange",
       "symbol": "↗",
       "group": "Disclosure",
-      "status": "planned",
+      "status": "reference",
       "subtitle": "Approve the content, recipient and purpose.",
       "owns": "Disclosure manifests, delivery attempts and receipt uncertainty.",
       "does": "Prepares and delivers exact authorised disclosures across a boundary.",
       "boundary": "Not a generic computation engine or equipment controller. Delivered copies cannot reliably be recalled.",
-      "now": "Family boundary and requirements documented; no implementation.",
-      "next": "Exact-content disclosure first; later governed data-space exchange and authorised credential presentations.",
-      "slices": [],
+      "now": "Exact-document preview, bound approval, permission-checked delivery and durable receipt recovery with a synthetic recipient.",
+      "next": "Production recipient adapters, interactive approval, governed data-space exchange and credential presentations.",
+      "slices": [
+        "UC-006"
+      ],
       "doc": "modules/exchange/README.md"
     }
   ],
@@ -299,16 +304,32 @@ const FARMY = {
       "lesson": "Observability belongs at each service boundary. A client can compose the view without reading private databases.",
       "services": "8 services + UI bridge",
       "scope": "Read-only metadata · synthetic local installation"
+    },
+    {
+      "id": "UC-006",
+      "title": "Approve what leaves",
+      "label": "Controlled disclosure",
+      "tests": 14,
+      "families": [
+        "wallet",
+        "registry",
+        "connectors",
+        "exchange"
+      ],
+      "path": "solutions/disclosure/uc006/README.md",
+      "command": ".venv/bin/python solutions/disclosure/uc006/run.py launch",
+      "outcome": "Preview exact document bytes and recipient, approve a bound manifest and deliver with a durable receipt.",
+      "proof": [
+        "Changed recipient/content and missing export authority rejected",
+        "Current read, approval and delivery grants checked separately",
+        "Lost acknowledgements and restarts recover one accepted copy"
+      ],
+      "lesson": "Approval binds an exact disclosure; a failed response does not prove the recipient received nothing.",
+      "services": "3 Farmy services + recipient fixture",
+      "scope": "16 KiB exact-document export · synthetic local recipient"
     }
   ],
   "queue": [
-    {
-      "title": "Controlled disclosure",
-      "families": [
-        "exchange"
-      ],
-      "detail": "Preview exact content and recipient; require separate export authority."
-    },
     {
       "title": "A real S3 source",
       "families": [
@@ -332,11 +353,26 @@ const FARMY = {
     }
   ],
   "interactiveBacklog": [
-    {"title": "Choose the AI", "detail": "Select an allowed model/provider, validate endpoint and secret references, and activate a versioned profile. Local first, then one external API."},
-    {"title": "Issue a signed claim", "detail": "Add a document, preserve its exact version, preview the claim and sign as a named issuer. Uploading and issuing are separate actions."},
-    {"title": "Present as holder", "detail": "Preview the recipient and disclosure; sign a presentation bound to that verifier, a fresh challenge and an expiry."},
-    {"title": "Verify externally", "detail": "Use a separate verifier interface and a link or QR request. Show signature validity, issuer trust and credential status separately; the QR itself is not proof."},
-    {"title": "Grow interaction across families", "detail": "Add signed third-party contributions, source setup, extraction previews, evidence search, job controls and binding management one tested use case at a time."}
+    {
+      "title": "Choose the AI",
+      "detail": "Select an allowed model/provider, validate endpoint and secret references, and activate a versioned profile. Local first, then one external API."
+    },
+    {
+      "title": "Issue a signed claim",
+      "detail": "Add a document, preserve its exact version, preview the claim and sign as a named issuer. Uploading and issuing are separate actions."
+    },
+    {
+      "title": "Present as holder",
+      "detail": "Preview the recipient and disclosure; sign a presentation bound to that verifier, a fresh challenge and an expiry."
+    },
+    {
+      "title": "Verify externally",
+      "detail": "Use a separate verifier interface and a link or QR request. Show signature validity, issuer trust and credential status separately; the QR itself is not proof."
+    },
+    {
+      "title": "Grow interaction across families",
+      "detail": "Add signed third-party contributions, source setup, extraction previews, evidence search, job controls and binding management one tested use case at a time."
+    }
   ],
   "flows": {
     "UC-001": [
@@ -567,6 +603,45 @@ const FARMY = {
         ],
         "text": "A stopped module loses its counts in the view. An unavailable bridge hides the snapshot. Old observations are marked stale rather than silently refreshed.",
         "check": "Unknown is never displayed as zero or healthy."
+      }
+    ],
+    "UC-006": [
+      {
+        "title": "Preview the exact disclosure",
+        "actors": [
+          "wallet",
+          "connectors",
+          "exchange"
+        ],
+        "text": "Exchange reads one immutable document version under its own source grant and returns the bytes with a manifest binding recipient identity/certificate, purpose and content hash.",
+        "check": "Source read is separate from export approval."
+      },
+      {
+        "title": "Approve the bound manifest",
+        "actors": [
+          "wallet",
+          "exchange"
+        ],
+        "text": "The owner approves the exact preview with a separate permission and short expiry. Changed recipient, version, content or purpose cannot reuse that approval.",
+        "check": "Approval is stored authority, not a portable signed credential."
+      },
+      {
+        "title": "Deliver and retain the receipt",
+        "actors": [
+          "wallet",
+          "connectors",
+          "exchange"
+        ],
+        "text": "Exchange rechecks current read, approval and delivery permissions, records an unconfirmed intent and sends to the pinned synthetic recipient. That separate process commits bytes and returns a stable receipt.",
+        "check": "A lost reply leaves an uncertain outcome; it does not mean nothing was sent."
+      },
+      {
+        "title": "Recover without another accepted copy",
+        "actors": [
+          "exchange"
+        ],
+        "text": "After a restart, an authorised retry sends the same disclosure ID and bytes. The recipient returns its existing receipt. Revoked grants block retries; they cannot recall copies already delivered.",
+        "check": "Proven only against this explicit recipient deduplication contract."
       }
     ]
   },

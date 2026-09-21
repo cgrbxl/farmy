@@ -4,11 +4,12 @@ Status: broad solution recipes plus runnable synthetic macOS increments. Product
 
 | Recipe | Purpose | Current state |
 | --- | --- | --- |
+| [Controlled disclosure](disclosure/README.md) | Preview, approve and deliver exact content with receipt recovery | [UC-006 development demo](disclosure/uc006/README.md) |
 | [Operations](operations/README.md) | Live read-only installation inventory, contents and monitoring | [UC-005 operational dashboard](operations/uc005/README.md) |
 | [Core](core/README.md) | Resource authority and composition with a useful source connector | [UC-001 development demo](core/uc001/README.md) |
 | [Assisted answer](assisted-answer/README.md) | Permission-checked local model answer with exact citation | [UC-004 development demo](assisted-answer/uc004/README.md) |
 | [Sensor path](sensor-path/README.md) | Source-scoped observations and traceable releases | [UC-003 development demo](sensor-path/uc003/README.md) |
-| [Document path](document-path/README.md) | Authorised document ingestion, retrieval, answer and controlled export | [UC-002 extraction/retrieval demo](document-path/uc002/README.md); export deferred |
+| [Document path](document-path/README.md) | Authorised document ingestion, retrieval, answer and controlled export | [UC-002 extraction/retrieval demo](document-path/uc002/README.md); exact-document export demonstrated separately in UC-006 |
 
 A solution composes module implementations through bindings and separately authorised grants. It does not own their private databases or require one release number for all modules. An individual module can be installed without a complete solution when its declared dependencies are satisfied.
 

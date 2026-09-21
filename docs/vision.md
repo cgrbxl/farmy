@@ -30,7 +30,7 @@ Control through Farmy does not remove independent access to underlying unencrypt
 
 ## Incremental scope
 
-Five synthetic macOS slices now cover controlled memory, exact-source evidence, source-scoped observations, one cited local-model answer and read-only operational monitoring. The broader document path includes future S3 integration, multiple Knowledge providers, broader model routes and controlled export. Plastic interfaces, independent data-space participants and signed-claim trust networks will be developed through similarly bounded use cases, not assumed from those foundations.
+Six synthetic macOS slices now cover controlled memory, exact-source evidence, source-scoped observations, one cited local-model answer and read-only operational monitoring and controlled exact-document disclosure. The broader document path includes future S3 integration, multiple Knowledge providers, broader model routes and production export adapters. Plastic interfaces, independent data-space participants and signed-claim trust networks will be developed through similarly bounded use cases, not assumed from those foundations.
 
 ## Non-goals of baseline v0.1
 
