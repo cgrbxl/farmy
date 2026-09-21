@@ -37,3 +37,5 @@ Finish real Scaleway evidence when the maintainer identifies the approved test l
 ## Recorded local verification
 
 On 2026-09-21, macOS 26.6.2 arm64 / Python 3.14.6: the combined runner with `--with-local-model --with-s3-fixture` passed all 91 checks and seven demos, including the installed local Qwen run. Browser inspection confirmed six monitored Farmy instances and the S3 Source (fixture) snapshot counts. Real Scaleway validation was not performed; no cloud resources were accessed or changed.
+
+Local implementation evidence: [`e82e0cf`](https://github.com/cgrbxl/farmy/commit/e82e0cf). This revision records local checks only; provider verification remains pending.
