@@ -40,3 +40,5 @@ See [implementation.json](examples/implementation.json) and [installation.json](
 Specify required fields and extension namespaces, version negotiation, units, time representation, pagination, limits and errors before publishing a stable contract. Breaking semantic changes require a new major contract version. Substitution tests must include two independently implemented services, not two configurations of the same service alone.
 
 ADR 0002 selects HTTP/JSON, OpenAPI/JSON Schema and initial polling for the reference path. Open choices include precise contract versions and schemas, identity/delegation protocol, later event-broker necessity and external standards mappings. Choose these through architecture decision records, without imposing a particular internal programming language.
+
+[UC-008](uc008/README.md) composes existing descriptors, bindings and UC-002 operations for Knowledge replacement. It introduces no operation schema version.

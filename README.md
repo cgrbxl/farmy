@@ -2,7 +2,7 @@
 
 Farmer-controlled digital memory and a composable ecosystem of agricultural intelligence services.
 
-**Status: architecture baseline, draft integration contracts, and six runnable synthetic macOS slices covering controlled memory, exact-source evidence, source-scoped observations, a cited local-model answer and a live operational dashboard and controlled disclosure across separate services. This is an experimental development build, not a production application or cross-platform release.**
+**Status: architecture baseline, draft integration contracts, and seven runnable synthetic macOS slices covering controlled memory, exact-source evidence, source-scoped observations, a cited local-model answer and a live operational dashboard and controlled disclosure across separate services. This is an experimental development build, not a production application or cross-platform release.**
 
 Farmy connects information held in local folders, managed encrypted vaults and cloud stores. Farmers choose independently supplied ingestion, knowledge, model and copilot services, deciding what each may access and transmit. Services can run on a laptop, private infrastructure or provider infrastructure in the same installation.
 
@@ -14,7 +14,7 @@ Explore the [interactive visual project guide](dashboard/README.md): architectur
 - **Source-governed data spaces:** independently controlled sources retain their own consumption and disclosure policies while participating in common governance. A shared ecosystem does not require centralising their data or authority.
 - **Wallet-based trust networks:** owners and contributors can issue signed, scoped claims that holders present and other parties verify or build upon. Signatures support attribution and integrity; accepting ownership or a contribution requires explicit trust rules and evidence, separately from data-access permission.
 
-These are core design aims. Runtime-generated interfaces, federated data-space governance and credential trust chains are **not yet implemented** by the six local slices. Read [the concepts, examples and boundaries](docs/core-concepts.md).
+These are core design aims. Runtime-generated interfaces, federated data-space governance and credential trust chains are **not yet implemented** by the seven local slices. Read [the concepts, examples and boundaries](docs/core-concepts.md).
 
 ## Principles
 
@@ -29,7 +29,7 @@ These are core design aims. Runtime-generated interfaces, federated data-space g
 
 ## Current focus
 
-Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place. [Run UC-001](solutions/core/uc001/README.md) for controlled memory, or [run UC-002](solutions/document-path/uc002/README.md) for extraction, evidence retrieval and recoverable jobs across five services. [Run UC-003](solutions/sensor-path/uc003/README.md) for source permissions covering ongoing observations. [Run UC-004](solutions/assisted-answer/uc004/README.md) for a cited answer using installed local Qwen through Ollama. [Launch UC-005](solutions/operations/uc005/README.md) for a live, read-only view of module health, dependencies and authorised contents. [Run UC-006](solutions/disclosure/uc006/README.md) to preview, approve and deliver exact content to a synthetic recipient, with receipt recovery. Verify all 80 tests and six demos with `.venv/bin/python scripts/verify.py --with-local-model`; omit the flag to run without the real-model prerequisite.
+Build one small use case from design to a running demonstration, then extend it without breaking earlier cases. The reference architecture and nine-family grouping are in place. [Run UC-001](solutions/core/uc001/README.md) for controlled memory, or [run UC-002](solutions/document-path/uc002/README.md) for extraction, evidence retrieval and recoverable jobs across five services. [Run UC-003](solutions/sensor-path/uc003/README.md) for source permissions covering ongoing observations. [Run UC-004](solutions/assisted-answer/uc004/README.md) for a cited answer using installed local Qwen through Ollama. [Launch UC-005](solutions/operations/uc005/README.md) for a live, read-only view of module health, dependencies and authorised contents. [Run UC-006](solutions/disclosure/uc006/README.md) to preview, approve and deliver exact content to a synthetic recipient, with receipt recovery. [Run UC-008](solutions/replacement/uc008/README.md) to replace one of two Knowledge instances and rebuild through public APIs. Verify all 91 tests and seven demos with `.venv/bin/python scripts/verify.py --with-local-model`; omit the flag to run without the real-model prerequisite.
 
 The [minimum integration foundation](contracts/v0.1-draft/README.md) now provides a runnable structural validator and outlines the common technical profile. Start with the draft [working method](docs/working-method.md), [delivery queue](docs/delivery-backlog.md) and [UC-001 controlled local memory](solutions/core/use-cases/UC-001-controlled-memory.md). Contracts, security and implementation evolve together per slice; deployment across all target environments follows proven module needs.
 
@@ -74,4 +74,4 @@ All examples are synthetic. Do not commit farm data, credentials or private endp
 
 Farmy’s original code, contracts and documentation are licensed under [Apache 2.0](LICENSE). Sharing improvements is encouraged, not required. See [LICENSING.md](LICENSING.md) for scope, exclusions and contribution terms.
 
-UC-007 is **in progress**: an S3 source implementation and 11 additional local HTTP-double checks are available. [Run the local preview](solutions/s3-source/uc007/README.md); real Scaleway validation awaits an approved bucket/prefix and scoped credential reference. It is not counted as a seventh completed slice.
+UC-007 is **in progress**: an S3 source implementation and 11 additional local HTTP-double checks are available. [Run the local preview](solutions/s3-source/uc007/README.md); real Scaleway validation awaits an approved bucket/prefix and scoped credential reference. It is not counted among the seven completed slices (UC-001–006 and UC-008).

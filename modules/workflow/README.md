@@ -29,3 +29,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Operational monitoring
 
 [UC-005](../../solutions/operations/uc005/README.md) adds an optional, receiver-authorised [summary API](../../contracts/uc005/README.md). This implementation owns its count queries and exposes only metadata/recent outcomes to an explicitly enrolled monitor. Existing compositions keep monitoring disabled; no private database is shared.
+
+## Optional Knowledge binding
+
+[UC-008](../../solutions/replacement/uc008/README.md) adds `knowledgeBinding` configuration (implementation 0.2.0 in that composition). Workflow loads it at startup, pins its full content in job input and checks the authenticated target descriptor before indexing. A changed binding cannot resume an old job key. Stop Workflow before reconfiguration; replacement/rebuild requires a new job. Existing configurations preserve their legacy target and durable request format.

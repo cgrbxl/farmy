@@ -29,3 +29,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Operational monitoring
 
 [UC-005](../../solutions/operations/uc005/README.md) adds an optional, receiver-authorised [summary API](../../contracts/uc005/README.md). This implementation owns its count queries and exposes only metadata/recent outcomes to an explicitly enrolled monitor. Existing compositions keep monitoring disabled; no private database is shared.
+
+## Replacement evidence
+
+[UC-008](../../solutions/replacement/uc008/README.md) runs Evidence Knowledge and an alternative [Ledger Knowledge](ledger/service.py) domain implementation. Both implement UC-002 operations and use the optional transport SDK; each owns a different private schema. Replacement starts empty and requires a newly keyed, authorised public-API rebuild. This does not prove generic query equivalence or independent transport conformance.

@@ -25,3 +25,7 @@ Persistence, authenticated endpoint resolution and health observation; monitors 
 Follow the common [integration profile](../../docs/module-integration.md), [communication/security design](../../docs/module-communication.md) and [conformance plan](../../conformance/README.md). Advertise implemented features, dependencies and limits. Missing grants, incompatible contracts and unreachable authority fail according to the public profile, not silently.
 
 Supply configuration with secret references, owned persistence/migrations, health/readiness, bounded retries/cancellation where relevant, audit and backup/restore/removal behaviour. Environment-specific mechanisms belong in [deployment profiles](../../deployments/README.md); capability meaning and permission requirements remain common. Per-target support is untested until evidence exists.
+
+## Runtime selection evidence
+
+[UC-008](../../solutions/replacement/uc008/README.md) extends the binding adapter with explicit contract-version selection and authenticated descriptor admission for the local macOS profile. It checks identity, endpoint, environment, implementation release, security/connectivity, operations and required features. Semantic correctness still requires runtime acceptance; no grant is issued by admission.

@@ -21,7 +21,8 @@ const FARMY = {
         "UC-003",
         "UC-004",
         "UC-005",
-        "UC-006"
+        "UC-006",
+        "UC-008"
       ],
       "doc": "modules/wallet/README.md"
     },
@@ -35,15 +36,16 @@ const FARMY = {
       "owns": "Selected instances, compatibility declarations and binding revisions.",
       "does": "Connects a capability to an explicitly chosen implementation and endpoint. Registration is not permission.",
       "boundary": "Does not grant access, install untrusted software or execute jobs.",
-      "now": "A revisioned binding-file adapter supports explicit local composition. No catalogue server.",
-      "next": "Discovery, richer admission checks and demonstrated provider substitution.",
+      "now": "Revisioned binding files plus authenticated local descriptor checks. UC-008 selects between two Knowledge instances.",
+      "next": "Discovery and admission for remote environments; independently implemented transport.",
       "slices": [
         "UC-001",
         "UC-002",
         "UC-003",
         "UC-004",
         "UC-005",
-        "UC-006"
+        "UC-006",
+        "UC-008"
       ],
       "doc": "modules/registry/README.md"
     },
@@ -57,12 +59,13 @@ const FARMY = {
       "owns": "Job phases, pinned inputs, step keys and recovery state.",
       "does": "Coordinates work across services through their public contracts.",
       "boundary": "No extraction rules or automatic expansion of permissions.",
-      "now": "A fixed extract/index workflow survives restart and resumes on owner retry.",
+      "now": "Durable extract/index jobs with optional Knowledge binding. Changed binding revisions cannot silently resume old job keys.",
       "next": "Additional reviewed workflows, scheduling and cancellation when needed.",
       "slices": [
         "UC-002",
         "UC-004",
-        "UC-005"
+        "UC-005",
+        "UC-008"
       ],
       "doc": "modules/workflow/README.md"
     },
@@ -84,7 +87,8 @@ const FARMY = {
         "UC-003",
         "UC-004",
         "UC-005",
-        "UC-006"
+        "UC-006",
+        "UC-008"
       ],
       "doc": "modules/connectors/README.md"
     },
@@ -103,7 +107,8 @@ const FARMY = {
       "slices": [
         "UC-002",
         "UC-004",
-        "UC-005"
+        "UC-005",
+        "UC-008"
       ],
       "doc": "modules/processing/README.md"
     },
@@ -117,12 +122,13 @@ const FARMY = {
       "owns": "Derived indexes, exact source mappings and retrieval state.",
       "does": "Returns evidence only after checking the consumer’s current permission.",
       "boundary": "Not a second resource authority; indexing permission is not reader permission.",
-      "now": "One derived crop-field entry per exact source version; online checks gate cached evidence.",
+      "now": "Two exact-source evidence implementations with private stores. UC-008 proves an explicit public-API rebuild after replacement.",
       "next": "Richer retrieval, index removal/rebuild and independent alternatives.",
       "slices": [
         "UC-002",
         "UC-004",
-        "UC-005"
+        "UC-005",
+        "UC-008"
       ],
       "doc": "modules/knowledge/README.md"
     },
@@ -327,6 +333,31 @@ const FARMY = {
       "lesson": "Approval binds an exact disclosure; a failed response does not prove the recipient received nothing.",
       "services": "3 Farmy services + recipient fixture",
       "scope": "16 KiB exact-document export · synthetic local recipient"
+    },
+    {
+      "id": "UC-008",
+      "title": "Replace without sharing state",
+      "label": "Knowledge replacement",
+      "tests": 11,
+      "families": [
+        "wallet",
+        "registry",
+        "workflow",
+        "connectors",
+        "processing",
+        "knowledge"
+      ],
+      "path": "solutions/replacement/uc008/README.md",
+      "command": ".venv/bin/python solutions/replacement/uc008/run.py launch",
+      "outcome": "Run two Knowledge instances, replace one domain implementation and rebuild through public APIs while the other stays available.",
+      "proof": [
+        "Separate audience grants; binding changes conflict with old jobs",
+        "Fresh private store rebuilt from authorised Processing evidence",
+        "Both providers deny revocation and authority outages"
+      ],
+      "lesson": "Replaceability requires explicit state recovery and permissions, not just matching API names.",
+      "services": "6 services + UI bridge",
+      "scope": "Exact crop evidence · shared optional transport SDK"
     }
   ],
   "queue": [
@@ -335,21 +366,16 @@ const FARMY = {
       "families": [
         "connectors"
       ],
-      "detail": "In progress: adapter and 11 local HTTP-double checks pass. Real Scaleway validation awaits an approved bucket/prefix and scoped credentials."
-    },
-    {
-      "title": "Prove replacement",
-      "families": [
-        "knowledge",
-        "processing",
-        "registry"
-      ],
-      "detail": "Run multiple instances and an independent alternative, with declared migration."
+      "detail": "In progress: adapter and 11 local HTTP-double checks pass. Real Scaleway validation awaits an approved bucket/prefix and scoped credentials.",
+      "number": "07",
+      "status": "Provider evidence pending"
     },
     {
       "title": "Package each environment",
       "families": [],
-      "detail": "Verify laptop and Kubernetes delivery one target at a time; Scaleway is first for cloud."
+      "detail": "Verify laptop and Kubernetes delivery one target at a time; Scaleway is first for cloud.",
+      "number": "09",
+      "status": "Next queued outcome"
     }
   ],
   "interactiveBacklog": [
@@ -642,6 +668,48 @@ const FARMY = {
         ],
         "text": "After a restart, an authorised retry sends the same disclosure ID and bytes. The recipient returns its existing receipt. Revoked grants block retries; they cannot recall copies already delivered.",
         "check": "Proven only against this explicit recipient deduplication contract."
+      }
+    ],
+    "UC-008": [
+      {
+        "title": "Bind and authorise separately",
+        "actors": [
+          "registry",
+          "wallet",
+          "workflow"
+        ],
+        "text": "Select Knowledge A or B with a revisioned binding. Check the authenticated peer descriptor; issue separate transfer, index and query grants for each instance.",
+        "check": "A binding selects a service; it does not grant access."
+      },
+      {
+        "title": "Run two private indexes",
+        "actors": [
+          "workflow",
+          "processing",
+          "knowledge"
+        ],
+        "text": "Index the same accepted proposal into two Knowledge instances through public APIs. Their exact-source evidence agrees; neither reads the other’s store.",
+        "check": "A query grant for A is rejected by B."
+      },
+      {
+        "title": "Replace and rebuild deliberately",
+        "actors": [
+          "registry",
+          "workflow",
+          "processing",
+          "knowledge"
+        ],
+        "text": "Keep A available. Stop B, retain its original store and start the journal implementation with empty private state. Advance the binding revision and start a new authorised rebuild job.",
+        "check": "An old job key cannot silently continue against a changed binding."
+      },
+      {
+        "title": "Verify the boundary again",
+        "actors": [
+          "knowledge",
+          "wallet"
+        ],
+        "text": "Compare evidence after rebuild and restart. Revoke B’s query grant; A remains usable under its own grant. Both fail closed when Wallet is unavailable.",
+        "check": "Local domain-provider substitution only; shared transport, no generic migration."
       }
     ]
   },

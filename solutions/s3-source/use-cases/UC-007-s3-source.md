@@ -32,7 +32,7 @@ Local snapshots survive provider changes/outages, but consumers must still pass 
 
 ## Next action
 
-Finish real Scaleway evidence when the maintainer identifies the approved test location and credential reference. Keep the dashboard at six completed slices until that condition is met; do not advance the delivery queue to provider replacement yet.
+Finish real Scaleway evidence when the maintainer identifies the approved test location and credential reference. UC-007 stays outside completed slice counts until that condition is met. Following the maintainer’s request for the next increment, independent UC-008 replacement work proceeded while live Scaleway evidence remained pending.
 
 ## Recorded local verification
 

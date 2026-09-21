@@ -70,3 +70,7 @@ Permissions are checked before retrieval content is delivered to a model. Index 
 ## Provider substitution
 
 Declare API compatibility, semantic compatibility and migration compatibility separately. Index replacement may mean rebuilding from originals. Bindings switch only after readiness checks and a migration plan; old grants are revoked after controlled cutover. Rollback cannot undo exported data.
+
+## Bounded substitution evidence
+
+[UC-008](../solutions/replacement/uc008/README.md) demonstrates two local Knowledge instances and replacement of one domain implementation. The replacement owns fresh state, rebuilt through public Processing APIs, while the other instance remains available. Bindings and grants remain separate; the replacement deliberately retains a trusted enrolled identity. This is a shared-SDK, macOS experiment, not a general hot-migration or independent transport guarantee.

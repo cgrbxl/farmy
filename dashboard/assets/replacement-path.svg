@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="410" viewBox="0 0 1000 410" role="img" aria-labelledby="title desc">
+<title id="title">Knowledge replacement through public contracts</title><desc id="desc">Workflow selects Knowledge B by binding. Processing supplies both private Knowledge instances. Wallet grants are separate for each. Replace B with a fresh journal and rebuild, while A remains available.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#42634c"/></marker></defs>
+<rect width="1000" height="410" rx="12" fill="#f7f8f0"/>
+<g font-family="system-ui,sans-serif" fill="#244633">
+<text x="35" y="36" font-size="12" letter-spacing="2">UC-008 / SAME CONTRACT · SEPARATE STATE</text>
+<g fill="#e4ebd9" stroke="#a8b99a"><rect x="35" y="70" width="220" height="80" rx="10"/><rect x="35" y="240" width="220" height="80" rx="10"/><rect x="340" y="165" width="215" height="95" rx="10"/><rect x="665" y="70" width="290" height="90" rx="10"/><rect x="665" y="240" width="290" height="105" rx="10"/></g>
+<text x="55" y="100" font-size="20">Wallet</text><text x="55" y="126" font-size="13">Separate grants for A and B</text>
+<text x="55" y="273" font-size="20">Workflow + binding</text><text x="55" y="298" font-size="13">Target B · new revision + job</text>
+<text x="360" y="201" font-size="20">Processing</text><text x="360" y="228" font-size="13">Exact-source evidence</text>
+<text x="685" y="105" font-size="20">Knowledge A</text><text x="685" y="132" font-size="13">Original provider · stays available</text>
+<text x="685" y="273" font-size="20">Knowledge B</text><text x="685" y="300" font-size="13">Evidence provider → Journal provider</text><text x="685" y="326" font-size="13">Fresh store · explicit API rebuild</text>
+<g fill="none" stroke="#42634c" stroke-width="2" marker-end="url(#arrow)"><path d="M255 110H650" stroke-dasharray="6 5"/><path d="M280 110V350H645V310H658" stroke-dasharray="6 5"/><path d="M255 275L330 230"/><path d="M555 195L653 130"/><path d="M555 225L653 273"/></g>
+<text x="370" y="94" font-size="12">current permissions at every release</text><text x="535" y="145" font-size="12">public API</text>
+<text x="35" y="386" font-size="13">No shared Knowledge database. No automatic replay. Same enrolled identity for the trusted replacement.</text>
+</g></svg>

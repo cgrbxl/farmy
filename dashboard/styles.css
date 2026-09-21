@@ -26,3 +26,5 @@
 
 .uc6{background:#79618b}.flow-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:680px){.flow-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.uc8{background:#9b7151;color:white}.path-diagram figcaption{font-size:12px;line-height:1.7;color:var(--muted);margin-top:15px}

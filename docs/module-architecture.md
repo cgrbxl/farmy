@@ -1,6 +1,6 @@
 # Capability, module and technical architecture
 
-Status: consolidated review draft. Existing architectural principles and the Python/HTTP/JSON/local SQLite reference stack are accepted; the nine-family grouping is the agreed reference baseline, while broader composition and detailed implementation choices remain proposals. Six local slices provide narrow implemented evidence; see the delivery queue for actual status.
+Status: consolidated review draft. Existing architectural principles and the Python/HTTP/JSON/local SQLite reference stack are accepted; the nine-family grouping is the agreed reference baseline, while broader composition and detailed implementation choices remain proposals. Seven local slices provide narrow implemented evidence; see the delivery queue for actual status.
 
 Read this before deployment design. The sequence is capability ownership, module boundaries, communication/security, module implementation, then environment-specific packaging. See [ADR 0006](decisions/0006-architecture-first.md).
 

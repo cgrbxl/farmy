@@ -4,6 +4,7 @@ Status: broad solution recipes plus runnable synthetic macOS increments. Product
 
 | Recipe | Purpose | Current state |
 | --- | --- | --- |
+| [Knowledge replacement](replacement/README.md) | Two instances, explicit provider substitution and public-API rebuild | [UC-008 development demo](replacement/uc008/README.md) |
 | [Controlled disclosure](disclosure/README.md) | Preview, approve and deliver exact content with receipt recovery | [UC-006 development demo](disclosure/uc006/README.md) |
 | [S3 source](s3-source/README.md) | Alternative storage implementation feeding existing extraction and disclosure | [UC-007 local preview](s3-source/uc007/README.md); real-provider evidence pending |
 | [Operations](operations/README.md) | Live read-only installation inventory, contents and monitoring | [UC-005 operational dashboard](operations/uc005/README.md) |

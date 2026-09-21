@@ -68,13 +68,13 @@ $('#step-dots').addEventListener('click', event => {
 });
 renderFlow();
 
-$('#test-bars').innerHTML = [{n:FARMY.foundationTests,cls:'foundation'}, ...FARMY.slices.map((s,i) => ({n:s.tests,cls:`uc${i+1}`}))].map(item => `<span class="${item.cls}" style="flex:${item.n}">${item.n}</span>`).join('');
-$('#slice-cards').innerHTML = FARMY.slices.map((slice, index) => `<article class="slice-card"><div class="slice-top"><span>${slice.id}</span><span class="tag reference">Verified slice</span></div><div class="slice-number">0${index+1}<span>↗</span></div><small class="eyebrow">${slice.label}</small><h3>${slice.title}</h3><p>${slice.outcome}</p><ul>${slice.proof.map(point => `<li>${point}</li>`).join('')}</ul><div class="slice-lesson"><b>What it proves</b><p>${slice.lesson}</p></div><div class="slice-meta"><span>${slice.tests} acceptance tests</span><span>${slice.services}</span></div><p class="slice-scope">${slice.scope}</p><div class="slice-actions"><a href="../${slice.path}">Run & inspect ↗</a><button class="copy-button" data-copy="${slice.command}" aria-label="Copy ${slice.id} demo command">Copy command</button></div></article>`).join('');
+$('#test-bars').innerHTML = [{n:FARMY.foundationTests,cls:'foundation'}, ...FARMY.slices.map((s,i) => ({n:s.tests,cls:`uc${Number(s.id.slice(3))}`}))].map(item => `<span class="${item.cls}" style="flex:${item.n}">${item.n}</span>`).join('');
+$('#slice-cards').innerHTML = FARMY.slices.map((slice, index) => `<article class="slice-card"><div class="slice-top"><span>${slice.id}</span><span class="tag reference">Verified slice</span></div><div class="slice-number">${String(Number(slice.id.slice(3))).padStart(2,'0')}<span>↗</span></div><small class="eyebrow">${slice.label}</small><h3>${slice.title}</h3><p>${slice.outcome}</p><ul>${slice.proof.map(point => `<li>${point}</li>`).join('')}</ul><div class="slice-lesson"><b>What it proves</b><p>${slice.lesson}</p></div><div class="slice-meta"><span>${slice.tests} acceptance tests</span><span>${slice.services}</span></div><p class="slice-scope">${slice.scope}</p><div class="slice-actions"><a href="../${slice.path}">Run & inspect ↗</a><button class="copy-button" data-copy="${slice.command}" aria-label="Copy ${slice.id} demo command">Copy command</button></div></article>`).join('');
 $('#coverage-table').innerHTML += `<thead><tr><th scope="col">Delivered slice</th>${FARMY.families.map(item => `<th scope="col">${item.name}</th>`).join('')}</tr></thead><tbody>${FARMY.slices.map(slice => `<tr><th scope="row">${slice.id}<small>${slice.title}</small></th>${FARMY.families.map(item => {
   const present = slice.families.includes(item.id), adapter = present && item.status === 'adapter';
   return `<td class="${present ? 'covered' : 'uncovered'}" aria-label="${item.name}: ${adapter ? 'binding-file adapter' : present ? 'reference behaviour exercised' : 'outside this slice'}">${adapter ? '◐' : present ? '●' : '—'}</td>`;
 }).join('')}</tr>`).join('')}</tbody>`;
-$('#next-queue').innerHTML = FARMY.queue.map((item,index) => `<article><span class="queue-number">${String(index+FARMY.slices.length+1).padStart(2,'0')}</span><div><span class="tag planned">${index === 0 ? 'Next queued outcome' : 'Queued'}</span><h4>${item.title}</h4><p>${item.detail}</p></div></article>`).join('');
+$('#next-queue').innerHTML = FARMY.queue.map((item,index) => `<article><span class="queue-number">${item.number}</span><div><span class="tag planned">${item.status}</span><h4>${item.title}</h4><p>${item.detail}</p></div></article>`).join('');
 
 $('#method-steps').innerHTML = FARMY.method.map((step,index) => `<button data-method="${index}" aria-pressed="false"><span>${String(index+1).padStart(2,'0')}</span>${step[0]}<b>↗</b></button>`).join('');
 function selectMethod(index) {
@@ -155,7 +155,7 @@ $('#delivered-count').textContent = `${FARMY.slices.length} slices delivered`;
 $('#passing-count').textContent = `${totalTests} tests passing`;
 $('#test-breakdown').textContent = `${FARMY.foundationTests} foundation + ${acceptanceCount} slice acceptance`;
 $('#test-bars').setAttribute('aria-label', `${totalTests} tests: ${FARMY.foundationTests} foundation; ` + FARMY.slices.map(s => `${s.tests} ${s.id}`).join(', '));
-$('#test-legend').innerHTML = `<span><i class="foundation"></i>Foundation ${FARMY.foundationTests}</span>` + FARMY.slices.map((s,i) => `<span><i class="uc${i+1}"></i>${s.id} ${s.tests}</span>`).join('');
+$('#test-legend').innerHTML = `<span><i class="foundation"></i>Foundation ${FARMY.foundationTests}</span>` + FARMY.slices.map((s,i) => `<span><i class="uc${Number(s.id.slice(3))}"></i>${s.id} ${s.tests}</span>`).join('');
 
 $('#concept-tabs').innerHTML = FARMY.concepts.map((concept,index) => `<button data-concept="${concept.id}" aria-pressed="false"><small>0${index+1}</small><strong>${concept.title}</strong></button>`).join('');
 function selectConcept(id) {

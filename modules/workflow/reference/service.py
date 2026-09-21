@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import threading
 
+from bindings import resolve, admit
 from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, descriptor, serve
 from farmy_transport.local import LocalService, digest
@@ -17,6 +18,12 @@ class Workflow(LocalService):
     def __init__(self, config):
         super().__init__(config)
         self.lock = threading.Lock()
+        self.knowledge_binding = None
+        if config.get('knowledgeBinding'):
+            self.knowledge_binding = resolve(config['knowledgeBinding'], config['walletId'],
+                                             'farmy.knowledge', 'evidence.index', '0.2-draft')
+        self.knowledge_target = self.knowledge_binding['instanceId'] if self.knowledge_binding else 'knowledge.local'
+        self.dependencies = ('processing.local', self.knowledge_target)
 
     def monitoring_summary(self):
         return summarize(self, [
@@ -54,8 +61,11 @@ class Workflow(LocalService):
         return {'jobId': row['id'], 'status': row['status'], 'proposalId': row['proposal']}
 
     def run_job(self, peer, body):
-        logical = digest({'refs': body['inputRefs'], 'payload': body['payload'],
-                          'compositionRevision': self.config['compositionRevision']})
+        logical_input = {'refs': body['inputRefs'], 'payload': body['payload'],
+                         'compositionRevision': self.config['compositionRevision']}
+        if self.knowledge_binding:
+            logical_input['knowledgeBinding'] = self.knowledge_binding
+        logical = digest(logical_input)
         job = 'job.' + digest({'owner': peer, 'key': body['idempotencyKey']})
         with self.db() as db:
             row = db.execute('SELECT * FROM jobs WHERE id=?', (job,)).fetchone()
@@ -81,7 +91,9 @@ class Workflow(LocalService):
                 self.event(db, peer, 'job.run', 'extracted')
         with self.db() as db:
             row = db.execute('SELECT * FROM jobs WHERE id=?', (job,)).fetchone()
-        result = self.remote('knowledge.local', 'evidence.index',
+        if self.knowledge_binding:
+            admit(self.config, self.knowledge_binding)
+        result = self.remote(self.knowledge_target, 'evidence.index',
                              {'proposalId': row['proposal'], 'disclosureGrant': payload['disclosureGrant']}, body,
                              grant=payload['indexGrant'], key='index.' + job)
         if result['proposalId'] != row['proposal']:
