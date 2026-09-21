@@ -37,3 +37,5 @@ All dashboard files use the repository's [Apache-2.0 licence](../LICENSE).
 ## Live operational view
 
 The separate [UC-005 dashboard](../solutions/operations/uc005/README.md) is a real read-only installation monitor. Its files are under `dashboard/live/` and must be served by their authenticated local bridge. It is not a standalone static HTML guide. Launch it using the documented runner and its printed access link; it normally uses port 8766.
+
+The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the five implemented slices and their unchanged test baseline.

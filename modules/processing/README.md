@@ -29,3 +29,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Operational monitoring
 
 [UC-005](../../solutions/operations/uc005/README.md) adds an optional, receiver-authorised [summary API](../../contracts/uc005/README.md). This implementation owns its count queries and exposes only metadata/recent outcomes to an explicitly enrolled monitor. Existing compositions keep monitoring disabled; no private database is shared.
+
+## Generating interface artifacts
+
+A specialised implementation may use AI to propose and test source mappings or adapter code. The resulting artifact is a versioned proposal, not automatically executable authority. Connectors own source-specific execution; an explicitly authorised admission policy governs activation in a supported extension runtime. This target capability does not turn every Processing module into a general code executor. See [core concepts](../../docs/core-concepts.md).

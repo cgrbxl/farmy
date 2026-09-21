@@ -4,6 +4,12 @@ Status: agreed conceptual direction, with implementation proposals explicitly le
 
 The consolidated [capability/module map and technical design](module-architecture.md) and [communication/security design](module-communication.md) expand this baseline. Detailed proposals are marked for review; deployment work follows architecture consolidation.
 
+## Three architectural drivers
+
+The [core concepts](core-concepts.md) explain why Farmy is composable: AI-assisted interfaces can evolve inside a governed extension boundary; sources and wallet authorities cooperate through shared data-space rules while retaining their own decisions; signed claims connect owners, contributors, holders and verifiers through explicit trust policies. These are target capabilities, not claims about the current local runtimes.
+
+The distinction between a module release and an admitted extension revision is essential. A supported adapter/mapping can change without redeploying its host, but not without versioning and permission. Similarly, a federation agreement does not replace source grants, and a verified signature does not replace a verifier’s trust decision.
+
 ## Composition model
 
 | Object | Meaning |
@@ -38,6 +44,8 @@ All connections require authentication and policy enforcement even where those c
 ## Wallet responsibility
 
 Inventory stable resource identifiers, source location references, source version/hash, provenance, sensitivity, availability and policy references. A move changes a location binding rather than a resource's identity. Updates create identifiable versions. Preserve originals; derived records reference exact input versions and producing instances.
+
+The wallet also owns or references scoped owner/contributor claims and trust-policy decisions, with credential/key operations behind declared adapters. Issuer, holder and verifier roles can change between interactions; every link remains independently assessable. External wallets can complement these functions without automatically replacing resource authority.
 
 The wallet records decisions and accepted changes. Workers can submit proposed derived records; authority to submit is not authority to overwrite evidence.
 

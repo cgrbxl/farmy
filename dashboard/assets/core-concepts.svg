@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 770" role="img" aria-labelledby="title desc">
+<title id="title">The three concepts brought together in Farmy</title>
+<desc id="desc">Target capabilities: AI generates an interface that tests and admission policy turn into a versioned extension. Two independent sources retain their policies while a consumer also meets common data-space rules. An owner and contributor issue separate claims which a holder presents to a verifier; the verifier may issue another referenced claim. These are future capabilities, not running integrations.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#6c8561"/></marker></defs>
+<style>text{font-family:system-ui,sans-serif;fill:#2b503d}.title{font-size:20px;font-weight:650}.label{font-size:15px;font-weight:600}.sub{font-size:12px;fill:#6c7c62}.arrow{fill:none;stroke:#6c8561;stroke-width:2;marker-end:url(#arrow)}.rule{fill:none;stroke:#aa916b;stroke-width:2;stroke-dasharray:5 5}.box{fill:#fffef8;stroke:#cbd7bc}.band{fill:#edf1e5}</style>
+<rect x="5" y="5" width="1090" height="760" rx="14" fill="#fbfaf5"/>
+<rect class="band" x="20" y="20" width="1060" height="205" rx="12"/>
+<text x="40" y="55" class="title">01 · AI-enabled plasticity</text><text x="810" y="54" class="sub">TARGET CAPABILITY · NOT IMPLEMENTED</text>
+<g class="box"><rect x="40" y="85" width="220" height="85" rx="10"/><rect x="305" y="85" width="220" height="85" rx="10"/><rect x="570" y="85" width="220" height="85" rx="10"/><rect x="835" y="85" width="220" height="85" rx="10"/></g>
+<text x="55" y="115" class="label">Describe a new source</text><text x="55" y="143" class="sub">Permitted API and examples</text>
+<text x="320" y="115" class="label">AI proposes an interface</text><text x="320" y="143" class="sub">Mapping or isolated adapter</text>
+<text x="585" y="115" class="label">Test and admit</text><text x="585" y="143" class="sub">Explicit policy and privileges</text>
+<text x="850" y="115" class="label">Activate the extension</text><text x="850" y="143" class="sub">Versioned, traced, reversible</text>
+<path class="arrow" d="M260 127h40m225 0h40m225 0h40"/>
+<text x="40" y="202" class="sub">The host can stay unchanged where its extension runtime already supports the new behaviour. Admission can be automated within delegated authority.</text>
+<rect class="band" x="20" y="245" width="1060" height="250" rx="12"/>
+<text x="40" y="280" class="title">02 · Source-governed data spaces</text>
+<g class="box"><rect x="40" y="310" width="220" height="70" rx="10"/><rect x="305" y="310" width="220" height="70" rx="10"/><rect x="835" y="405" width="220" height="65" rx="10"/></g>
+<rect x="570" y="310" width="485" height="70" rx="10" fill="#f3ecde" stroke="#c8b893"/>
+<text x="55" y="338" class="label">Source A</text><text x="55" y="360" class="sub">Own owner and disclosure rules</text>
+<text x="320" y="338" class="label">Source B</text><text x="320" y="360" class="sub">Own owner and disclosure rules</text>
+<text x="587" y="338" class="label">Common governance</text><text x="587" y="360" class="sub">Participation, usage, onward disclosure and accountability</text>
+<text x="850" y="433" class="label">Authorised consumer</text><text x="850" y="453" class="sub">Both source policies still apply</text>
+<path class="arrow" d="M150 380v45h680M415 380v70h415"/><path class="rule" d="M945 380v25M570 330h-20v-35H150v15M415 295v15"/>
+<text x="40" y="480" class="sub">Independent authority + common rules. Membership alone grants no read permission; derived results retain provenance and applicable conditions.</text>
+<rect class="band" x="20" y="515" width="1060" height="230" rx="12"/>
+<text x="40" y="550" class="title">03 · Wallet-based trust networks</text>
+<g class="box"><rect x="40" y="575" width="220" height="52" rx="10"/><rect x="40" y="641" width="220" height="52" rx="10"/><rect x="305" y="603" width="220" height="70" rx="10"/><rect x="570" y="603" width="220" height="70" rx="10"/><rect x="835" y="603" width="220" height="70" rx="10"/></g>
+<text x="55" y="597" class="label">Owner issues a claim</text><text x="55" y="616" class="sub">Signed ownership declaration</text>
+<text x="55" y="663" class="label">Contributor issues a claim</text><text x="55" y="682" class="sub">Scoped certification or review</text>
+<text x="320" y="632" class="label">Holder presents</text><text x="320" y="654" class="sub">Permitted claims and references</text>
+<text x="585" y="632" class="label">Verifier assesses</text><text x="585" y="654" class="sub">Signature + evidence + trust</text>
+<text x="850" y="632" class="label">May issue a new claim</text><text x="850" y="654" class="sub">References prior contributions</text>
+<path class="arrow" d="M260 601l40 25m-40 42 40-20M525 638h40m225 0h40"/>
+<text x="40" y="722" class="sub">Roles can repeat across third parties. A signed claim is not automatic truth, ownership or permission. Each verifier evaluates every relevant link.</text>
+</svg>

@@ -52,3 +52,9 @@ Conformance establishes interoperability for tested profiles, not universal comp
 Provide a shared specification, synthetic fixtures, contract tests and optional SDKs. Do not require one programming language, framework, cloud account, certificate vendor or private registry implementation. Exact interoperable security profiles still need to be selected: permitting alternatives without a common tested profile would move complexity to every integration.
 
 The first profile should cover the document path and online wallet authorisation. Event streams, offline grants, physical actions and credential issuance need additional profiles; advertise these as unavailable until specified and verified. A common base plus explicit capability extensions is more realistic than one universal protocol claiming to handle all behaviours.
+
+## Adaptive extension and federation declarations
+
+A module that supports runtime-generated interfaces must declare its accepted configuration/code format, extension runtime, isolation and resource limits, admission authority, version/digest pinning, compatibility tests and rollback semantics. A host release and an activated extension revision are separate artifacts. Claiming plasticity does not authorise arbitrary code or promise support for every source.
+
+Federated participants must declare their authority namespace, source/disclosure policy and applicable common governance profile. Credential integrations must declare claim meaning, issuer/holder/verifier roles, trust-policy dependencies and status/key-recovery behaviour. These are later profile requirements, not current conformance claims. See [core concepts](core-concepts.md).

@@ -8,6 +8,14 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 Explore the [interactive visual project guide](dashboard/README.md): architecture, capabilities, data flows and delivery progress. Open `dashboard/index.html` locally; no installation or build is needed.
 
+## Three ideas brought together
+
+- **AI-enabled plasticity:** AI can analyse content, create embeddings and propose ontologies, and also generate source-interface mappings or adapter code. A module with an appropriate extension mechanism can admit new behaviour without redeploying its host. Extensions still need versions, validation and explicitly delegated activation rights.
+- **Source-governed data spaces:** independently controlled sources retain their own consumption and disclosure policies while participating in common governance. A shared ecosystem does not require centralising their data or authority.
+- **Wallet-based trust networks:** owners and contributors can issue signed, scoped claims that holders present and other parties verify or build upon. Signatures support attribution and integrity; accepting ownership or a contribution requires explicit trust rules and evidence, separately from data-access permission.
+
+These are core design aims. Runtime-generated interfaces, federated data-space governance and credential trust chains are **not yet implemented** by the five local slices. Read [the concepts, examples and boundaries](docs/core-concepts.md).
+
 ## Principles
 
 - Separate control of information from its storage location.

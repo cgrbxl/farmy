@@ -33,3 +33,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Operational monitoring
 
 [UC-005](../../solutions/operations/uc005/README.md) adds an optional, receiver-authorised [summary API](../../contracts/uc005/README.md). This implementation owns its count queries and exposes only metadata/recent outcomes to an explicitly enrolled monitor. Existing compositions keep monitoring disabled; no private database is shared.
+
+## AI-assisted interface plasticity
+
+A Connector may support versioned source mappings or isolated adapter extensions created with AI. Where its existing extension runtime suffices, admission can activate a new interface without redeploying the host. The source owner’s access/disclosure policy still governs every read; the generated artifact cannot acquire credentials or authority by itself. Record validation, admission, provenance and rollback. Runtime generation/admission is a target, not a current Connector feature. See [core concepts](../../docs/core-concepts.md).

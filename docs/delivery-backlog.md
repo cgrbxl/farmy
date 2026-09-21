@@ -17,3 +17,5 @@ Status: proposed order, not a schedule or implementation report. UC-001 through 
 Reorder based on learning; a necessary security/recovery correction outranks the next feature. Pull a small substitution experiment earlier if it is needed to validate a risky boundary. The rows are outcomes, not an obligation to implement every feature of the named families.
 
 For each completed slice, update the dashboard and affected repository documentation, add actual demonstration evidence to its case, retain regression tests and record expected versus actual module changes. The queue is not evidence that all contracts or target environments are supported.
+
+The [three core concepts](core-concepts.md), clarified on 2026-09-21, guide future increments: admitted AI-generated interfaces, independently governed data-space participants and wallet trust networks. Their candidate demonstrations remain unimplemented and are not silently inserted ahead of this queue.

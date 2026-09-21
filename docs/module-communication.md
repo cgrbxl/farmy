@@ -1,6 +1,6 @@
 # Module communication and security
 
-Status: proposed protocol/security design for architecture review. HTTP/JSON with versioned OpenAPI/JSON Schema and durable polling are accepted in ADR 0002; authentication, credential binding and offline grant details below need their own accepted security ADRs. No controls are implemented yet.
+Status: proposed protocol/security design for architecture review. HTTP/JSON with versioned OpenAPI/JSON Schema and durable polling are accepted in ADR 0002; authentication, credential binding and offline grant details below need their own accepted security ADRs. Later local slices implement a narrow profile; consult their contracts and evidence rather than treating this broader design as implemented.
 
 This draft specifies the first document path. The broader [capability review](capability-review.md) reserves additional acquisition, processing, inference and action contracts; they must not be claimed as supported by these document operations. All implementations also need the [module integration profile](module-integration.md).
 
@@ -77,3 +77,7 @@ A coordinator receives only the delegation needed to execute the approved workfl
 Tests must cover unknown/expired peer credentials, wrong audience, cross-wallet access, expired/revoked grants, delegation escalation, malicious retrieved instructions, unapproved model egress, stale input commits, duplicate/late jobs, secrets in logs, tampered transfer references, index removal and cached-answer revocation. Each implementation must pass these at its own boundary; a central gateway test alone is insufficient.
 
 A service's internal persistence and credential references are private. Policy checks, audit outbox and contract validation may share implementation libraries, but independently implemented providers must be able to pass public conformance tests without importing those libraries or reading Farmy's private database schema.
+
+## Adaptation and cross-participant interactions
+
+Generated adapter/configuration artifacts cross an admission boundary before activation; source descriptions and model outputs carry no execution authority. Pin the admitted revision independently from the host module release. Cross-participant data exchanges require both source-specific permissions and applicable data-space conditions. Credential exchange carries scoped claims and their evidence links; the receiver verifies each claim under its own trust policy, without deriving read access from signature validity. These broader interactions are [accepted direction](core-concepts.md), not implemented wire contracts.

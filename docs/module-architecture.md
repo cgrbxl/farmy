@@ -1,6 +1,6 @@
 # Capability, module and technical architecture
 
-Status: consolidated review draft. Existing architectural principles and the Python/HTTP/JSON/local SQLite reference stack are accepted; the nine-family grouping is the agreed reference baseline, while core composition and detailed implementation choices remain proposals, not implemented behaviour.
+Status: consolidated review draft. Existing architectural principles and the Python/HTTP/JSON/local SQLite reference stack are accepted; the nine-family grouping is the agreed reference baseline, while broader composition and detailed implementation choices remain proposals. Five local slices provide narrow implemented evidence; see the delivery queue for actual status.
 
 Read this before deployment design. The sequence is capability ownership, module boundaries, communication/security, module implementation, then environment-specific packaging. See [ADR 0006](decisions/0006-architecture-first.md).
 
@@ -14,16 +14,20 @@ Bindings select instances; grants authorise actions. An offering advertises a pr
 
 The [capability review](capability-review.md) expands the document-oriented map to source/event acquisition, general processing, model execution and controlled actions, with clear ownership of approvals and data lifecycle. These additions are proposals, not extra first-release deliverables. The [integration profile](module-integration.md) defines what independent modules must declare and prove.
 
+## Three concepts within the same boundaries
+
+[AI-enabled plasticity, source-governed data spaces and wallet trust networks](core-concepts.md) are central architectural drivers. A generated connector extension stays with the source/credential boundary; a data-space participant retains independent authority; signed contributions stay attributable to their issuers and subject to verifier policy. They do not require three new mandatory module families.
+
 ## Reference grouping: nine service module families
 
 The broad capability catalogue is not a deployment inventory. Group implementations by cohesive responsibility, owned state, privilege boundary and independent change. The following nine families cover the first document solution; they are the agreed reference grouping, not nine mandatory servers or a limit on future modules. A family defines contracts, not a central service hosting every implementation.
 
 | Module family | Capabilities grouped | Owned state / reason to group | Must stay outside |
 | --- | --- | --- | --- |
-| FarmWallet | Resource/collection identity, version and provenance acceptance, policy/grants, retention decisions | Authoritative resource and policy state; consistent acceptance and authorisation | Parsers, indexes, provider SDKs, workflow execution and domain algorithms |
+| FarmWallet | Resource/collection identity, version and provenance acceptance, policy/grants, retention decisions, scoped signed-claim and trust-policy references | Authoritative resource and policy state; consistent acceptance and authorisation | Parsers, indexes, provider SDKs, workflow execution and domain algorithms |
 | Service registry | Implementation/instance discovery, compatibility declarations, configuration references and bindings | Installation composition and binding revisions | Farm grants, executing jobs, silently trusting catalogue entries |
 | Workflow coordinator | Durable jobs, step ordering, triggers, approvals-in-progress, retries/cancellation and reconciliation | Workflow state and pinned inputs/bindings; one coordinator per job | Domain algorithms, identity issuance, grant approval and provider-specific branches |
-| Connectors | Physical storage access and source acquisition, grouped by external system and credential boundary | Provider credentials by reference, source cursors, location/version mapping and staged-copy records | Parsing, analytics, answering questions or deciding export permission |
+| Connectors | Physical storage access and source acquisition, grouped by external system and credential boundary | Provider credentials by reference, source cursors, location/version mapping, admitted source-interface extensions and staged-copy records | Parsing, analytics, answering questions or deciding export permission |
 | Processing | Ingestion, extraction, normalisation, validation, calculation, transformation and rendering as declared specialisations | One implementation owns its algorithm/configuration and proposed results; operations share versioned inputs/provenance and job semantics | Authoritative commits, retrieval index ownership, unapproved external effects |
 | Knowledge | Indexing, retrieval, graph/query access, freshness and index removal | Derived indexes and exact source/version references | Wallet authority, raw source credentials or domain workflow orchestration |
 | Model access | Model profiles, provider adapters, parameter validation, approved routing and egress control | Endpoint/secret references and minimal invocation state | Owning every model runtime, task reasoning or tool permissions |
@@ -32,7 +36,7 @@ The broad capability catalogue is not a deployment inventory. Group implementati
 
 Connector implementations are scoped, such as Local Folder, S3 or a later weather API. Do not build a universal connector daemon with every credential. Processing implementations are scoped, such as Document Extraction or a later calculation module. Do not build a universal processor with every algorithm. Several independently deployed instances and implementations of either family may coexist.
 
-For this grouping, the earlier Ingestion role is a specialised Processing module, Source acquisition belongs to the Connector family, and the earlier Model gateway is the Model access module. These are architecture terms; published API names do not exist yet. Source acquisition must still satisfy Exchange/disclosure controls whenever a request sends private information to an external party.
+For this grouping, the earlier Ingestion role is a specialised Processing module, Source acquisition belongs to the Connector family, and the earlier Model gateway is the Model access module. These are architecture terms; implemented draft operation names and limits are listed in the contracts directory. Source acquisition must still satisfy Exchange/disclosure controls whenever a request sends private information to an external party.
 
 ### Supporting components and future boundaries
 
@@ -41,7 +45,7 @@ For this grouping, the earlier Ingestion role is a specialised Processing module
 - Dashboard/CLI/external clients sit outside background service ownership. A client can compose workflows without a copilot.
 - Model runtimes are independently supplied dependencies behind Model access. Installing a model runtime is not the same as installing routing policy.
 - Catalogues advertise offerings; Registry records selected instances. Deployment administration remains a later separate control boundary.
-- Physical actions and credential issuance require specialised later modules with their own trust/safety contracts. Do not place them in Processing or Exchange merely to avoid adding a module.
+- Physical actions require a specialised later safety boundary. Credential signing, presentation and verification require explicit trust/key-custody adapters under Wallet responsibilities, complemented by Exchange for outward disclosure; they are not generic Processing side effects.
 
 ## Why these boundaries
 
@@ -49,7 +53,7 @@ Keep together operations needing the same owner, lifecycle and local consistency
 
 Wallet, Registry and Coordinator may be delivered in one core distribution for convenience, but retain public interfaces, owned persistence and independently runnable components. Registry changes, long-running jobs and wallet policy are different reasons for change; do not fuse them into a single private schema. Resource-policy consistency belongs inside Wallet, while cross-service updates use revisions, recorded intent and reconciliation rather than one shared transaction.
 
-Ingestion and analytics can share a Processing job envelope without pretending their semantics are interchangeable. An extraction result and a simulation result have different schema identifiers, features and conformance tests. Processing cannot accept arbitrary executable code from a workflow or retrieved document; a new implementation is explicitly registered and trusted.
+Ingestion and analytics can share a Processing job envelope without pretending their semantics are interchangeable. An extraction result and a simulation result have different schema identifiers, features and conformance tests. Processing cannot treat arbitrary code from a workflow, retrieved document or model as trusted execution. A declared extension mechanism may admit generated code/configuration under a bounded policy, with isolated execution, tests, artifact identity and rollback. This can change an extension revision without changing the host release; new runtime or security semantics may still require a release.
 
 Prefer a small common resource/provenance envelope with versioned capability-specific payloads. Wallet can preserve validated references to new payload types without acquiring every domain schema, but must reject unknown security semantics. A module must declare schema ownership, features and input/output meaning; an unrestricted JSON blob or universal `execute(anything)` endpoint would conceal coupling rather than remove it.
 
@@ -67,6 +71,9 @@ These are planned architectural acceptance tests, not executed results. For each
 
 | Extension | Expected implementation change | Other changes / limits |
 | --- | --- | --- |
+| Generate an interface for a supported new source | A versioned Connector mapping or admitted isolated adapter; generator may be specialised Processing/Assistance | Contract/security tests, source authority, admission policy, pinned bindings and rollback; no host redeployment only where the existing runtime suffices |
+| Federate independently owned sources | Wallet/Connector/Exchange implementations conform to an agreed participation profile | Both source policies and common governance apply; no centralised ownership or automatic cross-wallet grant |
+| Add a third-party attestation | Wallet credential adapter and explicit issuer/verifier trust profile | Scope and exact artifact references, status/expiry, disclosure and non-transitive trust checks; no implicit content access |
 | Add another S3-compatible store supporting the existing features | Connector configuration only, or connector adapter if provider behaviour differs | Credentials, bindings and actual compatibility tests; do not assume every S3-like API matches |
 | Add a new document format | Document Processing parser/implementation | Advertise supported input/result schemas; Wallet, Registry and Knowledge stay unchanged if the evidence contract still fits |
 | Add a new calculation over known structured data | New specialised Processing implementation | New operation/output schema and workflow binding; a specialised UI may need work, generic status/result handling should not |
@@ -79,7 +86,7 @@ These are planned architectural acceptance tests, not executed results. For each
 
 Repeated co-changes are evidence to revisit a boundary. If provider additions repeatedly edit Wallet or Coordinator, domain detail is leaking into the core. If one module accumulates unrelated credentials, dependencies, operators and failure modes, split it. If two modules are always changed together and need synchronous back-and-forth for every operation, review whether they should be one module or use a better contract. Security/trust boundaries can justify separation even when that costs performance.
 
-Contributor guidance is organised by family in [modules](../modules/README.md), with [solution recipes](../solutions/README.md) and separate [deployment profiles](../deployments/README.md). All are design-only until executable artifacts and tests exist.
+Contributor guidance is organised by family in [modules](../modules/README.md), with [solution recipes](../solutions/README.md) and separate [deployment profiles](../deployments/README.md). Each guide distinguishes implemented slice evidence from unimplemented broader requirements.
 
 ## Proposed core and first solution
 

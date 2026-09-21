@@ -156,3 +156,19 @@ $('#passing-count').textContent = `${totalTests} tests passing`;
 $('#test-breakdown').textContent = `${FARMY.foundationTests} foundation + ${acceptanceCount} slice acceptance`;
 $('#test-bars').setAttribute('aria-label', `${totalTests} tests: ${FARMY.foundationTests} foundation; ` + FARMY.slices.map(s => `${s.tests} ${s.id}`).join(', '));
 $('#test-legend').innerHTML = `<span><i class="foundation"></i>Foundation ${FARMY.foundationTests}</span>` + FARMY.slices.map((s,i) => `<span><i class="uc${i+1}"></i>${s.id} ${s.tests}</span>`).join('');
+
+$('#concept-tabs').innerHTML = FARMY.concepts.map((concept,index) => `<button data-concept="${concept.id}" aria-pressed="false"><small>0${index+1}</small><strong>${concept.title}</strong></button>`).join('');
+function selectConcept(id) {
+  const concept = FARMY.concepts.find(item => item.id === id);
+  document.querySelectorAll('[data-concept]').forEach(button => {
+    const active = button.dataset.concept === id;
+    button.setAttribute('aria-pressed', String(active));
+    button.classList.toggle('selected', active);
+  });
+  $('#concept-detail').innerHTML = `<span class="eyebrow">ACCEPTED DIRECTION · BROADER CAPABILITY NOT YET IMPLEMENTED</span><h3>${concept.subtitle}</h3><p>${concept.text}</p><ol class="concept-flow">${concept.steps.map(step => `<li>${step}</li>`).join('')}</ol><p class="concept-boundary">${concept.boundary}</p><p class="concept-today">${concept.today}</p><p class="concept-families"><b>Responsibility:</b> ${concept.families}</p>`;
+}
+$('#concept-tabs').addEventListener('click', event => {
+  const button = event.target.closest('[data-concept]');
+  if (button) selectConcept(button.dataset.concept);
+});
+selectConcept('plasticity');

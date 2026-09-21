@@ -1,18 +1,18 @@
 # Roadmap
 
-The [UC-001 macOS slice](../solutions/core/uc001/README.md) and [UC-002 extraction/evidence slice](../solutions/document-path/uc002/README.md) provide runnable synthetic demos and acceptance tests. The [draft integration foundation](../contracts/v0.1-draft/README.md) also has executable document/declared-compatibility checks. Broader runtime and deployment conformance remains pending.
+Five synthetic macOS slices now cover controlled memory, exact-source evidence, source permissions, a cited local-model answer and live operational monitoring. See the [delivery queue](delivery-backlog.md) for runnable evidence. Broader runtime and deployment conformance remains pending.
 
 ## M0 — Architecture repository (this baseline)
 
 Document vision, service boundaries, trust, composition, examples, decision process and acceptance criteria. Licensing is resolved through [ADR 0003](decisions/0003-apache-2.0.md): Apache 2.0 applies to original repository materials. This does not imply a working runtime.
 
-## Current priority — First vertical increment
+## Current priority — Continue vertical delivery
 
-The accepted reference grouping and architecture are sufficient to scope the first small implementation. Use the draft [working method](working-method.md) and [delivery queue](delivery-backlog.md), starting with [UC-001 controlled local memory](../solutions/core/use-cases/UC-001-controlled-memory.md). Resolve only its contracts/security decisions, build the real path and demonstrate it before expanding.
+Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is the next queued outcome. The clarified [core concepts](core-concepts.md) guide future acceptance cases without changing that order.
 
 The milestones below are outcome areas, not waterfall phases. Contract, implementation, security and conformance work happen together inside each use-case increment; M1 does not need to be complete for all families before M2 begins. Platform-specific packaging follows working module needs, while a reproducible local run is part of every slice.
 
-The repository organisation is in place. UC-001 implements controlled local memory and UC-002 adds extraction, evidence and recoverable jobs; deployment profiles and broader solution recipes remain documentation scaffolds.
+The repository organisation is in place. UC-001 through UC-005 establish a narrow working local composition; deployment profiles and broader solution recipes remain documentation scaffolds.
 
 ## M1 — Contract foundation
 
@@ -33,6 +33,16 @@ Provide versioned core/solution and individual module packages for macOS, Window
 ## M5 — Contributor ecosystem
 
 Catalogue validation, deployment controller, signed/versioned releases and supply-chain checks; additional email, sensor, data-space and credential connectors; agronomic copilots with domain-specific evaluation.
+
+## Architectural proofs still ahead
+
+The [three core concepts](core-concepts.md) are design drivers across the roadmap, not optional branding for late-stage plugins:
+
+- Admit an AI-generated interface to a supported source without redeploying its host; demonstrate limited privileges, pinned revisions and rollback.
+- Connect independently governed sources/wallets under common participation rules; demonstrate distinct disclosure policies and denied combinations.
+- Present owner and third-party contribution claims through issuer/holder/verifier chains; demonstrate explicit trust decisions, status checks and rejection of unacceptable claims.
+
+Each needs a concrete use case and a tested profile. No generic self-programming runtime, data-space standard or credential technology has been selected.
 
 ## Contract areas delivered as use cases need them
 

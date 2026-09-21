@@ -1,12 +1,16 @@
 # Abstract capability review
 
-Status: broad coverage and incremental implementation approach accepted by the maintainer, 2026-09-18; the nine-family reference grouping is now accepted in ADR 0008; detailed contracts remain proposed. This tests coverage against Farmy's current vision, not every possible future agricultural use. No new capability or module is implemented, and this review does not silently accept new technical decisions.
+Status: broad coverage and incremental implementation approach accepted by the maintainer, 2026-09-18; the nine-family reference grouping is now accepted in ADR 0008; detailed contracts remain proposed. This tests coverage against Farmy's current vision, not every possible future agricultural use. This catalogue is not implementation evidence; five later local slices cover narrow parts. The maintainer’s 2026-09-21 clarification is recorded in ADR 0013.
 
 ## Finding
 
 The previous map covers the initial document solution but mixes abstract capabilities with a particular implementation decomposition. It leaves transformations/analytics, event acquisition, model execution and controlled actions implicit. Make them explicit, and treat security, lifecycle and semantic interoperability as required integration contracts.
 
 Use cases are compositions of configured, bound module instances. Some fit one instance; others span several. A capability describes what can be done, an implementation supplies software, a module exposes a deployable contract boundary, and an instance is the running deployment. Neither one capability per process nor one use case per module is required.
+
+## Core concepts now explicit
+
+[ADR 0013](decisions/0013-adaptive-federated-trust.md) makes AI-assisted runtime interface adaptation, independently governed data-space participation and wallet trust networks first-class needs. They fit the existing nine families; their broad behaviour is not implemented by current slices.
 
 ## Coverage and proposed ownership
 
@@ -17,6 +21,8 @@ Use cases are compositions of configured, bound module instances. Some fit one i
 | Find implementations and select running services | Discovery, configuration and binding | Registry; optional separate catalogue | Existing; offerings, implementations and instances remain distinct |
 | Read/write physical information | Storage access | Storage connectors | Existing; storage location is not resource identity |
 | Acquire external observations or changes | Source acquisition and subscriptions | Source adapters | Make explicit for APIs, forms, email, batches and events; need not materialise everything as a file |
+| Adapt interfaces with AI | Generation, validation and admission of mappings or isolated adapters | Connectors own source extensions; specialised Processing/Assistance generates proposals; Registry/Workflow manages admitted revisions | Target: activate a supported extension without redeploying its host; generated code never authorises itself |
+| Participate in shared data governance | Federation, terms and independent source decisions | Wallet + Connectors + Exchange, with external governance dependencies | Target: common participation rules plus each source’s own disclosure authority |
 | Interpret incoming information | Extraction and normalisation | Ingestion | Existing; produces proposed typed records with source provenance |
 | Compute new information | Transformation, validation and analytics | Processing modules | Add explicit boundary for filtering, joins, aggregation, anonymisation candidates, rules, simulation and report rendering; an LLM is optional |
 | Find and relate evidence | Indexing, graph access and retrieval | Knowledge services | Existing; several services with different query semantics may coexist |
@@ -26,7 +32,7 @@ Use cases are compositions of configured, bound module instances. Some fit one i
 | Assist a user or agent | Conversational/task assistance | Copilot | Existing; optional client of general capabilities, not the only way to invoke them |
 | Carry out external effects | Controlled action execution | Action/tool adapters | Add explicit boundary for commands and business-system writes; equipment execution requires a later safety contract |
 | Disclose or receive information across a boundary | Exchange and disclosure | Exchange | Existing; separates export decisions/receipts from transport and computation |
-| Issue or verify attestations | Credential/signature operations | Future credential adapters | Reserve a boundary; trusted issuer and claim semantics matter independently of signature validity |
+| Issue or verify attestations | Credential/signature operations | Wallet responsibilities with credential/key-custody adapters; Exchange for authorised presentations | Owner claims and third-party contributions link issuer/holder/verifier interactions; acceptance and signature validity remain distinct |
 | Explain activity and operate services | Audit, health and lifecycle | Audit collector plus per-module contracts; later deployment controller | Existing; data deletion, backup and retirement responsibilities must be explicit |
 | Interact with people or other applications | User/API interaction | Dashboard, CLI or external clients | Existing; background capabilities cannot depend on an open UI |
 

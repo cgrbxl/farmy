@@ -1,8 +1,8 @@
 # Security and trust model
 
-Status: requirements, not implemented guarantees.
+Status: broader security requirements. Local slices implement a limited mutual-TLS/online-permission profile; production and federated controls below are not implied by those demonstrations.
 
-See the [proposed module communication/security design](module-communication.md) for per-hop checks and complete workflows. Its identity and grant mechanisms remain proposals pending security ADRs.
+See the [proposed module communication/security design](module-communication.md) for per-hop checks and complete workflows. Implemented draft contracts and limitations are recorded separately per slice.
 
 ## Trust boundaries
 
@@ -20,6 +20,14 @@ Identify farmer device, each hosting operator, each model provider, source provi
 - Record access, grants, changes, exports, processing destinations and cancellation/revocation outcomes. Avoid copying sensitive prompts into general logs.
 - Bound offline authorisations by expiry and document revocation latency.
 - Use source-version checks, idempotency and durable audit/outbox coordination.
+
+## Adaptation, federation and credential trust
+
+The [three core concepts](core-concepts.md) introduce distinct checks. Generated interfaces are proposals until admitted by an authorised policy. Restrict code execution, credentials and network destinations; pin the exact artifact/runtime revision, retain tests/provenance and define rollback. An automated admission decision is permitted only within delegated scope. A document or model output cannot change that scope.
+
+Federation preserves independent source authorities. Common governance, membership and source-specific disclosure rules must all be satisfied; an agreement or directory entry is not an access grant. Carry applicable conditions and provenance into derived outputs and onward disclosures. Local enforcement cannot prove every downstream use.
+
+For signed owner or contributor claims, verify exact subject/artifact binding, issuer identity/authority, signature and validity/status under the verifier’s trust policy. Preserve each link in a contribution chain; do not inherit trust merely through endorsement. An owner’s signature provides an attributable declaration, not conclusive ownership or truth. Credential presentation needs its own permitted disclosure scope. Key custody, recovery and revocation semantics require an explicit tested profile.
 
 ## Deployment enforcement
 

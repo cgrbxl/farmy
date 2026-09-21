@@ -1,6 +1,6 @@
 /* Curated project snapshot. Update with every completed slice; exclude private feedback. */
 const FARMY = {
-  "date": "19 September 2026",
+  "date": "21 September 2026",
   "revision": "47ff0f2",
   "families": [
     {
@@ -10,11 +10,11 @@ const FARMY = {
       "group": "Authority",
       "status": "reference",
       "subtitle": "Identity for information. Authority for access.",
-      "owns": "Source and resource identities, versions, policies, grants and provenance.",
+      "owns": "Resource/source identities, versions, policies, provenance and future signed-claim/trust-policy references.",
       "does": "Records who owns information and who may access it. It separates logical identity from physical storage.",
       "boundary": "No parsers, provider SDKs, indexes or workflow execution.",
       "now": "Document/version grants and source/owner/consumer permissions. Additive state upgrades are tested.",
-      "next": "Broader policy, lifecycle and complementary credential-wallet integration.",
+      "next": "Owner and contributor claims, explicit issuer/holder/verifier trust policies and complementary credential adapters.",
       "slices": [
         "UC-001",
         "UC-002",
@@ -75,7 +75,7 @@ const FARMY = {
       "does": "Provides bytes or observations through an authenticated, authorised boundary. Different providers can have separate implementations.",
       "boundary": "Does not own general parsing, inference or export policy.",
       "now": "Local Folder snapshots and a separate Synthetic Sensor implementation.",
-      "next": "A real S3 provider, physical-source adapters and verified transfer semantics.",
+      "next": "Real providers and admitted AI-generated source mappings or isolated adapters, without host redeployment where supported.",
       "slices": [
         "UC-001",
         "UC-002",
@@ -170,7 +170,7 @@ const FARMY = {
       "does": "Prepares and delivers exact authorised disclosures across a boundary.",
       "boundary": "Not a generic computation engine or equipment controller. Delivered copies cannot reliably be recalled.",
       "now": "Family boundary and requirements documented; no implementation.",
-      "next": "A synthetic export with a preview and permission bound to exact content and recipient.",
+      "next": "Exact-content disclosure first; later governed data-space exchange and authorised credential presentations.",
       "slices": [],
       "doc": "modules/exchange/README.md"
     }
@@ -599,5 +599,52 @@ const FARMY = {
       "The queue can change; this is not a fixed schedule."
     ]
   ],
-  "foundationTests": 19
+  "foundationTests": 19,
+  "concepts": [
+    {
+      "id": "plasticity",
+      "title": "AI-enabled plasticity",
+      "subtitle": "Learn how to connect, not only what the data says.",
+      "text": "AI can analyse contents, build embeddings and propose ontologies. It can also generate a source mapping or adapter. A module with a suitable extension mechanism can admit that interface while its host stays running.",
+      "steps": [
+        "Describe a permitted source",
+        "Generate mapping or adapter",
+        "Test and admit under policy",
+        "Activate a versioned extension"
+      ],
+      "families": "Connectors · Processing · Assistance · Model access · Registry · Workflow · Wallet",
+      "boundary": "No host redeployment where the runtime already supports the extension. Generated code still needs a version, bounded privileges and rollback; it cannot authorise itself.",
+      "today": "Today: hand-written connectors and one checked local-model answer. Runtime-generated interfaces are not implemented."
+    },
+    {
+      "id": "data-spaces",
+      "title": "Source-governed data spaces",
+      "subtitle": "Independent authority. Common participation rules.",
+      "text": "Each source retains its own owner, consumer permissions and disclosure rules. Farmers, laboratories and other participants can cooperate under shared governance without centralising all data or all authority.",
+      "steps": [
+        "Source A keeps its policy",
+        "Source B keeps its policy",
+        "Common rules apply to participants",
+        "Consumer meets every applicable rule"
+      ],
+      "families": "Wallet · Connectors · Exchange, with governance dependencies",
+      "boundary": "Membership is not read permission. Combining sources requires authority from each and defined conditions for the result. After delivery, consumer accountability still matters.",
+      "today": "Today: source/owner/consumer grants in one local authority. Federation between independent authorities is not implemented."
+    },
+    {
+      "id": "trust-networks",
+      "title": "Wallet-based trust networks",
+      "subtitle": "Owners and contributors leave assessable evidence.",
+      "text": "An owner signs a scoped declaration. A laboratory, reviewer or other contributor can sign its own certification, confirmation or marking. Holders present those claims; verifiers assess them and may issue further referenced statements.",
+      "steps": [
+        "Issuer signs a scoped claim",
+        "Holder retains and presents it",
+        "Verifier checks evidence and trust",
+        "New claim can reference prior claims"
+      ],
+      "families": "Wallet + credential/key adapters · Exchange · Knowledge",
+      "boundary": "A signature provides attribution and integrity, not automatic truth, conclusive ownership or access permission. Trust is assessed at each link; it is not automatically inherited.",
+      "today": "Today: resource provenance and authenticated service access. Signed owner/contributor credentials and their trust networks are not implemented."
+    }
+  ]
 };
