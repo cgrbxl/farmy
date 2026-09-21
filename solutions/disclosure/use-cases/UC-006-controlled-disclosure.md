@@ -41,7 +41,7 @@ Three Farmy module instances plus one recipient fixture; minimal Registry compos
 - Later source versions do not alter approved bytes. Recipient verifies sender, manifest and content.
 - Read-only monitoring reports counts/activity through public APIs; it has no export permissions.
 
-Verification commands: [run instructions](../uc006/README.md). Fourteen UC-006 acceptance checks plus the earlier suites; 80 total checks and six demonstrations when local Qwen is available. Actual run on 2026-09-21: all 80 checks and six demos passed on macOS 26.6.2 arm64 / Python 3.14.6, including installed Qwen through Ollama. Browser inspection confirmed the three-node live inventory, Exchange counts/activity and UC-006 project walkthrough. The implementation revision is linked in the completion evidence.
+Verification commands: [run instructions](../uc006/README.md). Fourteen UC-006 acceptance checks plus the earlier suites; 80 total checks and six demonstrations when local Qwen is available. Actual run on 2026-09-21: all 80 checks and six demos passed on macOS 26.6.2 arm64 / Python 3.14.6, including installed Qwen through Ollama. Browser inspection confirmed the three-node live inventory, Exchange counts/activity and UC-006 project walkthrough. Implementation revision: [`403577c`](https://github.com/cgrbxl/farmy/commit/403577c).
 
 ## Expected versus actual module changes
 

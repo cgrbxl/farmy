@@ -61,4 +61,6 @@ Fourteen new checks exercise exact bytes, immutable manifests, separate grants, 
 
 Verified on 2026-09-21: macOS 26.6.2 arm64 / Python 3.14.6. All 80 checks and six demos passed, including installed Qwen through Ollama. Browser inspection confirmed the three-node live inventory, Exchange counts/activity and project walkthrough. Windows, Linux, Kubernetes and Scaleway remain unverified. Local state and keys are unencrypted development material with restrictive permissions. This is a 16 KiB exact-document export profile, not generic large-file streaming, production custody, remote recipient compatibility, document credential issuance or a writable dashboard. The lost-acknowledgement fault switch exists only in the synthetic recipient fixture.
 
+Implementation revision: [`403577c`](https://github.com/cgrbxl/farmy/commit/403577c).
+
 See the [use-case evidence and module impact](../use-cases/UC-006-controlled-disclosure.md). A recipient receipt records acceptance of exact bytes; it does not promise control over later copies or usage.
