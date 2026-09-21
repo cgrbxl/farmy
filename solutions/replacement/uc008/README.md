@@ -49,6 +49,8 @@ Only fixed exact-source crop evidence is compared. Full-text/vector search equiv
 
 ## Evidence
 
+Implementation and tests: [3d93d4d](https://github.com/cgrbxl/farmy/commit/3d93d4d).
+
 2026-09-21, macOS 26.6.2 arm64 / Python 3.14.6: eleven UC-008 acceptance tests passed. Full regression passed 102 tests and eight demos, including installed local Qwen/Ollama and the optional S3 HTTP double. The final inventory-label adjustment was followed by another passing UC-008 suite. Browser checks confirmed the replacement walkthrough, diagram, six live nodes and B’s one evidence entry / one accepted index request. The completed baseline is 91 tests across seven slices; the other eleven checks belong to pending UC-007.
 
 Use the repository verification command:
