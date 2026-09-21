@@ -39,3 +39,5 @@ All dashboard files use the repository's [Apache-2.0 licence](../LICENSE).
 The separate [UC-005 dashboard](../solutions/operations/uc005/README.md) is a real read-only installation monitor. Its files are under `dashboard/live/` and must be served by their authenticated local bridge. It is not a standalone static HTML guide. Launch it using the documented runner and its printed access link; it prefers port 8766 and automatically chooses a free port if that port is occupied. Always use the printed access link.
 
 The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the five implemented slices and their unchanged test baseline.
+
+The progress section also shows a separate [future interactive backlog](../docs/interactive-modules.md): AI profile configuration, signed issuance, holder presentation, external verification and later family interactions. These cards do not change delivered slice/test counts or the next queued outcome.

@@ -331,6 +331,13 @@ const FARMY = {
       "detail": "Verify laptop and Kubernetes delivery one target at a time; Scaleway is first for cloud."
     }
   ],
+  "interactiveBacklog": [
+    {"title": "Choose the AI", "detail": "Select an allowed model/provider, validate endpoint and secret references, and activate a versioned profile. Local first, then one external API."},
+    {"title": "Issue a signed claim", "detail": "Add a document, preserve its exact version, preview the claim and sign as a named issuer. Uploading and issuing are separate actions."},
+    {"title": "Present as holder", "detail": "Preview the recipient and disclosure; sign a presentation bound to that verifier, a fresh challenge and an expiry."},
+    {"title": "Verify externally", "detail": "Use a separate verifier interface and a link or QR request. Show signature validity, issuer trust and credential status separately; the QR itself is not proof."},
+    {"title": "Grow interaction across families", "detail": "Add signed third-party contributions, source setup, extraction previews, evidence search, job controls and binding management one tested use case at a time."}
+  ],
   "flows": {
     "UC-001": [
       {

@@ -39,3 +39,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 Wallet responsibilities extend to scoped signed ownership/control declarations, third-party certifications, confirmations, reviews and markings over exact evidence. Participants can issue, hold, present and verify claims, then issue new claims referencing earlier ones. A verifier evaluates each issuer and statement explicitly; signatures establish attributable claims rather than automatic truth, ownership or transitive trust. Access grants and credential assurance remain separate.
 
 Wallet instances cooperate in data spaces without merging their authority namespaces. Source policies and common governance both apply. Signing/key custody and credential-format operations may use attached wallet/adapters; this does not automatically replace FarmWallet. These target capabilities remain unimplemented. See [core concepts](../../docs/core-concepts.md).
+
+## Future interactive modes
+
+See the [interactive module backlog](../../docs/interactive-modules.md) for staged user interfaces, family ownership and acceptance criteria. These modes are planned; the current monitoring interface remains read-only.

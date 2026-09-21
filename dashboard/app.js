@@ -172,3 +172,5 @@ $('#concept-tabs').addEventListener('click', event => {
   if (button) selectConcept(button.dataset.concept);
 });
 selectConcept('plasticity');
+
+$('#interactive-backlog').innerHTML = FARMY.interactiveBacklog.map((item, index) => `<article><span class="queue-number">I${index + 1}</span><div><span class="tag planned">Future interaction</span><h4>${item.title}</h4><p>${item.detail}</p></div></article>`).join('');

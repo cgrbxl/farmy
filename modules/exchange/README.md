@@ -29,3 +29,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Data spaces and credential disclosure
 
 Exchange supports the target data-space model by preserving source conditions, declared recipients/purposes and accountable outward disclosure. It may present permitted owner/contributor claims through credential adapters; presentation is not an automatic consequence of holding a valid signature. Common governance supplements each participant’s authority rather than centralising it. These are design requirements, not implemented federation or credential support. See [core concepts](../../docs/core-concepts.md).
+
+## Future interactive modes
+
+See the [interactive module backlog](../../docs/interactive-modules.md) for staged user interfaces, family ownership and acceptance criteria. These modes are planned; the current monitoring interface remains read-only.
