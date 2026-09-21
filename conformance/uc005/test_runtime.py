@@ -1,4 +1,5 @@
 """Read-only monitoring across real mTLS services and a local browser bridge."""
+import errno
 import http.client
 import importlib.util
 import json
@@ -6,12 +7,39 @@ from pathlib import Path
 import tempfile
 import threading
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('uc005_run', ROOT / 'solutions/operations/uc005/run.py')
 run = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(run)
 from farmy_transport.http import Fault, exchange, request
+
+
+class PortSelection(unittest.TestCase):
+    def test_automatic_fallback_preserves_existing_listener(self):
+        with run.bridge.Server({}, 0) as occupied:
+            port = occupied.server_port
+            with patch.object(run.bridge, 'DEFAULT_PORT', port):
+                with run.bridge.bind_server({}) as fallback:
+                    self.assertNotEqual(fallback.server_port, port)
+                    self.assertEqual(fallback.server_address[0], '127.0.0.1')
+                with self.assertRaisesRegex(SystemExit, f'Port {port} is already in use'):
+                    run.bridge.bind_server({}, port)
+                self.assertEqual(occupied.socket.getsockname()[1], port)
+        with patch.object(run.bridge, 'DEFAULT_PORT', port):
+            with run.bridge.bind_server({}) as preferred:
+                self.assertEqual(preferred.server_port, port)
+        with run.bridge.bind_server({}, 0) as automatic:
+            self.assertGreater(automatic.server_port, 0)
+
+    def test_other_bind_errors_are_not_hidden(self):
+        error = OSError(errno.EACCES, 'Permission denied')
+        with patch.object(run.bridge, 'Server', side_effect=error) as constructor:
+            with self.assertRaises(OSError) as caught:
+                run.bridge.bind_server({})
+            self.assertIs(caught.exception, error)
+            constructor.assert_called_once()
 
 
 class Runtime(unittest.TestCase):

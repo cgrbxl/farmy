@@ -1,5 +1,6 @@
 """Read-only, loopback browser bridge. Uses only public mTLS service APIs."""
 import argparse
+import errno
 from concurrent.futures import ThreadPoolExecutor
 import hmac
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -14,6 +15,21 @@ from farmy_transport.http import Fault, MONITOR_SCHEMA, exchange, schema_check, 
 
 ASSETS = {'/': ('index.html', 'text/html'), '/app.js': ('app.js', 'text/javascript'),
           '/style.css': ('style.css', 'text/css')}
+
+
+DEFAULT_PORT = 8766
+
+
+def bind_server(config, port=None):
+    """Bind atomically; only the implicit default may fall back to a free port."""
+    try:
+        return Server(config, DEFAULT_PORT if port is None else port)
+    except OSError as error:
+        if error.errno != errno.EADDRINUSE:
+            raise
+        if port is not None:
+            raise SystemExit(f'Port {port} is already in use. Omit --port or use --port 0 to choose a free port.') from None
+        return Server(config, 0)
 
 
 def inspect(config, identity, declared):
@@ -115,9 +131,9 @@ class Handler(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', required=True, type=Path)
-    parser.add_argument('--port', default=8766, type=int)
+    parser.add_argument('--port', type=int, help='Fixed port; 0 chooses a free port. Default: 8766 with automatic fallback.')
     args = parser.parse_args()
-    server = Server(json.loads(args.config.read_text()), args.port)
+    server = bind_server(json.loads(args.config.read_text()), args.port)
     print(f'Operational dashboard: http://127.0.0.1:{server.server_port}/', flush=True)
     try:
         server.serve_forever()

@@ -20,7 +20,7 @@ When served over HTTP, documentation links open the public GitHub repository. Wh
 
 This is a curated documentation snapshot, not an operational control panel or live monitoring system. It calls no Farmy services and includes no external libraries, analytics or remotely loaded assets.
 
-The current evidence baseline is the UC-005 implementation revision linked in the dashboard: five synthetic macOS slices, 19 foundation tests and 45 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
+The current evidence baseline is the UC-005 implementation revision linked in the dashboard: five synthetic macOS slices, 19 foundation tests and 47 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
 
 After accepting another slice:
 
@@ -36,6 +36,6 @@ All dashboard files use the repository's [Apache-2.0 licence](../LICENSE).
 
 ## Live operational view
 
-The separate [UC-005 dashboard](../solutions/operations/uc005/README.md) is a real read-only installation monitor. Its files are under `dashboard/live/` and must be served by their authenticated local bridge. It is not a standalone static HTML guide. Launch it using the documented runner and its printed access link; it normally uses port 8766.
+The separate [UC-005 dashboard](../solutions/operations/uc005/README.md) is a real read-only installation monitor. Its files are under `dashboard/live/` and must be served by their authenticated local bridge. It is not a standalone static HTML guide. Launch it using the documented runner and its printed access link; it prefers port 8766 and automatically chooses a free port if that port is occupied. Always use the printed access link.
 
 The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the five implemented slices and their unchanged test baseline.

@@ -20,7 +20,7 @@ To also populate a validated local-model answer, use the [UC-004 Ollama/Qwen pre
 .venv/bin/python solutions/operations/uc005/run.py launch --with-local-model
 ```
 
-Without the flag, Model access and Assistance still run but their invocation/answer counts start at zero. The dashboard never triggers inference. It does not probe Ollama health or model quality. Use `--port 8767` if 8766 is occupied. The optional Project guide link expects the separate static guide on port 8765.
+Without the flag, Model access and Assistance still run but their invocation/answer counts start at zero. The dashboard never triggers inference. It does not probe Ollama health or model quality. If 8766 is occupied, the default launcher automatically binds a free loopback port; always use its printed access link. Use `--port 0` to request any free port, or `--port 8767` to require that specific port. An occupied explicit port produces a clear error; existing processes are left running. The optional Project guide link expects the separate static guide on port 8765.
 
 ## What you can inspect
 
@@ -59,9 +59,9 @@ Stopping this `dashboard` process leaves modules alive. Restarting it reuses its
 .venv/bin/python scripts/verify.py --with-local-model
 ```
 
-Nine UC-005 tests verify real contents, receiver-enforced monitoring policy, a monitor unable to mutate/read raw data, browser token/Host/Origin restrictions, static-file containment, outages/recovery, access removal, fresh counts and independent bridge shutdown. The last command retains all earlier checks and runs all five demos with local Qwen. Without its model flag, the verification runner executes all suites and four demos without requiring Ollama.
+Eleven UC-005 tests verify real contents, receiver-enforced monitoring policy, a monitor unable to mutate/read raw data, browser token/Host/Origin restrictions, static-file containment, outages/recovery, access removal, fresh counts and independent bridge shutdown, port-conflict fallback and propagation of other binding errors. The last command retains all earlier checks and runs all five demos with local Qwen. Without its model flag, the verification runner executes all suites and four demos without requiring Ollama.
 
-Implementation revision: [`47ff0f2`](https://github.com/cgrbxl/farmy/commit/47ff0f2). Tested on macOS 26.6.2 arm64 / Python 3.14.6. The completed baseline contains 64 tests (19 foundation + 45 slice tests). This is not Windows/Linux/Kubernetes validation.
+Implementation revision: [`47ff0f2`](https://github.com/cgrbxl/farmy/commit/47ff0f2). Tested on macOS 26.6.2 arm64 / Python 3.14.6. The original baseline contains 64 tests (19 foundation + 45 slice tests). The port-conflict fix adds two regression checks, bringing the repository total to 66; all 11 UC-005 checks were rerun successfully. This is not Windows/Linux/Kubernetes validation.
 
 ## Security and module impact
 

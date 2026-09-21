@@ -66,7 +66,7 @@ def seed(directory, with_model=False):
 
 def ui(directory, port):
     config = core.config(directory, 'monitor.local')
-    server = bridge.Server(config, port)
+    server = bridge.bind_server(config, port)
     print(f'Open http://127.0.0.1:{server.server_port}/#access={config["browserToken"]}', flush=True)
     print('Read-only synthetic installation. Ctrl-C stops this runner; closing the browser does not.', flush=True)
     try:
@@ -103,7 +103,7 @@ def main():
     parser.add_argument('action', choices=['demo','launch','bootstrap','serve','dashboard','seed'])
     parser.add_argument('--directory', type=Path)
     parser.add_argument('--with-local-model', action='store_true')
-    parser.add_argument('--port', type=int, default=8766)
+    parser.add_argument('--port', type=int, help='Fixed port; 0 chooses a free port. Default: 8766 with automatic fallback.')
     parser.add_argument('--service', choices=list(SERVICES))
     args = parser.parse_args()
     if args.action in ('demo','launch'):

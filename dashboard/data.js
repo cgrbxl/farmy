@@ -276,7 +276,7 @@ const FARMY = {
       "id": "UC-005",
       "title": "The installation, in view",
       "label": "Live operations",
-      "tests": 9,
+      "tests": 11,
       "families": [
         "wallet",
         "registry",
@@ -293,7 +293,8 @@ const FARMY = {
       "proof": [
         "Dedicated monitoring identity; no raw-content or write rights",
         "Unavailable and denied summaries never appear as fresh counts",
-        "Closing the browser or bridge leaves independent modules running"
+        "Closing the browser or bridge leaves independent modules running",
+        "An occupied default port selects a free port without stopping other processes"
       ],
       "lesson": "Observability belongs at each service boundary. A client can compose the view without reading private databases.",
       "services": "8 services + UI bridge",
