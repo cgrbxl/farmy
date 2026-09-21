@@ -1,0 +1,7 @@
+{
+  "region": "fr-par",
+  "endpoint": "https://s3.fr-par.scw.cloud",
+  "bucket": "replace-with-approved-test-bucket",
+  "prefix": "farmy-tests/uc007/",
+  "credentialProfile": "farmy-scaleway-read"
+}

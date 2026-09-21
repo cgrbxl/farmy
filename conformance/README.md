@@ -15,3 +15,5 @@ Create fixtures and tests alongside the first accepted contracts and module impl
 Organise executable tests by versioned public contract/profile when those exist. Keep test data synthetic and expected results explicit. Attach results to exact implementation, contract, solution and deployment-profile versions; passing one layer does not imply the others pass.
 
 Use [modularity change scenarios](../docs/module-architecture.md), [integration requirements](../docs/module-integration.md) and [security requirements](../docs/security.md). The initial [document recipe](../solutions/document-path/README.md) is the first composition target.
+
+Optional in-progress [UC-007 checks](uc007/test_runtime.py) require [S3 dependencies](../modules/connectors/s3/requirements.txt). Add `--with-s3-fixture` to the verification runner for 11 additional local HTTP-double checks and one demonstration (91 total checks; seven demos with both optional flags). These do not establish real Scaleway compatibility.

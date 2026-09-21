@@ -1,0 +1,2 @@
+Farmy synthetic report
+crop: wheat

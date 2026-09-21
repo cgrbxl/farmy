@@ -37,3 +37,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## AI-assisted interface plasticity
 
 A Connector may support versioned source mappings or isolated adapter extensions created with AI. Where its existing extension runtime suffices, admission can activate a new interface without redeploying the host. The source owner’s access/disclosure policy still governs every read; the generated artifact cannot acquire credentials or authority by itself. Record validation, admission, provenance and rollback. Runtime generation/admission is a target, not a current Connector feature. See [core concepts](../../docs/core-concepts.md).
+
+## S3 implementation in progress
+
+[UC-007](../../solutions/s3-source/uc007/README.md) adds a [Scaleway S3 candidate](s3/README.md) with 11 passing local HTTP-double checks. It selects a second implementation for the existing Connector role in a fresh composition; simultaneous Local Folder/S3 instances are not implemented. Provider compatibility is pending. The two storage connectors share an optional snapshot helper; the Local Folder safe reader and database schema are unchanged.

@@ -43,3 +43,5 @@ The Core concepts section explains [AI-enabled plasticity, source-governed data 
 The progress section also shows a separate [future interactive backlog](../docs/interactive-modules.md): AI profile configuration, signed issuance, holder presentation, external verification and later family interactions. These cards do not change delivered slice/test counts or the next queued outcome.
 
 [UC-006 launch](../solutions/disclosure/uc006/README.md) reuses the live monitor for the three-service disclosure composition. Inventory positions and undeployed family labels derive from the active snapshot; the recipient is listed as a dependency outside the monitored inventory. The project guide includes the UC-006 flow and exact disclosure diagram.
+
+UC-007 appears separately as in progress: its 11 local HTTP-double checks and runnable preview are not included in the six completed slice cards or their 80-test baseline. Real Scaleway validation is required before promotion. Use the optional verification flag documented in the S3 solution to run the combined 91 checks.

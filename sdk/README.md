@@ -1,6 +1,6 @@
 # Optional integration SDKs
 
-Status: [optional Python development transport](python/farmy_transport/http.py) supports UC-001 through UC-005 with versioned envelope/payload validation and mutual TLS. [Development state helpers](python/farmy_transport/local.py) provide per-service connections and audit writes; module schemas and policy stay in the modules. It is not a general-purpose stable SDK.
+Status: [optional Python development transport](python/farmy_transport/http.py) supports UC-001 through UC-006 with versioned envelope/payload validation and mutual TLS. [Development state helpers](python/farmy_transport/local.py) provide per-service connections and audit writes; module schemas and policy stay in the modules. It is not a general-purpose stable SDK.
 
 Future SDKs may provide typed clients, descriptor/config validation, common errors, authenticated transport integration, evidence helpers and audit envelopes. They must follow versioned public contracts and should be exercised by the same conformance suite as independent implementations.
 
@@ -9,3 +9,5 @@ SDKs are optional: neither language choice nor a shared runtime library is requi
 Implement only helpers required by the MVP, after contracts exist. Dependency upgrades must not require unrelated modules to be released together. See [contracts](../contracts/README.md) and [conformance](../conformance/README.md).
 
 [Monitoring formatting](python/farmy_transport/monitoring.py) is optional. Each module supplies its own fixed summary queries; the helper has no knowledge of domain tables and never opens another service’s database.
+
+The optional [snapshot helper](python/farmy_transport/snapshots.py) extracts storage/read enforcement shared by Local Folder and the in-progress S3 connector. It manages only the owning Connector instance’s existing local snapshot store. Provider acquisition is supplied by each implementation; no other service accesses its private database.

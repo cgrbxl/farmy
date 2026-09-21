@@ -73,3 +73,5 @@ All examples are synthetic. Do not commit farm data, credentials or private endp
 ## Licensing
 
 Farmy’s original code, contracts and documentation are licensed under [Apache 2.0](LICENSE). Sharing improvements is encouraged, not required. See [LICENSING.md](LICENSING.md) for scope, exclusions and contribution terms.
+
+UC-007 is **in progress**: an S3 source implementation and 11 additional local HTTP-double checks are available. [Run the local preview](solutions/s3-source/uc007/README.md); real Scaleway validation awaits an approved bucket/prefix and scoped credential reference. It is not counted as a seventh completed slice.

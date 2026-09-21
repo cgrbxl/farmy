@@ -34,3 +34,7 @@ The provider manages parts of the platform; Farmy operators still own workload s
 5. Publish a tested profile and compatibility evidence only after the common acceptance checks pass. The first development profile must not be presented as a production or high-availability deployment.
 
 No region, cluster size, budget, runtime secret integration or infrastructure tool is selected by this plan. Managed databases and model services remain optional needs-driven choices. Local reference SQLite does not imply a shared or replicated cloud database design.
+
+## Object Storage connector increment
+
+[UC-007](../../solutions/s3-source/uc007/README.md) now supplies an S3 connector candidate and local HTTP-double verification. An existing bucket, region, dedicated test prefix and explicit scoped credential reference are needed for real-provider evidence. This is independent of provisioning the Kubernetes landing zone. No cloud resource or IAM change has been made for the local implementation; provider support remains unverified.

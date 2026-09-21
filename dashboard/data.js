@@ -76,8 +76,8 @@ const FARMY = {
       "owns": "Source access, provider credentials, snapshots and source membership.",
       "does": "Provides bytes or observations through an authenticated, authorised boundary. Different providers can have separate implementations.",
       "boundary": "Does not own general parsing, inference or export policy.",
-      "now": "Local Folder snapshots and a separate Synthetic Sensor implementation.",
-      "next": "Real providers and admitted AI-generated source mappings or isolated adapters, without host redeployment where supported.",
+      "now": "Local Folder and Synthetic Sensor are verified. An S3 implementation passes local HTTP-double checks; real provider evidence is pending.",
+      "next": "Finish Scaleway source validation; later admit AI-generated source mappings or isolated adapters.",
       "slices": [
         "UC-001",
         "UC-002",
@@ -331,11 +331,11 @@ const FARMY = {
   ],
   "queue": [
     {
-      "title": "A real S3 source",
+      "title": "UC-007 · A real S3 source",
       "families": [
         "connectors"
       ],
-      "detail": "Reuse the working path and test actual provider semantics."
+      "detail": "In progress: adapter and 11 local HTTP-double checks pass. Real Scaleway validation awaits an approved bucket/prefix and scoped credentials."
     },
     {
       "title": "Prove replacement",

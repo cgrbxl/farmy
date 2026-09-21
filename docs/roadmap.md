@@ -8,7 +8,7 @@ Document vision, service boundaries, trust, composition, examples, decision proc
 
 ## Current priority — Continue vertical delivery
 
-Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is demonstrated in UC-006; a real S3 source is the next queued outcome. The clarified [core concepts](core-concepts.md) guide future acceptance cases without changing that order.
+Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is demonstrated in UC-006; UC-007 is now in progress: the S3 adapter and local HTTP-double checks run, while real Scaleway validation awaits an approved test location and credential reference. The clarified [core concepts](core-concepts.md) guide future acceptance cases without changing that order.
 
 A [future interactive track](interactive-modules.md) adds AI configuration, document-claim issuance, holder-signed presentation and external verification through interfaces or QR requests, followed by contribution chains and other family interactions. These are candidate vertical increments, not current dashboard features or a change to the next queued outcome.
 
