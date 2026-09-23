@@ -1,0 +1,11 @@
+{
+  "project_id": "appgprj_6ab4074f1c40819184f0033fcc09b8f9",
+  "url": "https://farmy-las-tres-encinas.cgrbxl.chatgpt.site",
+  "access": "public",
+  "version_id": "appgprj_6ab4074f1c40819184f0033fcc09b8f9~appgver_de5e5814266c8191b5e5e344c1453439",
+  "deployment_id": "appgdep_6ab4089deea481919b7ccedfee7abc25",
+  "source_commit": "5dfbac244a7013270d54f1b7ce0a2b3a34f27088",
+  "repository_source_commit": "d41b4dc",
+  "published_at": "2026-09-23T17:14:15.791651+00:00",
+  "original_sha256": "1ee58c144393b6f29cb3901630aa45e12a0fb7c1ec37d281f1adcf815a02142f"
+}

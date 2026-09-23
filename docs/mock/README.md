@@ -33,6 +33,10 @@ A **hub** is a possible deployment location for several module instances, not a 
 
 Run `python3 scripts/build_phone_mock.py` from the repository root after updating the supplied source. The script preserves the source and regenerates `dashboard/mock/index.html`; the explanation layer lives in its adjacent `architecture.js` and `architecture.css`. The public copy blocks network API calls with a Content Security Policy. There are no external model calls, uploads, real messages, map tiles or device connections. A model selection may be retained in browser local storage; reloading resets the other simulated state.
 
-Serve the dashboard normally and open `mock/index.html`, or use the embedded view. Only the annotated static mock's three files are included in the public preview, not the repository, live monitoring bridge, private feedback or runtime configuration. Public hosting details will be recorded here after successful publication.
+Serve the dashboard normally and open `mock/index.html`, or use the embedded view. Only the annotated static mock's three files are included in the public preview, not the repository, live monitoring bridge, private feedback or runtime configuration. Public preview: [Open Las Tres Encinas](https://farmy-las-tres-encinas.cgrbxl.chatgpt.site). Anyone with the link can view it. Published on 2026-09-23 using Sites; the same reviewed HTML, CSS and JavaScript are in the repository. Hosting identifiers and the exact source revision are in [publication.json](publication.json). Reuse that project ID for future updates; do not create another site. Recreate a separate publication checkout with these three files under `dist/` and its existing project ID in `.openai/hosting.json`.
 
 The existing UC-001–006 and UC-008 runtime evidence remains unchanged; UC-007 still awaits real Scaleway validation.
+
+## Verification
+
+2026-09-23: JavaScript syntax and repository documentation checks passed. Browser inspection covered the desktop phone frame, a 390-pixel phone viewport, Assistance and Wallet popups, the nine-family overview, Hub and Control navigation, hiding notes and a popup inside the dashboard embed. No browser errors were reported during those checks. The published assets exactly matched the reviewed local copy. Runtime acceptance counts were not changed by this documentation work.

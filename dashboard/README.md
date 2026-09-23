@@ -51,3 +51,5 @@ UC-007 appears separately as in progress: its 11 local HTTP-double checks and ru
 ## Phone solution mockup
 
 The **Phone solution** section embeds [Las Tres Encinas](mock/index.html), a fictional future experience with optional module tags. All nine family explanations distinguish today's tested scope from simulated behavior. The original supplied HTML is retained under `docs/mock/`; regenerate the annotated copy with `python3 scripts/build_phone_mock.py`. See the [mapping and design observations](../docs/mock/README.md). Mockup work does not increase the delivered slice/test counts.
+
+Public phone preview: [Las Tres Encinas](https://farmy-las-tres-encinas.cgrbxl.chatgpt.site). The dashboard embeds its local copy so a checkout remains self-contained.
