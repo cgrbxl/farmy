@@ -47,3 +47,7 @@ The progress section also shows a separate [future interactive backlog](../docs/
 UC-007 appears separately as in progress: its 11 local HTTP-double checks and runnable preview are not included in the seven completed slice cards or their 91-test baseline. Real Scaleway validation is required before promotion. Use the optional verification flag documented in the S3 solution to run the combined 102 checks.
 
 [UC-008 launch](../solutions/replacement/uc008/README.md) shows six module instances, including two separate Knowledge nodes and the replacement implementation. The static guide includes a replacement/rebuild diagram and walkthrough. Its seven delivered slices are UC-001–006 and UC-008; pending UC-007 is not counted.
+
+## Phone solution mockup
+
+The **Phone solution** section embeds [Las Tres Encinas](mock/index.html), a fictional future experience with optional module tags. All nine family explanations distinguish today's tested scope from simulated behavior. The original supplied HTML is retained under `docs/mock/`; regenerate the annotated copy with `python3 scripts/build_phone_mock.py`. See the [mapping and design observations](../docs/mock/README.md). Mockup work does not increase the delivered slice/test counts.

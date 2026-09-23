@@ -1,6 +1,6 @@
 /* Curated project snapshot. Update with every completed slice; exclude private feedback. */
 const FARMY = {
-  "date": "21 September 2026",
+  "date": "23 September 2026",
   "revision": "3d93d4d",
   "families": [
     {

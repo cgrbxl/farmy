@@ -8,6 +8,8 @@ Farmy connects information held in local folders, managed encrypted vaults and c
 
 Explore the [interactive visual project guide](dashboard/README.md): architecture, capabilities, data flows and delivery progress. Open `dashboard/index.html` locally; no installation or build is needed.
 
+Explore the [phone solution mockup](docs/mock/README.md): Las Tres Encinas illustrates the intended farmer experience, with optional explanations of the nine module families. All interactions are simulated.
+
 ## Three ideas brought together
 
 - **AI-enabled plasticity:** AI can analyse content, create embeddings and propose ontologies, and also generate source-interface mappings or adapter code. A module with an appropriate extension mechanism can admit new behaviour without redeploying its host. Extensions still need versions, validation and explicitly delegated activation rights.
