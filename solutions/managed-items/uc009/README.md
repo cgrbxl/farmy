@@ -29,6 +29,8 @@ This is a separate composition; existing UC-001–008 keep their established con
 
 ## Evidence
 
+Implementation revision: [f4703c4](https://github.com/cgrbxl/farmy/commit/f4703c4).
+
 Verified on 2026-09-25 using macOS 26.6.2 arm64 and Python 3.14.6: all 114 selected tests and nine demos passed, including the installed local Qwen model and optional S3 HTTP double. The static walkthrough and live two-service monitor were checked in the browser.
 
 Twelve real-process acceptance tests cover collective source access, explicit admission, grant separation, private/narrowed readers, independent revocation and source expiry, immutable copies, concurrent idempotency, owner-only metadata, caller identity, path/symlink/scope rejection, restart, fail-closed reads, blocked legacy mutation/export, descriptors and monitoring. Run:
