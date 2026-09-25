@@ -1,6 +1,6 @@
 # Farmy visual project guide
 
-An interactive explanation of Farmy's purpose, nine module families, capabilities, security boundaries, data flows and incremental delivery method. The progress view maps the eight runnable slices to the wider architecture and distinguishes demonstrated behaviour from planned work.
+An interactive explanation of Farmy's purpose, nine module families, capabilities, security boundaries, data flows and incremental delivery method. The progress view maps the nine technical slices to the wider architecture and distinguishes demonstrated behaviour from planned work.
 
 ## Open it
 
@@ -20,7 +20,7 @@ When served over HTTP, documentation links open the public GitHub repository. Wh
 
 This is a curated documentation snapshot, not an operational control panel or live monitoring system. It calls no Farmy services and includes no external libraries, analytics or remotely loaded assets.
 
-The current evidence baseline is the UC-009 implementation revision linked in the dashboard: eight synthetic macOS slices, 19 foundation tests and 84 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
+The current evidence baseline is the UC-010 implementation revision linked in the dashboard: nine synthetic macOS technical slices, 19 foundation tests and 96 runtime acceptance tests. UC-004 also has a real local Qwen/Ollama demonstration. Passing slices do not imply that a whole family is complete, that production deployment is ready, or that other operating systems have been verified.
 
 After accepting another slice:
 
@@ -38,15 +38,15 @@ All dashboard files use the repository's [Apache-2.0 licence](../LICENSE).
 
 The separate [UC-005 dashboard](../solutions/operations/uc005/README.md) is a real read-only installation monitor. Its files are under `dashboard/live/` and must be served by their authenticated local bridge. It is not a standalone static HTML guide. Launch it using the documented runner and its printed access link; it prefers port 8766 and automatically chooses a free port if that port is occupied. Always use the printed access link.
 
-The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the eight implemented slices and their recorded test baseline.
+The Core concepts section explains [AI-enabled plasticity, source-governed data spaces and wallet trust networks](../docs/core-concepts.md). Its interactive cards and diagram describe accepted direction, explicitly separated from the nine verified slices and their recorded test baseline.
 
 The progress section also shows a separate [future interactive backlog](../docs/interactive-modules.md): AI profile configuration, signed issuance, holder presentation, external verification and later family interactions. These cards do not change delivered slice/test counts or the next queued outcome.
 
 [UC-006 launch](../solutions/disclosure/uc006/README.md) reuses the live monitor for the three-service disclosure composition. Inventory positions and undeployed family labels derive from the active snapshot; the recipient is listed as a dependency outside the monitored inventory. The project guide includes the UC-006 flow and exact disclosure diagram.
 
-UC-007 appears separately as in progress: its 11 local HTTP-double checks and runnable preview are not included in the eight completed slice cards or their 103-test baseline. Real Scaleway validation is required before promotion. Use the optional verification flag documented in the S3 solution to run the combined 114 checks.
+UC-007 appears separately as in progress: its 11 local HTTP-double checks and runnable preview are not included in the nine verified slice cards or their 115-test baseline. Real Scaleway validation is required before promotion. Use the optional verification flag documented in the S3 solution to run the combined 126 checks.
 
-[UC-008 launch](../solutions/replacement/uc008/README.md) shows six module instances, including two separate Knowledge nodes and the replacement implementation. The static guide includes a replacement/rebuild diagram and walkthrough. The eight delivered slices are UC-001–006 and UC-008–009; pending UC-007 is not counted.
+[UC-008 launch](../solutions/replacement/uc008/README.md) shows six module instances, including two separate Knowledge nodes and the replacement implementation. The static guide includes a replacement/rebuild diagram and walkthrough. The nine verified slices are UC-001–006 and UC-008–010; pending UC-007 is not counted.
 
 ## Phone solution mockup
 
@@ -55,3 +55,7 @@ The **Phone solution** section embeds [Las Tres Encinas](mock/index.html), a fic
 Public phone preview: [Las Tres Encinas](https://farmy-las-tres-encinas.cgrbxl.chatgpt.site). The dashboard embeds its local copy so a checkout remains self-contained.
 
 [UC-009 launch](../solutions/managed-items/uc009/README.md) monitors Wallet-managed items and a collectively governed folder in two services. Its architecture diagram and walkthrough explain logical membership, explicit admission, provenance and separate revocation. The monitor is read-only; real mailbox integration and an admission interface remain future work.
+
+## Usability, separate from technical progress
+
+The prominent “What can I actually use?” panel links to [UC-010](../solutions/interactive/uc010/README.md), the first actual owner/consumer document journey. Slice cards distinguish **Interactive interface**, **Read-only interface** and **API-tested foundation**. Planned functionality remains separate. `dashboard/workbench/` is served by its own authenticated interactive bridge; static hosting cannot run these actions and must not contain service keys or session tokens.

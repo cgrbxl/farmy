@@ -23,3 +23,5 @@ Optional in-progress [UC-007 checks](uc007/test_runtime.py) require [S3 dependen
 Run `.venv/bin/python -m unittest discover -s conformance/uc008 -v`. Eleven tests exercise two domain implementations, target-specific authority, descriptor mismatch, exact-source evidence, concurrent idempotency, restart, outage, job-binding conflicts and explicit replacement/rebuild. See [scope and evidence](../solutions/replacement/uc008/README.md). The default aggregate verification now includes 91 tests and six demos; `--with-local-model` adds a seventh demo. `--with-s3-fixture` adds eleven HTTP-double checks and an additional demo (102 tests total), without claiming real-provider validation.
 
 [UC-009](../solutions/managed-items/uc009/README.md) adds twelve real-process checks for source/item boundaries, admission, policy narrowing, idempotency and recovery.
+
+[UC-010](../solutions/interactive/uc010/README.md) adds twelve real HTTP/mTLS tests for the interactive bridge, credential separation and mutation recovery.

@@ -23,7 +23,8 @@ const FARMY = {
         "UC-005",
         "UC-006",
         "UC-008",
-        "UC-009"
+        "UC-009",
+        "UC-010"
       ],
       "doc": "modules/wallet/README.md"
     },
@@ -47,7 +48,8 @@ const FARMY = {
         "UC-005",
         "UC-006",
         "UC-008",
-        "UC-009"
+        "UC-009",
+        "UC-010"
       ],
       "doc": "modules/registry/README.md"
     },
@@ -91,7 +93,8 @@ const FARMY = {
         "UC-005",
         "UC-006",
         "UC-008",
-        "UC-009"
+        "UC-009",
+        "UC-010"
       ],
       "doc": "modules/connectors/README.md"
     },
@@ -210,7 +213,8 @@ const FARMY = {
       ],
       "lesson": "Information identity belongs to Wallet; physical bytes belong to a Connector.",
       "services": "2 services",
-      "scope": "Synthetic local documents"
+      "scope": "Synthetic local documents",
+      "access": "API-tested foundation"
     },
     {
       "id": "UC-002",
@@ -235,7 +239,8 @@ const FARMY = {
       ],
       "lesson": "Processing, coordination and retrieval can be separate without losing provenance.",
       "services": "5 services",
-      "scope": "One field in a synthetic text report"
+      "scope": "One field in a synthetic text report",
+      "access": "API-tested foundation"
     },
     {
       "id": "UC-003",
@@ -257,7 +262,8 @@ const FARMY = {
       ],
       "lesson": "Observation identity supports traceability; it does not require an approval for every observation.",
       "services": "3 services*",
-      "scope": "Synthetic temperature observations"
+      "scope": "Synthetic temperature observations",
+      "access": "API-tested foundation"
     },
     {
       "id": "UC-004",
@@ -284,7 +290,8 @@ const FARMY = {
       ],
       "lesson": "Model output remains untrusted until checked; reading evidence does not authorise every model destination.",
       "services": "7 services + Ollama",
-      "scope": "One question · synthetic crop evidence · local Qwen"
+      "scope": "One question · synthetic crop evidence · local Qwen",
+      "access": "API-tested foundation"
     },
     {
       "id": "UC-005",
@@ -312,7 +319,8 @@ const FARMY = {
       ],
       "lesson": "Observability belongs at each service boundary. A client can compose the view without reading private databases.",
       "services": "8 services + UI bridge",
-      "scope": "Read-only metadata · synthetic local installation"
+      "scope": "Read-only metadata · synthetic local installation",
+      "access": "Read-only interface"
     },
     {
       "id": "UC-006",
@@ -335,7 +343,8 @@ const FARMY = {
       ],
       "lesson": "Approval binds an exact disclosure; a failed response does not prove the recipient received nothing.",
       "services": "3 Farmy services + recipient fixture",
-      "scope": "16 KiB exact-document export · synthetic local recipient"
+      "scope": "16 KiB exact-document export · synthetic local recipient",
+      "access": "API-tested foundation"
     },
     {
       "id": "UC-008",
@@ -360,7 +369,8 @@ const FARMY = {
       ],
       "lesson": "Replaceability requires explicit state recovery and permissions, not just matching API names.",
       "services": "6 services + UI bridge",
-      "scope": "Exact crop evidence · shared optional transport SDK"
+      "scope": "Exact crop evidence · shared optional transport SDK",
+      "access": "API-tested foundation"
     },
     {
       "id": "UC-009",
@@ -382,7 +392,31 @@ const FARMY = {
       ],
       "lesson": "Inside the Wallet describes individual governance, independent of where bytes are stored.",
       "services": "2 services + read-only UI bridge",
-      "scope": "Synthetic email exports · owner-controlled folder · no real mailbox"
+      "scope": "Synthetic email exports · owner-controlled folder · no real mailbox",
+      "access": "API-tested foundation"
+    },
+    {
+      "id": "UC-010",
+      "title": "Use your Wallet",
+      "label": "First interactive journey",
+      "access": "Interactive interface",
+      "tests": 12,
+      "families": [
+        "wallet",
+        "registry",
+        "connectors"
+      ],
+      "path": "solutions/interactive/uc010/README.md",
+      "command": ".venv/bin/python solutions/interactive/uc010/run.py launch",
+      "outcome": "Browse a source, admit a document, inspect its managed copy and grant or revoke a demo consumer’s real access.",
+      "proof": [
+        "Owner and consumer use separate browser credentials",
+        "The consumer sees real denial, permitted content and denial after revocation",
+        "Lost replies reconcile through durable requests without extra permissions"
+      ],
+      "lesson": "A usable client can expose existing capabilities without changing the module contracts.",
+      "services": "2 services + interactive UI bridge",
+      "scope": "One usable journey · synthetic documents · no real mailbox or production login"
     }
   ],
   "queue": [
@@ -399,7 +433,7 @@ const FARMY = {
       "title": "Package each environment",
       "families": [],
       "detail": "Verify laptop and Kubernetes delivery one target at a time; Scaleway is first for cloud.",
-      "number": "10",
+      "number": "11",
       "status": "Next queued outcome"
     }
   ],
@@ -773,6 +807,44 @@ const FARMY = {
         ],
         "text": "Source revocation stops future source reads and new admissions using that grant. The retained copy has its own revocation. Changing or deleting the original does not change the copy.",
         "check": "Previously delivered bytes cannot be recalled. Wallet outage blocks new reads."
+      }
+    ],
+    "UC-010": [
+      {
+        "title": "Preview and keep one document",
+        "actors": [
+          "connectors",
+          "wallet"
+        ],
+        "text": "In the owner interface, browse the synthetic connected folder. Preview a document, choose its permitted reader ceiling and add an immutable managed copy.",
+        "check": "Real API calls. Adding to the Wallet does not grant the consumer access."
+      },
+      {
+        "title": "Try the consumer view before granting",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Open the separate demo consumer view. Its generic test entry exposes no document metadata. Try opening it: Wallet denies the read.",
+        "check": "The consumer token cannot invoke owner actions or browse the source."
+      },
+      {
+        "title": "Grant and read the actual bytes",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "The owner issues a consumer grant. Retrying the consumer read now returns the exact managed copy. The owner can separately inspect provenance and open that copy.",
+        "check": "Private owner-only items reject consumer grants."
+      },
+      {
+        "title": "Revoke, retry and observe denial",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Revoke in the owner view. The next consumer read is denied. Lost mutation replies offer the same request for reconciliation instead of issuing another permission.",
+        "check": "Already delivered bytes cannot be recalled. The UI clears its read display before every new attempt."
       }
     ]
   },

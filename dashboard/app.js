@@ -69,7 +69,7 @@ $('#step-dots').addEventListener('click', event => {
 renderFlow();
 
 $('#test-bars').innerHTML = [{n:FARMY.foundationTests,cls:'foundation'}, ...FARMY.slices.map((s,i) => ({n:s.tests,cls:`uc${Number(s.id.slice(3))}`}))].map(item => `<span class="${item.cls}" style="flex:${item.n}">${item.n}</span>`).join('');
-$('#slice-cards').innerHTML = FARMY.slices.map((slice, index) => `<article class="slice-card"><div class="slice-top"><span>${slice.id}</span><span class="tag reference">Verified slice</span></div><div class="slice-number">${String(Number(slice.id.slice(3))).padStart(2,'0')}<span>↗</span></div><small class="eyebrow">${slice.label}</small><h3>${slice.title}</h3><p>${slice.outcome}</p><ul>${slice.proof.map(point => `<li>${point}</li>`).join('')}</ul><div class="slice-lesson"><b>What it proves</b><p>${slice.lesson}</p></div><div class="slice-meta"><span>${slice.tests} acceptance tests</span><span>${slice.services}</span></div><p class="slice-scope">${slice.scope}</p><div class="slice-actions"><a href="../${slice.path}">Run & inspect ↗</a><button class="copy-button" data-copy="${slice.command}" aria-label="Copy ${slice.id} demo command">Copy command</button></div></article>`).join('');
+$('#slice-cards').innerHTML = FARMY.slices.map((slice, index) => `<article class="slice-card"><div class="slice-top"><span>${slice.id}</span><span class="tag reference">${slice.access}</span></div><div class="slice-number">${String(Number(slice.id.slice(3))).padStart(2,'0')}<span>↗</span></div><small class="eyebrow">${slice.label}</small><h3>${slice.title}</h3><p>${slice.outcome}</p><ul>${slice.proof.map(point => `<li>${point}</li>`).join('')}</ul><div class="slice-lesson"><b>What it proves</b><p>${slice.lesson}</p></div><div class="slice-meta"><span>${slice.tests} acceptance tests</span><span>${slice.services}</span></div><p class="slice-scope">${slice.scope}</p><div class="slice-actions"><a href="../${slice.path}">Run & inspect ↗</a><button class="copy-button" data-copy="${slice.command}" aria-label="Copy ${slice.id} demo command">Copy command</button></div></article>`).join('');
 $('#coverage-table').innerHTML += `<thead><tr><th scope="col">Delivered slice</th>${FARMY.families.map(item => `<th scope="col">${item.name}</th>`).join('')}</tr></thead><tbody>${FARMY.slices.map(slice => `<tr><th scope="row">${slice.id}<small>${slice.title}</small></th>${FARMY.families.map(item => {
   const present = slice.families.includes(item.id), adapter = present && item.status === 'adapter';
   return `<td class="${present ? 'covered' : 'uncovered'}" aria-label="${item.name}: ${adapter ? 'binding-file adapter' : present ? 'reference behaviour exercised' : 'outside this slice'}">${adapter ? '◐' : present ? '●' : '—'}</td>`;
@@ -151,7 +151,7 @@ const acceptanceCount = FARMY.slices.reduce((sum, slice) => sum + slice.tests, 0
 const totalTests = FARMY.foundationTests + acceptanceCount;
 $('#slice-count').textContent = FARMY.slices.length;
 $('#test-count').textContent = totalTests;
-$('#delivered-count').textContent = `${FARMY.slices.length} slices delivered`;
+$('#delivered-count').textContent = `${FARMY.slices.length} technical slices verified`;
 $('#passing-count').textContent = `${totalTests} tests passing`;
 $('#test-breakdown').textContent = `${FARMY.foundationTests} foundation + ${acceptanceCount} slice acceptance`;
 $('#test-bars').setAttribute('aria-label', `${totalTests} tests: ${FARMY.foundationTests} foundation; ` + FARMY.slices.map(s => `${s.tests} ${s.id}`).join(', '));

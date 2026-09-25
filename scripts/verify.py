@@ -19,6 +19,7 @@ steps = [
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc006', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc008', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc009', '-v'],
+    ['-m', 'unittest', 'discover', '-s', 'conformance/uc010', '-v'],
     ['conformance/foundation/check.py'],
     ['scripts/check_docs.py'],
     ['solutions/core/uc001/run.py', 'demo'],
@@ -28,6 +29,7 @@ steps = [
     ['solutions/disclosure/uc006/run.py', 'demo'],
     ['solutions/replacement/uc008/run.py', 'demo'],
     ['solutions/managed-items/uc009/run.py', 'demo'],
+    ['solutions/interactive/uc010/run.py', 'demo'],
 ]
 if args.with_local_model:
     steps.append(['solutions/assisted-answer/uc004/run.py', 'demo'])
@@ -36,5 +38,5 @@ if args.with_s3_fixture:
                   ['solutions/s3-source/uc007/run.py', 'demo', '--fixture']])
 for step in steps:
     subprocess.run([sys.executable, *step], cwd=ROOT, check=True)
-print(f'All selected checks and {7 + int(args.with_local_model) + int(args.with_s3_fixture)} demos passed.'
+print(f'All selected checks and {8 + int(args.with_local_model) + int(args.with_s3_fixture)} demos passed.'
       + (' UC-007 used a local HTTP double; real-provider validation remains separate.' if args.with_s3_fixture else ''))

@@ -1,6 +1,6 @@
 # Gradual interactive module interfaces
 
-Status: future backlog, not implemented functionality. UC-005 remains a read-only monitor. These increments extend the [delivery queue](delivery-backlog.md) as use cases justify them; UC-006 now supplies the controlled-disclosure prerequisite; UC-008 supplies bounded Knowledge replacement; real Scaleway validation remains pending, and environment packaging is next. Candidate IDs below are planning references, not delivered slice numbers.
+Status: the first [interactive Wallet journey, UC-010](../solutions/interactive/uc010/README.md), is implemented for synthetic local use. The candidate interactions below remain future work. UC-005 remains a read-only monitor. These increments extend the [delivery queue](delivery-backlog.md) as use cases justify them; UC-006 now supplies the controlled-disclosure prerequisite; UC-008 supplies bounded Knowledge replacement; real Scaleway validation remains pending, and UC-010 was prioritised to make existing capabilities usable before further packaging. Candidate IDs below are planning references, not delivered slice numbers.
 
 ## Build one interaction at a time
 
