@@ -30,6 +30,8 @@ The owner copy-read action obtains an idempotent owner-only grant through the pu
 
 ## Verification and module impact
 
+Implementation revision: [fc50d26](https://github.com/cgrbxl/farmy/commit/fc50d26).
+
 Verified 2026-09-25 on macOS 26.6.2 arm64 with Python 3.14.6: all 126 selected tests and ten demos passed, including the installed local model and optional S3 fixture. Browser checks confirmed denied → grant → allowed → revoke → denied, and owner-only managed-copy reads with rejected consumer grants.
 
 Expected and actual changes: a replaceable browser client and local client bridge, using Wallet, Connector and the existing binding adapter. **No service-domain code changed.** This increment makes established capabilities usable rather than counting them as new backend capabilities.

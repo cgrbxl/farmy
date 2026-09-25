@@ -1,7 +1,7 @@
 /* Curated project snapshot. Update with every completed slice; exclude private feedback. */
 const FARMY = {
   "date": "25 September 2026",
-  "revision": "f4703c4",
+  "revision": "fc50d26",
   "families": [
     {
       "id": "wallet",
