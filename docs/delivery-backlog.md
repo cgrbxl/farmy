@@ -1,6 +1,6 @@
 # Incremental delivery queue
 
-Status: proposed order, not a schedule or implementation report. UC-001 through UC-006 and UC-008 have runnable synthetic macOS demonstrations and acceptance suites; UC-007 has local evidence but awaits real-provider validation. Follow the [working method](working-method.md); one implementation slice is active at a time; provider-blocked UC-007 is parked while independent work proceeds.
+Status: proposed order, not a schedule or implementation report. UC-001 through UC-006 and UC-008–009 have runnable synthetic macOS demonstrations and acceptance suites; UC-007 has local evidence but awaits real-provider validation. Follow the [working method](working-method.md); one implementation slice is active at a time; provider-blocked UC-007 is parked while independent work proceeds.
 
 | Order | Slice and observable result | Main families | Next action / status |
 | --- | --- | --- | --- |
@@ -12,7 +12,8 @@ Status: proposed order, not a schedule or implementation report. UC-001 through 
 | 6 | [UC-006 controlled disclosure](../solutions/disclosure/use-cases/UC-006-controlled-disclosure.md): preview/approve exact bytes; reject changed recipient/content and missing export authority; recover receipts | Exchange, existing Wallet/Connector | Implemented for synthetic macOS development; [run/evidence](../solutions/disclosure/uc006/README.md); fourteen acceptance checks |
 | 7 | [UC-007 S3 source](../solutions/s3-source/use-cases/UC-007-s3-source.md): select a second storage implementation and reuse extraction/disclosure | Connectors; optional snapshot helper | In progress: implementation, 11 local HTTP-double checks and demo pass; [run locally](../solutions/s3-source/uc007/README.md). Real Scaleway validation awaits approved bucket/region/prefix and credential reference |
 | 8 | [UC-008 Knowledge replacement](../solutions/replacement/uc008/README.md): run two instances and replace one domain implementation | Knowledge, Registry, Workflow | Implemented for synthetic macOS: eleven acceptance tests; explicit public-API rebuild, shared optional transport SDK |
-| 9 | Reproduce the tested solution across target profiles and a mixed laptop/cloud topology | Deployment profiles and affected module adapters | Queued; choose one target per increment, Scaleway first for cloud |
+| 9 | [UC-009 managed items](../solutions/managed-items/uc009/README.md): admit a selected source email as an individually governed immutable copy | Wallet, Connectors | Implemented for synthetic macOS: twelve acceptance tests; source and item permissions stay separate |
+| 10 | Reproduce the tested solution across target profiles and a mixed laptop/cloud topology | Deployment profiles and affected module adapters | Queued; choose one target per increment, Scaleway first for cloud |
 
 Reorder based on learning; a necessary security/recovery correction outranks the next feature. Pull a small substitution experiment earlier if it is needed to validate a risky boundary. The rows are outcomes, not an obligation to implement every feature of the named families.
 

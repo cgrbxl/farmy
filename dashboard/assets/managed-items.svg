@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 370" role="img" aria-labelledby="title desc">
+<title id="title">Connected sources and Wallet-managed items</title><desc id="desc">Storage location is independent of governance. An owner admits selected bytes from a collectively governed source into an individually governed managed item. Source and item grants remain separate.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#647b6a"/></marker></defs>
+<rect width="1040" height="370" rx="16" fill="#f6f5ef"/>
+<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" fill="#20392f">
+<text x="28" y="33" font-size="12" letter-spacing="2">STORAGE: LOCAL OR REMOTE · MEMBERSHIP: A SEPARATE DECISION</text>
+<rect x="28" y="61" width="280" height="183" rx="12" fill="#fffefa" stroke="#bdcdbb"/>
+<text x="48" y="88" font-size="11" fill="#65746b">OUTSIDE THE WALLET</text><text x="48" y="119" font-size="20">Connected source</text>
+<text x="48" y="147" font-size="14">Folder with two email exports</text><text x="48" y="175" font-size="13">One source + owner + consumer grant</text><text x="48" y="200" font-size="13">covers the configured folder.</text><text x="48" y="225" font-size="12" fill="#65746b">Can be on this same laptop.</text>
+<path d="M314 153H510" fill="none" stroke="#647b6a" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="329" y="119" font-size="13">Owner selects one email</text><text x="329" y="139" font-size="12" fill="#65746b">and admits its exact bytes</text><text x="329" y="180" font-size="12" fill="#65746b">Source authority checked</text><text x="329" y="199" font-size="12" fill="#65746b">Reader ceiling inherited</text>
+<rect x="527" y="61" width="484" height="183" rx="12" fill="#e5eddf" stroke="#aabd9c"/>
+<text x="547" y="88" font-size="11" fill="#65746b">INSIDE THE WALLET · LOGICAL MEMBERSHIP</text><text x="547" y="119" font-size="20">Individually governed item</text>
+<text x="547" y="149" font-size="14">Wallet: identity, provenance, metadata, policy</text><text x="547" y="176" font-size="14">Connector: immutable copy of selected bytes</text><text x="547" y="207" font-size="13">Separate item grant · narrower readers allowed</text><text x="547" y="228" font-size="12" fill="#65746b">No grant allows access to the other boundary.</text>
+<path d="M168 250V280M769 250V280" stroke="#647b6a" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="306" font-size="14">Source revocation stops future source reads.</text><text x="547" y="306" font-size="14">Item revocation stops future copy reads.</text>
+<text x="28" y="347" font-size="12" fill="#65746b">The original remains at its source. Previously authorised copies are not recalled. UC-009 uses synthetic email exports, not a live mailbox.</text>
+</g></svg>

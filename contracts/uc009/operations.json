@@ -1,0 +1,32 @@
+{
+  "folder.attach": {
+    "capabilityId": "farmy.folder-source",
+    "mutation": true,
+    "purpose": "uc009.folder.attach"
+  },
+  "folder.capture": {
+    "capabilityId": "farmy.folder-source",
+    "mutation": true,
+    "purpose": "uc009.folder.capture"
+  },
+  "folder.list": {
+    "capabilityId": "farmy.folder-source",
+    "mutation": false,
+    "purpose": "uc009.folder.list"
+  },
+  "folder.read": {
+    "capabilityId": "farmy.folder-source",
+    "mutation": false,
+    "purpose": "uc009.folder.read"
+  },
+  "item.admit": {
+    "capabilityId": "farmy.managed-items",
+    "mutation": true,
+    "purpose": "uc009.item.admit"
+  },
+  "item.inspect": {
+    "capabilityId": "farmy.managed-items",
+    "mutation": false,
+    "purpose": "uc009.item.inspect"
+  }
+}

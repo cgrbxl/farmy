@@ -10,6 +10,7 @@ import time
 from uuid import uuid4
 
 import sources
+import managed_items
 from bindings import resolve
 from farmy_transport.monitoring import summarize
 from farmy_transport.http import Fault, PROFILE, descriptor, exchange, request, serve, timestamp
@@ -18,11 +19,15 @@ from farmy_transport.http import Fault, PROFILE, descriptor, exchange, request, 
 class Wallet:
     def __init__(self, config):
         config['implementationVersion'] = '0.4.0' if config.get('monitorSubjects') else '0.3.0'
+        if config.get('managedItems'):
+            config['implementationVersion'] = '0.5.0'
         self.config = config
         os.umask(0o077)
         self.state = Path(config['state'])
         self.state.mkdir(mode=0o700, parents=True, exist_ok=True)
-        self.binding = resolve(config['binding'], config['walletId'], 'farmy.storage', 'snapshot.capture')
+        self.binding = (resolve(config['binding'], config['walletId'], 'farmy.folder-source', 'folder.capture', '0.9-draft')
+                        if config.get('managedItems') else
+                        resolve(config['binding'], config['walletId'], 'farmy.storage', 'snapshot.capture'))
         if self.binding['instanceId'] != 'connector.local':
             raise ValueError('Unsupported reference connector binding')
         with self.db() as db:
@@ -46,7 +51,7 @@ class Wallet:
             ''')
 
         with self.db() as db:
-            db.executescript(sources.SCHEMA)
+            db.executescript(sources.SCHEMA + managed_items.SCHEMA)
 
     @contextmanager
     def db(self):
@@ -78,6 +83,7 @@ class Wallet:
         return summarize(self, [
             ('Documents', 'SELECT count(*) FROM resources'),
             ('Versions', 'SELECT count(*) FROM versions'),
+            ('Managed items', 'SELECT count(*) FROM managed_items'),
             ('Sources', 'SELECT count(*) FROM sources'),
             ('Document grants (retained)', 'SELECT count(*) FROM grants'),
             ('Capability grants (retained)', 'SELECT count(*) FROM permissions'),
@@ -85,13 +91,22 @@ class Wallet:
         ], ('connector.local',))
 
     def descriptor(self):
-        return descriptor(self.config, 'wallet',
+        info = descriptor(self.config, 'wallet',
             {'farmy.wallet': ['resource.register', 'resource.inspect', 'resource.move',
                              'resource.update', 'grant.issue', 'grant.revoke'],
              'farmy.permissions': ['access.issue', 'access.revoke', 'access.check'],
              'farmy.sources': ['source.register', 'source.grant', 'source.revoke', 'source.authorize'],
              'farmy.authorization': ['authorize.read']},
             {'farmy.storage': ['snapshot.capture']})
+        if self.config.get('managedItems'):
+            for capability in info['module']['capabilities']:
+                capability['operations'] = [op for op in capability['operations']
+                    if op not in ('resource.register', 'resource.move', 'resource.update')]
+            info['module']['capabilities'].append({'capabilityId':'farmy.managed-items', 'contractVersion':'0.9-draft',
+                'operations':['item.admit','item.inspect'], 'features':[]})
+            info['module']['dependencies'] = [{'capabilityId':'farmy.folder-source','contractVersion':'0.9-draft',
+                'operations':['folder.capture'],'features':[],'required':True}]
+        return info
 
     def snapshot(self, path, body):
         query = request(self.config, 'connector.local', 'snapshot.capture', {'path': path},
@@ -120,6 +135,7 @@ class Wallet:
 
     def mutate(self, db, body):
         operation, payload = body['operation'], body['payload']
+        managed_items.restrict(self, db, body)
         if operation.startswith('source.'):
             return sources.mutate(self, db, body)
         if operation == 'resource.register':
@@ -249,6 +265,15 @@ class Wallet:
             return self.authorize(peer, body)
         if peer != 'owner' or body['subjectId'] != peer or body['grantRef'] != 'grant.owner-bootstrap':
             raise Fault('denied')
+        if body['operation'].startswith('item.'):
+            if not self.config.get('managedItems'):
+                raise Fault('unsupported')
+            if body['operation'] == 'item.admit':
+                return managed_items.admit(self, body)
+            if body['operation'] == 'item.inspect':
+                with self.db() as db:
+                    return managed_items.inspect(self, db, body['payload']['resourceId'])
+            raise Fault('unsupported')
         if body['operation'] == 'resource.inspect':
             with self.db() as db:
                 result = self.inspect(db, body['payload']['resourceId'])

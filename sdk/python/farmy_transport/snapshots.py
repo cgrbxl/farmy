@@ -70,6 +70,9 @@ class SnapshotConnector:
 
     def capture(self, body):
         data = self.read_source(body['payload']['path'])
+        return self.store_snapshot(data, body)
+
+    def store_snapshot(self, data, body):
         digest = hashlib.sha256(data).hexdigest()
         dest = self.snapshots / digest
         if dest.exists():

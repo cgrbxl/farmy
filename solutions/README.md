@@ -18,3 +18,5 @@ A solution composes module implementations through bindings and separately autho
 A future deployable template must resolve exact module artifacts/digests, compatible contract/security profiles, configuration schemas, data flows, grants, target profiles and any migration. Each instance may use a different environment profile. Generated secrets and deployment state remain outside the repository.
 
 Promote a recipe to deployable only after runnable artifacts and end-to-end installation/security/lifecycle evidence exist for the advertised combination. Follow [release requirements](../docs/releases.md) and the [conformance plan](../conformance/README.md). Do not supply fake installer commands while only designs exist.
+
+[UC-009 managed items](managed-items/uc009/README.md) demonstrates explicit admission from a connected folder into individually governed Wallet membership.

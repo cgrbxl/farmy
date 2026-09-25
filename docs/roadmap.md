@@ -8,13 +8,13 @@ Document vision, service boundaries, trust, composition, examples, decision proc
 
 ## Current priority — Continue vertical delivery
 
-Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is demonstrated in UC-006; UC-007 is now in progress: the S3 adapter and local HTTP-double checks run, while real Scaleway validation awaits an approved test location and credential reference. The clarified [core concepts](core-concepts.md) guide future acceptance cases while independent work can proceed: UC-008 now demonstrates local Knowledge replacement with a public-API rebuild. Environment packaging is next; live Scaleway validation remains pending.
+Use the [working method](working-method.md) and [delivery queue](delivery-backlog.md). Retain existing slices as regression evidence; controlled export is demonstrated in UC-006; UC-007 is now in progress: the S3 adapter and local HTTP-double checks run, while real Scaleway validation awaits an approved test location and credential reference. The clarified [core concepts](core-concepts.md) guide future acceptance cases while independent work can proceed: UC-008 now demonstrates local Knowledge replacement with a public-API rebuild. UC-009 now demonstrates the source-to-managed-item boundary. Environment packaging is next; live Scaleway validation remains pending.
 
 A [future interactive track](interactive-modules.md) adds AI configuration, document-claim issuance, holder-signed presentation and external verification through interfaces or QR requests, followed by contribution chains and other family interactions. These are candidate vertical increments, not current dashboard features or a change to the next queued outcome.
 
 The milestones below are outcome areas, not waterfall phases. Contract, implementation, security and conformance work happen together inside each use-case increment; M1 does not need to be complete for all families before M2 begins. Platform-specific packaging follows working module needs, while a reproducible local run is part of every slice.
 
-The repository organisation is in place. UC-001 through UC-006 and UC-008 establish a narrow working local composition; deployment profiles and broader solution recipes remain documentation scaffolds.
+The repository organisation is in place. UC-001 through UC-006 and UC-008–009 establish a narrow working local composition; deployment profiles and broader solution recipes remain documentation scaffolds.
 
 ## M1 — Contract foundation
 

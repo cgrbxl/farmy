@@ -1,6 +1,6 @@
 # Three concepts brought together in Farmy
 
-Status: accepted product direction, clarified by the maintainer on 2026-09-21. The seven runnable slices establish a narrow local foundation; they do **not** yet implement runtime-generated source interfaces, federated data-space governance or credential trust networks. This document describes where Farmy is going, not additional completed features. See [ADR 0013](decisions/0013-adaptive-federated-trust.md).
+Status: accepted product direction, clarified by the maintainer on 2026-09-21. The eight runnable slices establish a narrow local foundation; they do **not** yet implement runtime-generated source interfaces, federated data-space governance or credential trust networks. This document describes where Farmy is going, not additional completed features. See [ADR 0013](decisions/0013-adaptive-federated-trust.md).
 
 Farmy brings together **AI-enabled adaptability**, **independently governed data sources** and **wallet-based networks of trust**. These reinforce one another: AI helps connect a new source; that source retains authority over its disclosure; signed claims make the origin and contributions to its information assessable by other participants. None of these requires all data or all authority to move into a central Farmy installation.
 
@@ -46,6 +46,8 @@ A transfer must satisfy the source's policy and the applicable common rules; mem
 Wallet instances retain their own authority namespaces. Connectors enforce access at the source boundary; Exchange governs external disclosure; receiving participants carry applicable terms and provenance into their own decisions. The data-space arrangement defines whose decisions are required and how participants verify them. No universal central FarmWallet approves all sources.
 
 Farmy can enforce access and transfers through boundaries it controls, record exact release attempts and identify accountable consumers. After usable content is delivered, consumer duties and governance still matter; cryptography cannot guarantee every downstream use or recall an existing copy. A specific external data-space protocol or certification profile has not yet been selected.
+
+Sources can be local or remote and still be logically outside the Wallet. Explicit admission creates an individually governed managed item; UC-009 demonstrates this with selected synthetic emails. See [source versus managed-item membership](sources-and-managed-items.md).
 
 ## 3. Wallets support networks of signed claims and contributions
 

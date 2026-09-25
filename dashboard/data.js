@@ -1,6 +1,6 @@
 /* Curated project snapshot. Update with every completed slice; exclude private feedback. */
 const FARMY = {
-  "date": "23 September 2026",
+  "date": "25 September 2026",
   "revision": "3d93d4d",
   "families": [
     {
@@ -13,7 +13,7 @@ const FARMY = {
       "owns": "Resource/source identities, versions, policies, provenance and future signed-claim/trust-policy references.",
       "does": "Records who owns information and who may access it. It separates logical identity from physical storage.",
       "boundary": "No parsers, provider SDKs, indexes or workflow execution.",
-      "now": "Document/version grants and source/owner/consumer permissions. Additive state upgrades are tested.",
+      "now": "Document/version grants and source/owner/consumer permissions. Additive state upgrades are tested. UC-009 adds explicit managed-copy admission, provenance and narrower item readers.",
       "next": "Owner and contributor claims, explicit issuer/holder/verifier trust policies and complementary credential adapters.",
       "slices": [
         "UC-001",
@@ -22,7 +22,8 @@ const FARMY = {
         "UC-004",
         "UC-005",
         "UC-006",
-        "UC-008"
+        "UC-008",
+        "UC-009"
       ],
       "doc": "modules/wallet/README.md"
     },
@@ -45,7 +46,8 @@ const FARMY = {
         "UC-004",
         "UC-005",
         "UC-006",
-        "UC-008"
+        "UC-008",
+        "UC-009"
       ],
       "doc": "modules/registry/README.md"
     },
@@ -79,7 +81,7 @@ const FARMY = {
       "owns": "Source access, provider credentials, snapshots and source membership.",
       "does": "Provides bytes or observations through an authenticated, authorised boundary. Different providers can have separate implementations.",
       "boundary": "Does not own general parsing, inference or export policy.",
-      "now": "Local Folder and Synthetic Sensor are verified. An S3 implementation passes local HTTP-double checks; real provider evidence is pending.",
+      "now": "Local Folder and Synthetic Sensor are verified. An S3 implementation passes local HTTP-double checks; real provider evidence is pending. UC-009 separates collectively governed folders from immutable managed copies.",
       "next": "Finish Scaleway source validation; later admit AI-generated source mappings or isolated adapters.",
       "slices": [
         "UC-001",
@@ -88,7 +90,8 @@ const FARMY = {
         "UC-004",
         "UC-005",
         "UC-006",
-        "UC-008"
+        "UC-008",
+        "UC-009"
       ],
       "doc": "modules/connectors/README.md"
     },
@@ -358,6 +361,28 @@ const FARMY = {
       "lesson": "Replaceability requires explicit state recovery and permissions, not just matching API names.",
       "services": "6 services + UI bridge",
       "scope": "Exact crop evidence · shared optional transport SDK"
+    },
+    {
+      "id": "UC-009",
+      "title": "From source to managed item",
+      "label": "Logical Wallet membership",
+      "tests": 12,
+      "families": [
+        "wallet",
+        "registry",
+        "connectors"
+      ],
+      "path": "solutions/managed-items/uc009/README.md",
+      "command": ".venv/bin/python solutions/managed-items/uc009/run.py launch",
+      "outcome": "Read a connected folder collectively; admit one selected email as an immutable, individually governed copy.",
+      "proof": [
+        "Source and item grants cannot substitute for one another",
+        "Provenance and inherited reader ceiling retained; owner can narrow access",
+        "Original changes, revocation, concurrent retries and restart tested"
+      ],
+      "lesson": "Inside the Wallet describes individual governance, independent of where bytes are stored.",
+      "services": "2 services + read-only UI bridge",
+      "scope": "Synthetic email exports · owner-controlled folder · no real mailbox"
     }
   ],
   "queue": [
@@ -374,7 +399,7 @@ const FARMY = {
       "title": "Package each environment",
       "families": [],
       "detail": "Verify laptop and Kubernetes delivery one target at a time; Scaleway is first for cloud.",
-      "number": "09",
+      "number": "10",
       "status": "Next queued outcome"
     }
   ],
@@ -710,6 +735,44 @@ const FARMY = {
         ],
         "text": "Compare evidence after rebuild and restart. Revoke B’s query grant; A remains usable under its own grant. Both fail closed when Wallet is unavailable.",
         "check": "Local domain-provider substitution only; shared transport, no generic migration."
+      }
+    ],
+    "UC-009": [
+      {
+        "title": "Connect a collectively governed source",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "The folder can be on this laptop and still remain outside the Wallet. One source/owner/consumer grant covers both synthetic email exports.",
+        "check": "A source grant covers the configured root, not the whole device."
+      },
+      {
+        "title": "Admit an exact managed copy",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "The owner selects one email and its digest. Connector stores immutable bytes; Wallet records individual identity, provenance, classification and a reader list within the inherited ceiling.",
+        "check": "Admission is separate from signing a claim or issuing permission to read."
+      },
+      {
+        "title": "Read under a separate item grant",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "The item reader needs its own exact-version grant. A source grant cannot open the managed copy; an item grant cannot open the folder.",
+        "check": "Physical location does not decide Wallet membership."
+      },
+      {
+        "title": "Keep revocation boundaries explicit",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Source revocation stops future source reads and new admissions using that grant. The retained copy has its own revocation. Changing or deleting the original does not change the copy.",
+        "check": "Previously delivered bytes cannot be recalled. Wallet outage blocks new reads."
       }
     ]
   },

@@ -41,3 +41,5 @@ A Connector may support versioned source mappings or isolated adapter extensions
 ## S3 implementation in progress
 
 [UC-007](../../solutions/s3-source/uc007/README.md) adds a [Scaleway S3 candidate](s3/README.md) with 11 passing local HTTP-double checks. It selects a second implementation for the existing Connector role in a fresh composition; simultaneous Local Folder/S3 instances are not implemented. Provider compatibility is pending. The two storage connectors share an optional snapshot helper; the Local Folder safe reader and database schema are unchanged.
+
+[Managed Folder](managed_folder/README.md) implements UC-009: collective source permissions and immutable copies under separate Wallet item permissions.

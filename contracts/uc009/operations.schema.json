@@ -1,0 +1,482 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc009:0.9-draft",
+  "$defs": {
+    "folder.attach.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId"
+      ]
+    },
+    "folder.attach.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId"
+      ]
+    },
+    "folder.list.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId"
+      ]
+    },
+    "folder.list.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entries": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+          }
+        }
+      },
+      "required": [
+        "entries"
+      ]
+    },
+    "folder.read.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "entry"
+      ]
+    },
+    "folder.read.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contentBase64": {
+          "type": "string",
+          "maxLength": 21848
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16384
+        }
+      },
+      "required": [
+        "contentBase64",
+        "sha256",
+        "size"
+      ]
+    },
+    "folder.capture.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "entry",
+        "sha256"
+      ]
+    },
+    "folder.capture.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "snapshot": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "snapshotId": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 16384
+            }
+          },
+          "required": [
+            "snapshotId",
+            "sha256",
+            "size"
+          ]
+        },
+        "inheritedReaders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "snapshot",
+        "inheritedReaders"
+      ]
+    },
+    "item.admit.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceGrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "classification": {
+          "enum": [
+            "private",
+            "restricted"
+          ]
+        },
+        "allowedReaders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "entry",
+        "sha256",
+        "sourceGrant",
+        "title",
+        "classification",
+        "allowedReaders"
+      ]
+    },
+    "item.admit.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resource": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "resourceId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "versionId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            }
+          },
+          "required": [
+            "resourceId",
+            "versionId",
+            "revision",
+            "sha256",
+            "size",
+            "path"
+          ]
+        },
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "classification": {
+          "enum": [
+            "private",
+            "restricted"
+          ]
+        },
+        "allowedReaders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "inheritedReaders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "importedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mode": {
+          "const": "managed-copy"
+        }
+      },
+      "required": [
+        "resource",
+        "sourceId",
+        "ownerId",
+        "entry",
+        "title",
+        "classification",
+        "allowedReaders",
+        "inheritedReaders",
+        "importedAt",
+        "mode"
+      ]
+    },
+    "item.inspect.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "resourceId"
+      ]
+    },
+    "item.inspect.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resource": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "resourceId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "versionId": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            }
+          },
+          "required": [
+            "resourceId",
+            "versionId",
+            "revision",
+            "sha256",
+            "size",
+            "path"
+          ]
+        },
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "classification": {
+          "enum": [
+            "private",
+            "restricted"
+          ]
+        },
+        "allowedReaders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "inheritedReaders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "importedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mode": {
+          "const": "managed-copy"
+        }
+      },
+      "required": [
+        "resource",
+        "sourceId",
+        "ownerId",
+        "entry",
+        "title",
+        "classification",
+        "allowedReaders",
+        "inheritedReaders",
+        "importedAt",
+        "mode"
+      ]
+    }
+  }
+}

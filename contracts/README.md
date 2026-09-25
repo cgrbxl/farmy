@@ -42,3 +42,5 @@ Specify required fields and extension namespaces, version negotiation, units, ti
 ADR 0002 selects HTTP/JSON, OpenAPI/JSON Schema and initial polling for the reference path. Open choices include precise contract versions and schemas, identity/delegation protocol, later event-broker necessity and external standards mappings. Choose these through architecture decision records, without imposing a particular internal programming language.
 
 [UC-008](uc008/README.md) composes existing descriptors, bindings and UC-002 operations for Knowledge replacement. It introduces no operation schema version.
+
+[UC-009](uc009/README.md) adds source-folder access and explicit managed-item admission without changing existing grant contracts.

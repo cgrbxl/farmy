@@ -43,3 +43,5 @@ Wallet instances cooperate in data spaces without merging their authority namesp
 ## Future interactive modes
 
 See the [interactive module backlog](../../docs/interactive-modules.md) for staged user interfaces, family ownership and acceptance criteria. These modes are planned; the current monitoring interface remains read-only.
+
+[UC-009](../../solutions/managed-items/uc009/README.md) adds opt-in managed-copy metadata, inherited reader ceilings and individual read restrictions. Wallet membership is logical, independent of storage location.
