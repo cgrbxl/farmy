@@ -43,3 +43,11 @@ No infrastructure is provisioned by this plan. Prepare the concrete resource and
 ## Progress recorded 2026-09-26
 
 L1 has a tested persistent runtime with eight lifecycle tests. L2 has a standalone offline installer, a real user-level Mac installation/login service and a verified compatible development-build replacement. Homebrew install verification is blocked by this Mac’s Xcode prerequisite; the formula is prepared but not published. See the [Mac profile](../deployments/profiles/macos/README.md) for exact evidence and remaining lifecycle/security work. L3 and cloud milestones remain pending.
+
+### L3 interface foundation — 0.1.1
+
+The installed persistent client now separates Drive, Copilot, Hub and Control. Drive retains the real preview/admission/read/grant/revoke journeys. Copilot offers two bounded, refreshed workspace-record questions: inventory and recorded consumer grants. These are deterministic client summaries, not AI answers or document analysis. Grant receipts are explicitly not live authorisation decisions and may have expired. Hub describes the configured composition, not continuous health; Control explains actual authority and storage boundaries without implying editable configuration.
+
+L3 acceptance is **not complete**. Next implement an explicit processing/model permission for one selected immutable managed copy, with destination confirmation, bounded evidence, revocation checks before release, and provider replacement tests. Existing owner read authority must not silently become processing-module authority. Then connect that vertical slice to Copilot. No cloud infrastructure is needed for this step.
+
+Validation for 0.1.1: eight local lifecycle tests passed; JavaScript syntax checked; standalone build installed and login service restarted; browser verified all four views, 57 source entries / 53 preview-eligible entries and three retained managed copies. Both bounded workspace questions refreshed their records successfully. Homebrew and cloud status remain unchanged.

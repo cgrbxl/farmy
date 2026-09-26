@@ -3,7 +3,7 @@ const $=s=>document.querySelector(s);
 const incoming=new URLSearchParams(location.hash.slice(1)).get('access');
 if(incoming){sessionStorage.setItem('farmy-workbench-access',incoming);history.replaceState(null,'',location.pathname);}
 const token=sessionStorage.getItem('farmy-workbench-access');
-let state=null,preview=null,busy=false;
+let state=null,preview=null,busy=false,activeView='drive';
 function message(text,error=false){$('#message').textContent=text;$('#message').classList.toggle('error',error);}
 const displayName=entry=>(state?.catalogue?.find(item=>item.entry===entry)?.path||entry).replace(/-[a-f0-9]{64}(?=\.[^.]+$)/,'');
 const errors={unsupported:'Choose a UTF-8 .txt, .md, .csv or .eml file of at most 16 KiB, without binary control characters. The source also has a 100-file limit.',denied:'Wallet denied this action. Permission is missing, revoked or outside this item’s permitted readers.',unauthenticated:'Open the private access link printed by the runner.',conflict:'The source or permission changed, or another action needs retrying. Refresh before continuing.',unavailable:'A service is unavailable. No new access has been allowed. Retry when it returns.',expired:'This permission or request expired. Restart the demo for fresh development grants.',invalid_request:'This request could not be accepted.',not_found:'This item is not available in this session.'};
@@ -17,8 +17,9 @@ $('#items').replaceChildren();if(!state.items.length)$('#items').append(node('p'
 for(const item of state.items){const card=node('article',null,'card'),details=node('details'),dl=node('dl');card.append(node('h3',displayName(item.title)),node('span',item.sharing,'status'),node('p',item.classification==='private'?'Private · owner only':'Eligible readers: owner and demo consumer'));for(const [label,value] of [['Source',item.entry],['Source identity',item.sourceId],['Resource',item.resource.resourceId],['Version',item.resource.versionId],['SHA-256',item.resource.sha256],['Admitted',item.importedAt],['Mode','Immutable managed copy']])dl.append(node('dt',label),node('dd',value));details.append(node('summary','Inspect provenance and exact version'),dl);card.append(details,button('Open managed copy',()=>read(item.id)));
 const granted=item.sharing.startsWith('Granted');card.append(button('Grant consumer access',()=>mutate('grant',{id:item.id}),granted||!!state.pending),button('Revoke access',()=>mutate('revoke',{id:item.id}),!granted||!!state.pending));$('#items').append(card);}
 }else{$('#consumer-items').replaceChildren();if(!state.items.length)$('#consumer-items').append(node('p','No demo entries yet. Add a document in the owner view, then refresh here.'));for(const item of state.items){const card=node('article',null,'card');card.append(node('h3',displayName(item.title)),node('p','Generic test entry; no document metadata is disclosed before the read succeeds.'),button('Try to open '+item.title,()=>read(item.id)));$('#consumer-items').append(card);}}
+renderWorkspace();
 }
-async function refresh(){clearResult();try{state=await api('/api/state');render();}catch(error){message(error.message,true);state=null;preview=null;$('#preview').hidden=true;$('#sources').replaceChildren();$('#items').replaceChildren();$('#consumer-items').replaceChildren();throw error;}}
+async function refresh(){clearResult();$('#workspace-answer').hidden=true;try{state=await api('/api/state');render();}catch(error){message(error.message,true);state=null;preview=null;$('#workspace-nav').hidden=true;for(const view of ['owner','copilot','hub','control'])$('#'+view+'-view').hidden=true;$('#preview').hidden=true;$('#sources').replaceChildren();$('#items').replaceChildren();$('#consumer-items').replaceChildren();throw error;}}
 async function task(action){if(busy)return;busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);try{await action();}catch(error){message(error.message,true);}finally{busy=false;if(state)render();$('#refresh').disabled=false;$('#admit').disabled=!preview||!!state?.pending;$('#cancel').disabled=false;$('#retry').disabled=false;}}
 async function showPreview(entry){await task(async()=>{preview=await api('/api/action',{action:'preview',payload:{entry}});$('#preview-title').textContent=displayName(entry);$('#preview-body').textContent=preview.text;$('#preview').hidden=false;$('#policy').value=state.directory?'private':'restricted';message('Review the source bytes, then choose the copy’s permitted readers.');$('#preview').scrollIntoView({behavior:'smooth',block:'center'});});}
 async function submit(action,payload){try{const receipt=await api('/api/action',{action,payload});await refresh();if(action==='admit'){$('#preview').hidden=true;preview=null;}if(action==='upload'){preview=await api('/api/action',{action:'preview',payload:{entry:receipt.entry}});$('#preview-title').textContent=displayName(receipt.entry);$('#preview-body').textContent=preview.text;$('#preview').hidden=false;$('#policy').value='private';$('#preview').scrollIntoView({behavior:'smooth',block:'center'});$('#upload-file').value='';$('#upload-selection').textContent='Upload complete.';}message(action==='upload'?'Uploaded to the local source. Review it below, then add it to your Wallet.':action==='admit'?'Added to your Wallet. Consumer access is not granted yet.':action==='grant'?'Grant recorded. Try opening the document in the demo consumer view.':'Access revoked. A new consumer read will be denied.');return receipt;}catch(error){try{await refresh();}catch{}throw error;}}
@@ -37,3 +38,39 @@ $('#upload-button').addEventListener('click',()=>task(async()=>{const file=$('#u
 $('#source-filter').addEventListener('input',()=>{if(state&&!busy)render();});
 // Reopening an owner link in an existing tab may only change the URL fragment.
 window.addEventListener('hashchange',()=>{if(new URLSearchParams(location.hash.slice(1)).has('access'))location.reload();});
+
+const viewCopy={drive:['Your information, under your control.','Browse a source, keep an exact copy, and decide who may read it.'],copilot:['Questions with a visible basis.','Start with workspace records. Document reasoning is the next integration.'],hub:['See what is connected.','A local composition with explicit responsibilities.'],control:['Your workspace. Your authority.','Inspect the current access rules and deployment boundaries.']};
+function renderWorkspace(){
+ const enabled=state?.persistent&&state.role==='owner';$('#workspace-nav').hidden=!enabled;
+ for(const view of ['copilot','hub','control'])$('#'+view+'-view').hidden=!enabled||activeView!==view;
+ if(!enabled)return;
+ $('#owner-view').hidden=activeView!=='drive';
+ $('#heading').textContent=viewCopy[activeView][0];$('#intro').textContent=viewCopy[activeView][1];
+ document.querySelectorAll('[data-view]').forEach(b=>{b.disabled=false;if(b.dataset.view===activeView)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+ document.querySelectorAll('[data-question]').forEach(b=>b.disabled=false);
+ const components=$('#hub-components');components.replaceChildren();
+ for(const [title,description] of [['Wallet','Owns item identities, exact-version metadata and access decisions.'],['Directory Connector','Lists the selected read-only folder and holds admitted immutable copies.'],['Browser client','Composes these views using your owner session. No cloud account is required.']]){
+  const card=node('article',null,'card');card.append(node('h3',title),node('p',description));components.append(card);
+ }
+ const controls=$('#workspace-controls');controls.replaceChildren();const dl=node('dl');
+ for(const [label,value] of [['Runtime',state.runtimeVersion],['Storage','Managed copies and permissions persist on this Mac. Local storage is not application-encrypted.'],['Source','One operator-selected directory, read-only. Source browsing does not admit a copy.'],['Wallet rules','Private copies permit only the owner. Other copies may permit the owner and demo consumer; consumer access still needs a separate grant.'],['Consumer lifetime','Up to one hour. Revocation blocks future reads, not bytes already received.'],['Model destination','None connected in this composition.'],['Cloud dependency','None required by this composition.'],['Authentication','Local owner and demo-consumer credentials. This is not production user identity.']])dl.append(node('dt',label),node('dd',value));
+ controls.append(dl);
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{if(busy)return;activeView=b.dataset.view;clearResult();$('#preview').hidden=true;preview=null;message('');render();}));
+document.querySelectorAll('[data-question]').forEach(b=>b.addEventListener('click',()=>task(async()=>{
+ await refresh();if(state.role!=='owner'||!state.persistent)return;
+ const answer=$('#workspace-answer');answer.replaceChildren();answer.hidden=false;
+ answer.append(node('h3',b.textContent),node('p','Checked '+new Date().toLocaleString()+'. Local record summary; no model used.','help'));
+ if(b.dataset.question==='inventory'){
+  const previewable=state.catalogue.filter(item=>!item.reason).length;
+  answer.append(node('p',`${state.entries.length} source files are listed. ${previewable} are eligible for a bounded text preview; encoding is checked when opened. Your Wallet contains ${state.items.length} managed copies.`));
+  answer.append(node('p','Basis: the current directory listing and the Wallet’s current item records. A source file and its managed copy are separate objects.'));
+ }else{
+  const shared=state.items.filter(item=>item.sharing.startsWith('Granted'));
+  answer.append(node('p',`${shared.length} managed copies have an unrevoked grant recorded by this client. Grants may have expired. A read still checks the Wallet and Connector; this summary is not an access decision.`));
+  if(!shared.length)answer.append(node('p','No unrevoked consumer grants are recorded.'));
+  for(const item of shared){const card=node('article',null,'card');card.append(node('h3',displayName(item.title)),node('p',item.sharing),node('p','Exact version: '+item.resource.versionId),node('p','SHA-256: '+item.resource.sha256));answer.append(card);}
+  answer.append(node('p','Basis: the client’s grant receipts and current Wallet item records. Use Drive and the separate consumer view to test a live read.'));
+ }
+ message('Answered from refreshed workspace records.');
+})));
