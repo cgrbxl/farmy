@@ -18,7 +18,7 @@ managed = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(managed)
 Fault = managed.core.Fault
 from farmy_transport.http import timestamp as bridge_time
-ASSETS = {'/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
+ASSETS = {'/farmy-mark.svg': ('farmy-mark.svg','image/svg+xml'), '/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
 
 
 class Workbench:

@@ -1,3 +1,5 @@
+<img src="docs/brand/farmy-mark.svg" alt="Farmy" width="80">
+
 # Farmy
 
 Farmer-controlled digital memory and a composable ecosystem of agricultural intelligence services.
