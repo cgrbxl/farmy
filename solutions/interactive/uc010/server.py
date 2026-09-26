@@ -22,7 +22,8 @@ ASSETS = {'/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript
 
 
 class Workbench:
-    def __init__(self, directory):
+    def __init__(self, directory, allow_uploads=False):
+        self.allow_uploads=allow_uploads
         self.directory = Path(directory)
         self.lock = threading.Lock()
         self.path = self.directory / 'workbench.sqlite'
@@ -84,7 +85,7 @@ class Workbench:
             permission=self.permission(identity)
             item.update(id=identity, sharing='Revoked' if permission and permission['revoked'] else 'Granted (check as consumer)' if permission else 'Not granted')
             items.append(item)
-        return dict(role=role,entries=listing['entries'],items=items,consumerToken=self.session['consumer'],
+        return dict(role=role,uploads=self.allow_uploads,entries=listing['entries'],items=items,consumerToken=self.session['consumer'],
                     pending=json.loads(pending[0])['client'] if pending else None)
 
     def preview(self, entry):
@@ -105,6 +106,9 @@ class Workbench:
         data=managed.core.read(self.directory,item['resource'],permission or {'grantId':'grant.not-issued'},identity)
         return {'text':data.decode('utf-8',errors='replace'), 'decision':'Access allowed by Wallet'}
 
+    def entry_title(self, entry):
+        return entry
+
     def mutate(self, action, payload):
         key=payload['key']
         if not isinstance(key,str) or not re.fullmatch(r'[a-zA-Z0-9-]{1,64}',key): raise Fault('invalid_request')
@@ -117,11 +121,14 @@ class Workbench:
                 if result: return json.loads(result)
             else:
                 if db.execute('SELECT 1 FROM actions WHERE result IS NULL').fetchone(): raise Fault('conflict')
-                if action=='admit':
+                if action=='upload':
+                    op='folder.upload'
+                    query={'payload':dict(managed.scope(self.session['source']),name=payload['name'],contentBase64=payload['contentBase64'])}
+                elif action=='admit':
                     if payload['policy'] not in ('private','restricted'): raise Fault('invalid_request')
                     op='item.admit'
                     data=dict(managed.scope(self.session['source']),entry=payload['entry'],sha256=payload['sha256'],
-                        sourceGrant=self.session['sourceGrant'],title=payload['entry'],classification=payload['policy'],
+                        sourceGrant=self.session['sourceGrant'],title=self.entry_title(payload['entry']),classification=payload['policy'],
                         allowedReaders=['owner'] if payload['policy']=='private' else ['owner','reader'])
                     query={'payload':data}
                 else:
@@ -148,15 +155,16 @@ class Workbench:
                 db.execute('INSERT OR IGNORE INTO items VALUES(?,?)',(result['resource']['resourceId'],json.dumps(result)))
             elif action=='grant':
                 db.execute('INSERT OR REPLACE INTO permissions VALUES(?,?,?,0)',(payload['id'],result['grantId'],result['revision']))
-            else:
+            elif action=='revoke':
                 db.execute('UPDATE permissions SET revision=?,revoked=1 WHERE resource=?',(result['revision'],payload['id']))
             # Browser receives a receipt without reusable service-grant identifiers.
-            receipt={'id':result['resource']['resourceId']} if action=='admit' else {'id':payload['id'],'status':'Granted' if action=='grant' else 'Revoked'}
+            receipt=result if action=='upload' else {'id':result['resource']['resourceId']} if action=='admit' else {'id':payload['id'],'status':'Granted' if action=='grant' else 'Revoked'}
             db.execute('UPDATE actions SET result=? WHERE key=?',(json.dumps(receipt),key))
         return receipt
 
     def action(self, role, action, payload):
         fields={'preview':{'entry'},'read':{'id'},'admit':{'entry','sha256','policy','key'},'grant':{'id','key'},'revoke':{'id','key'}}
+        if self.allow_uploads: fields['upload']={'name','contentBase64','key'}
         if action not in fields or not isinstance(payload,dict) or set(payload)!=fields[action] or not all(isinstance(v,str) for v in payload.values()):
             raise Fault('invalid_request')
         if action=='read': return self.read(role,payload['id'])
@@ -197,7 +205,7 @@ class Handler(BaseHTTPRequestHandler):
                 if self.headers.get('Content-Type')!='application/json' or self.headers.get('Transfer-Encoding'):
                     raise Fault('invalid_request')
                 length=int(self.headers.get('Content-Length','0'))
-                if not 0<length<=4096: raise Fault('invalid_request')
+                if not 0<length<=(32768 if self.server.workbench.allow_uploads else 4096): raise Fault('invalid_request')
                 data=json.loads(self.rfile.read(length))
                 if not isinstance(data,dict) or set(data)!={'action','payload'}: raise Fault('invalid_request')
             elif self.path!='/api/state': self.send(404,{'error':'not_found'}); return

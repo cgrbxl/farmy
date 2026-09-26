@@ -25,3 +25,7 @@ Run `.venv/bin/python -m unittest discover -s conformance/uc008 -v`. Eleven test
 [UC-009](../solutions/managed-items/uc009/README.md) adds twelve real-process checks for source/item boundaries, admission, policy narrowing, idempotency and recovery.
 
 [UC-010](../solutions/interactive/uc010/README.md) adds twelve real HTTP/mTLS tests for the interactive bridge, credential separation and mutation recovery.
+
+UC-011 adds optional owner-authorised local text upload; see [the upload journey](../solutions/uploads/uc011/README.md) for limits, contracts and verification.
+
+UC-012 adds a generic read-only directory provider and catalogue; see [the directory journey](../solutions/directory/uc012/README.md).

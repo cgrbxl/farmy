@@ -44,3 +44,7 @@ ADR 0002 selects HTTP/JSON, OpenAPI/JSON Schema and initial polling for the refe
 [UC-008](uc008/README.md) composes existing descriptors, bindings and UC-002 operations for Knowledge replacement. It introduces no operation schema version.
 
 [UC-009](uc009/README.md) adds source-folder access and explicit managed-item admission without changing existing grant contracts.
+
+UC-011 adds optional owner-authorised local text upload; see [the upload journey](../solutions/uploads/uc011/README.md) for limits, contracts and verification.
+
+UC-012 adds a generic read-only directory provider and catalogue; see [the directory journey](../solutions/directory/uc012/README.md).

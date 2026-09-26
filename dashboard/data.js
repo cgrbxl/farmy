@@ -1,6 +1,6 @@
 /* Curated project snapshot. Update with every completed slice; exclude private feedback. */
 const FARMY = {
-  "date": "25 September 2026",
+  "date": "26 September 2026",
   "revision": "fc50d26",
   "families": [
     {
@@ -24,7 +24,9 @@ const FARMY = {
         "UC-006",
         "UC-008",
         "UC-009",
-        "UC-010"
+        "UC-010",
+        "UC-011",
+        "UC-012"
       ],
       "doc": "modules/wallet/README.md"
     },
@@ -94,7 +96,9 @@ const FARMY = {
         "UC-006",
         "UC-008",
         "UC-009",
-        "UC-010"
+        "UC-010",
+        "UC-011",
+        "UC-012"
       ],
       "doc": "modules/connectors/README.md"
     },
@@ -417,6 +421,50 @@ const FARMY = {
       "lesson": "A usable client can expose existing capabilities without changing the module contracts.",
       "services": "2 services + interactive UI bridge",
       "scope": "One usable journey · synthetic documents · no real mailbox or production login"
+    },
+    {
+      "id": "UC-011",
+      "title": "Upload your document",
+      "label": "Local upload and control",
+      "access": "Interactive interface",
+      "tests": 11,
+      "families": [
+        "wallet",
+        "connectors"
+      ],
+      "path": "solutions/uploads/uc011/README.md",
+      "command": ".venv/bin/python solutions/uploads/uc011/run.py launch",
+      "outcome": "Upload a small text file, review exact bytes, admit a managed copy and explicitly grant or revoke access.",
+      "proof": [
+        "Upload is owner-authorised and disabled by default",
+        "No overwrite, symlink rejection and bounded capacity",
+        "Lost replies and restarts preserve retry identity"
+      ],
+      "lesson": "Source upload, Wallet admission and permission grants remain separate actions.",
+      "services": "2 services + interactive UI bridge",
+      "scope": "UTF-8 txt/md/csv/eml · 16 KiB · temporary local workspace"
+    },
+    {
+      "id": "UC-012",
+      "title": "Connect a directory",
+      "label": "Generic read-only source",
+      "access": "Interactive interface",
+      "tests": 9,
+      "families": [
+        "wallet",
+        "connectors"
+      ],
+      "path": "solutions/directory/uc012/README.md",
+      "command": ".venv/bin/python solutions/directory/uc012/run.py launch --source docs/data_v2",
+      "outcome": "Browse and filter nested source files, then admit selected exact copies without writing to the source.",
+      "proof": [
+        "Source hierarchy remains outside Wallet membership",
+        "Stable entry handles, exact digests and relative-path titles",
+        "Symlink protection, stale-preview rejection and restart recovery"
+      ],
+      "lesson": "A new provider composes with existing Wallet contracts without farm-specific logic.",
+      "services": "2 services + interactive UI bridge",
+      "scope": "Read-only source · 100 files · 16 KiB text preview · temporary managed state"
     }
   ],
   "queue": [
@@ -818,6 +866,91 @@ const FARMY = {
         ],
         "text": "In the owner interface, browse the synthetic connected folder. Preview a document, choose its permitted reader ceiling and add an immutable managed copy.",
         "check": "Real API calls. Adding to the Wallet does not grant the consumer access."
+      },
+      {
+        "title": "Try the consumer view before granting",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Open the separate demo consumer view. Its generic test entry exposes no document metadata. Try opening it: Wallet denies the read.",
+        "check": "The consumer token cannot invoke owner actions or browse the source."
+      },
+      {
+        "title": "Grant and read the actual bytes",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "The owner issues a consumer grant. Retrying the consumer read now returns the exact managed copy. The owner can separately inspect provenance and open that copy.",
+        "check": "Private owner-only items reject consumer grants."
+      },
+      {
+        "title": "Revoke, retry and observe denial",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Revoke in the owner view. The next consumer read is denied. Lost mutation replies offer the same request for reconciliation instead of issuing another permission.",
+        "check": "Already delivered bytes cannot be recalled. The UI clears its read display before every new attempt."
+      }
+    ],
+    "UC-011": [
+      {
+        "title": "Upload to the source",
+        "actors": [
+          "connectors",
+          "wallet"
+        ],
+        "text": "Choose a small UTF-8 document. The Connector checks owner append authority and publishes exact bytes without overwriting.",
+        "check": "Upload grants no consumer access."
+      },
+      {
+        "title": "Preview and keep one document",
+        "actors": [
+          "connectors",
+          "wallet"
+        ],
+        "text": "In the owner interface, browse the synthetic connected folder. Preview a document, choose its permitted reader ceiling and add an immutable managed copy.",
+        "check": "Real API calls. Adding to the Wallet does not grant the consumer access."
+      },
+      {
+        "title": "Try the consumer view before granting",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Open the separate demo consumer view. Its generic test entry exposes no document metadata. Try opening it: Wallet denies the read.",
+        "check": "The consumer token cannot invoke owner actions or browse the source."
+      },
+      {
+        "title": "Grant and read the actual bytes",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "The owner issues a consumer grant. Retrying the consumer read now returns the exact managed copy. The owner can separately inspect provenance and open that copy.",
+        "check": "Private owner-only items reject consumer grants."
+      },
+      {
+        "title": "Revoke, retry and observe denial",
+        "actors": [
+          "wallet",
+          "connectors"
+        ],
+        "text": "Revoke in the owner view. The next consumer read is denied. Lost mutation replies offer the same request for reconciliation instead of issuing another permission.",
+        "check": "Already delivered bytes cannot be recalled. The UI clears its read display before every new attempt."
+      }
+    ],
+    "UC-012": [
+      {
+        "title": "Browse the selected directory",
+        "actors": [
+          "connectors",
+          "wallet"
+        ],
+        "text": "An authorised owner sees relative paths, sizes and preview limits. The generic provider excludes symlinks and hidden entries.",
+        "check": "Source bytes are never modified. Consumer grants do not permit source browsing."
       },
       {
         "title": "Try the consumer view before granting",

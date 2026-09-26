@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 import stat
 import time
+import uploads
 
 from farmy_transport.http import Fault, descriptor, exchange, request, serve, timestamp
 from farmy_transport.monitoring import summarize
@@ -23,12 +24,14 @@ class ManagedFolder(folder.Connector):
         super().__init__(config)
         with self.db() as db:
             db.executescript('''CREATE TABLE IF NOT EXISTS mount (source TEXT PRIMARY KEY, owner TEXT NOT NULL);
+                CREATE TABLE IF NOT EXISTS uploads (key TEXT PRIMARY KEY, digest TEXT NOT NULL, receipt TEXT NOT NULL);
                 CREATE TABLE IF NOT EXISTS releases (time REAL, consumer TEXT, source TEXT, entry TEXT, digest TEXT);''')
 
     def descriptor(self):
-        return descriptor(self.config, 'connectors',
-            {'farmy.folder-source': ['folder.attach', 'folder.list', 'folder.read', 'folder.capture'],
-             'farmy.storage': ['read.version']},
+        capabilities = {'farmy.folder-source': ['folder.attach', 'folder.list', 'folder.read', 'folder.capture'],
+                        'farmy.storage': ['read.version']}
+        if self.config.get('allowUploads'): capabilities['farmy.folder-upload'] = ['folder.upload']
+        return descriptor(self.config, 'connectors', capabilities,
             {'farmy.sources': ['source.authorize'], 'farmy.authorization': ['authorize.read']})
 
     def monitoring_summary(self):
@@ -50,8 +53,10 @@ class ManagedFolder(folder.Connector):
         op, payload = body['operation'], body['payload']
         if op == 'read.version':
             return super().handle(peer, body)
-        if op not in ('folder.attach', 'folder.list', 'folder.read', 'folder.capture'):
+        if op not in ('folder.attach', 'folder.list', 'folder.read', 'folder.capture', 'folder.upload'):
             raise Fault('unsupported')
+        if op == 'folder.upload' and (not self.config.get('allowUploads') or peer != 'owner' or body['subjectId'] != payload['ownerId']):
+            raise Fault('denied')
         if body['inputRefs']:
             raise Fault('invalid_request')
         if op == 'folder.capture':
@@ -59,7 +64,7 @@ class ManagedFolder(folder.Connector):
                 raise Fault('denied')
         elif peer != body['subjectId']:
             raise Fault('denied')
-        self.authority(body, 'audit' if op == 'folder.attach' else 'read')
+        self.authority(body, 'audit' if op == 'folder.attach' else 'append' if op == 'folder.upload' else 'read')
         with self.db() as db:
             if op == 'folder.attach':
                 db.execute('BEGIN IMMEDIATE')
@@ -71,6 +76,8 @@ class ManagedFolder(folder.Connector):
             if not db.execute('SELECT 1 FROM mount WHERE source=? AND owner=?',
                               (payload['sourceId'], payload['ownerId'])).fetchone():
                 raise Fault('denied')
+        if op == 'folder.upload':
+            return uploads.upload(self, body)
         if op == 'folder.list':
             entries = []
             for name in os.listdir(self.root_fd):

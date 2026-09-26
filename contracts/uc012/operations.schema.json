@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc012:0.12-draft",
+  "$defs": {
+    "folder.browse.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId"
+      ]
+    },
+    "folder.browse.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entries": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "entry": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "entry",
+              "path",
+              "size",
+              "reason"
+            ]
+          }
+        }
+      },
+      "required": [
+        "entries"
+      ]
+    }
+  }
+}

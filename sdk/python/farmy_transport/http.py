@@ -28,6 +28,10 @@ DISCLOSURE_SCHEMA = json.loads((ROOT / 'contracts/uc006/operations.schema.json')
 DISCLOSURE_OPERATIONS = json.loads((ROOT / 'contracts/uc006/operations.json').read_text())
 MANAGED_SCHEMA = json.loads((ROOT / 'contracts/uc009/operations.schema.json').read_text())
 MANAGED_OPERATIONS = json.loads((ROOT / 'contracts/uc009/operations.json').read_text())
+UPLOAD_SCHEMA = json.loads((ROOT / 'contracts/uc011/operations.schema.json').read_text())
+UPLOAD_OPERATIONS = json.loads((ROOT / 'contracts/uc011/operations.json').read_text())
+DIRECTORY_SCHEMA = json.loads((ROOT / 'contracts/uc012/operations.schema.json').read_text())
+DIRECTORY_OPERATIONS = json.loads((ROOT / 'contracts/uc012/operations.json').read_text())
 PROFILE = 'farmy.integration/0.1-draft'
 MAX_BYTES = 1048576
 MUTATIONS = {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke'}
@@ -94,6 +98,12 @@ def request(config, target, operation, payload, *, refs=None, grant='grant.owner
 
 
 def operation_spec(operation):
+    if operation in DIRECTORY_OPERATIONS:
+        data = DIRECTORY_OPERATIONS[operation]
+        return DIRECTORY_SCHEMA, 'uc012', '0.12-draft', data['capabilityId'], data['purpose'], data['mutation']
+    if operation in UPLOAD_OPERATIONS:
+        data = UPLOAD_OPERATIONS[operation]
+        return UPLOAD_SCHEMA, 'uc011', '0.11-draft', data['capabilityId'], data['purpose'], data['mutation']
     if operation in MANAGED_OPERATIONS:
         data = MANAGED_OPERATIONS[operation]
         return MANAGED_SCHEMA, 'uc009', '0.9-draft', data['capabilityId'], data['purpose'], data['mutation']

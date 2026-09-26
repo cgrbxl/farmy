@@ -14,7 +14,9 @@ Status: proposed order, not a schedule or implementation report. UC-001 through 
 | 8 | [UC-008 Knowledge replacement](../solutions/replacement/uc008/README.md): run two instances and replace one domain implementation | Knowledge, Registry, Workflow | Implemented for synthetic macOS: eleven acceptance tests; explicit public-API rebuild, shared optional transport SDK |
 | 9 | [UC-009 managed items](../solutions/managed-items/uc009/README.md): admit a selected source email as an individually governed immutable copy | Wallet, Connectors | Implemented for synthetic macOS: twelve acceptance tests; source and item permissions stay separate |
 | 10 | [UC-010 usable Wallet journey](../solutions/interactive/uc010/README.md): preview/admit/read/grant/revoke through owner and consumer interfaces | Client using Wallet and Connectors | Interactive synthetic macOS journey; twelve browser-bridge security/recovery acceptance tests |
-| 11 | Reproduce the tested solution across target profiles and a mixed laptop/cloud topology | Deployment profiles and affected module adapters | Queued; choose one target per increment, Scaleway first for cloud |
+| 11 | [UC-011 local upload](../solutions/uploads/uc011/README.md): upload, review, admit and control access | Connector, client | Implemented locally; bounded UTF-8 files; eleven upload acceptance cases |
+| 12 | [UC-012 connected directory](../solutions/directory/uc012/README.md): browse a selected read-only hierarchy and admit exact copies | Generic directory Connector, client | Nine generic acceptance cases; farm data is an optional fixture |
+| 13 | Reproduce the tested solution across target profiles and a mixed laptop/cloud topology | Deployment profiles and affected module adapters | Queued; choose one target per increment, Scaleway first for cloud |
 
 UC-010 was prioritised over packaging because API evidence was not providing a usable product experience. Dashboard maturity labels now distinguish interactive, read-only, API-tested and planned behaviour.
 

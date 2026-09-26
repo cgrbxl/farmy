@@ -59,3 +59,9 @@ Public phone preview: [Las Tres Encinas](https://farmy-las-tres-encinas.cgrbxl.c
 ## Usability, separate from technical progress
 
 The prominent “What can I actually use?” panel links to [UC-010](../solutions/interactive/uc010/README.md), the first actual owner/consumer document journey. Slice cards distinguish **Interactive interface**, **Read-only interface** and **API-tested foundation**. Planned functionality remains separate. `dashboard/workbench/` is served by its own authenticated interactive bridge; static hosting cannot run these actions and must not contain service keys or session tokens.
+
+The usable journey now launches [UC-011](../solutions/uploads/uc011/README.md), adding bounded local uploads. Recorded UC-010 counts below remain historical until the new verification result is recorded.
+
+UC-011 verified locally on 2026-09-25: 126 baseline tests plus 11 optional S3-fixture checks (137 total), and 11 demos including installed Qwen/Ollama. The dashboard now includes ten slices. The existing commit link identifies the prior committed UC-010 baseline; UC-011 evidence is in its solution guide.
+
+UC-012 verified locally on 2026-09-26: eleven slices, 135 baseline tests plus 11 optional S3-fixture checks (146 total), and 12 demos. The default directory demo is domain-neutral; the supplied farm dataset is optional. The main panel launches the directory journey, while UC-011 retains its upload runner. The commit link still identifies the earlier committed UC-010 baseline, not these local verification results.

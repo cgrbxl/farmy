@@ -1,0 +1,7 @@
+{
+  "folder.browse": {
+    "capabilityId": "farmy.directory",
+    "purpose": "uc012.folder.browse",
+    "mutation": false
+  }
+}

@@ -22,3 +22,7 @@ Promote a recipe to deployable only after runnable artifacts and end-to-end inst
 [UC-009 managed items](managed-items/uc009/README.md) demonstrates explicit admission from a connected folder into individually governed Wallet membership.
 
 [UC-010 interactive Wallet](interactive/uc010/README.md) is the first usable owner/consumer journey against real synthetic services.
+
+UC-011 adds optional owner-authorised local text upload; see [the upload journey](uploads/uc011/README.md) for limits, contracts and verification.
+
+UC-012 adds a generic read-only directory provider and catalogue; see [the directory journey](directory/uc012/README.md).

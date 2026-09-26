@@ -1,0 +1,7 @@
+{
+  "folder.upload": {
+    "capabilityId": "farmy.folder-upload",
+    "purpose": "uc011.folder.upload",
+    "mutation": true
+  }
+}

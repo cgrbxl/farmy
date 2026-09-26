@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:farmy:schema:uc011:0.11-draft",
+  "$defs": {
+    "folder.upload.input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "ownerId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "contentBase64": {
+          "type": "string",
+          "maxLength": 21848
+        }
+      },
+      "required": [
+        "sourceId",
+        "ownerId",
+        "name",
+        "contentBase64"
+      ]
+    },
+    "folder.upload.output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16384
+        }
+      },
+      "required": [
+        "entry",
+        "sha256",
+        "size"
+      ]
+    }
+  }
+}
