@@ -105,11 +105,14 @@ class Processes:
         self.directory = Path(directory)
         self.children = {}
 
+    def spawn(self, identity, log):
+        return subprocess.Popen(command(self.directory, identity, self.services), env=environment(), stdout=log, stderr=log)
+
     def start(self, identity):
         if identity in self.children:
             raise ValueError('Process already owned by this runner')
         with (self.directory / (identity + '.log')).open('ab') as log:
-            child = subprocess.Popen(command(self.directory, identity, self.services), env=environment(), stdout=log, stderr=log)
+            child = self.spawn(identity, log)
         self.children[identity] = child
         until = time.monotonic() + 10
         while time.monotonic() < until:

@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-26",
+  "version": "0.1.0",
+  "build": "0.1.0-5a4fa8f3f993",
+  "artifact": "farmy-0.1.0-5a4fa8f3f993-darwin-arm64.tar.gz",
+  "sha256": "d3cad17c0f434246e837b96a51bb773e4a7cb707f01198f0df5e44e760ffda8d",
+  "platform": "macOS 26.6.2 arm64",
+  "python": "3.14.6",
+  "checks": {
+    "regressionTests": 153,
+    "additionalShutdownTest": 1,
+    "demos": 12,
+    "finalLifecycleRerun": 7,
+    "offlineStandaloneInstall": "passed",
+    "launchdRegistrationAndRestart": "passed",
+    "compatibleDevelopmentBuildReplacement": "passed",
+    "browserRetainedCopyAfterRestart": "passed",
+    "homebrewInstall": "blocked by installed Xcode 16.4 prerequisite"
+  },
+  "publication": "local artifact only; no public tap/release",
+  "limits": [
+    "No clean-machine, logout/reboot, long-duration or sleep/wake verification",
+    "No native Keychain integration or application-level storage encryption",
+    "No cloud deployment or mandatory Farmy cloud dependency",
+    "No advertised schema migration or downgrade path"
+  ]
+}

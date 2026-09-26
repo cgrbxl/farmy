@@ -1,5 +1,8 @@
 # Scaleway landing-zone plan
 
+**Updated direction (2026-09-26):** follow the [deployable Farmy plan](../deployment-plan.md). Use a dedicated Farmy project in the existing Scaleway account, independent of onmygarage. Shared hosting is optional; Kubernetes mappings below are a later optional profile, not a prerequisite. Local installation comes first.
+
+
 Status: first provider selected by the maintainer on 2026-09-18. Service mapping is a design proposal, not a deployable or validated profile. No account access, resources or costs have been authorised by this selection.
 
 Scaleway is the first implementation target because the maintainer already knows the provider. The [common landing-zone requirements](../cloud-landing-zones.md) still apply; Farmy contracts remain provider-independent.

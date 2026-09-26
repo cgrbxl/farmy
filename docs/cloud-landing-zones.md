@@ -1,5 +1,8 @@
 # Cloud provider landing zones
 
+**Updated direction (2026-09-26):** follow the [deployable Farmy plan](deployment-plan.md). Use a dedicated Farmy project in the existing Scaleway account, independent of onmygarage. Shared hosting is optional; Kubernetes mappings below are a later optional profile, not a prerequisite. Local installation comes first.
+
+
 Status: requirements only. Scaleway is selected as the first provider in [ADR 0005](decisions/0005-scaleway-first-provider.md). No infrastructure is provisioned or cloud security certified.
 
 A Farmy landing zone is the versioned infrastructure foundation required to run a declared solution or module safely within a cloud environment. Each supported provider needs an explicit implementation mapping these requirements to named services, settings, permissions and tests. A Kubernetes application package alone is not a landing zone.

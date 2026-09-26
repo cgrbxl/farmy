@@ -22,6 +22,7 @@ steps = [
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc010', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc011', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc012', '-v'],
+    ['-m', 'unittest', 'discover', '-s', 'conformance/local', '-v'],
     ['conformance/foundation/check.py'],
     ['scripts/check_docs.py'],
     ['solutions/core/uc001/run.py', 'demo'],

@@ -16,7 +16,8 @@ Status: proposed order, not a schedule or implementation report. UC-001 through 
 | 10 | [UC-010 usable Wallet journey](../solutions/interactive/uc010/README.md): preview/admit/read/grant/revoke through owner and consumer interfaces | Client using Wallet and Connectors | Interactive synthetic macOS journey; twelve browser-bridge security/recovery acceptance tests |
 | 11 | [UC-011 local upload](../solutions/uploads/uc011/README.md): upload, review, admit and control access | Connector, client | Implemented locally; bounded UTF-8 files; eleven upload acceptance cases |
 | 12 | [UC-012 connected directory](../solutions/directory/uc012/README.md): browse a selected read-only hierarchy and admit exact copies | Generic directory Connector, client | Nine generic acceptance cases; farm data is an optional fixture |
-| 13 | Reproduce the tested solution across target profiles and a mixed laptop/cloud topology | Deployment profiles and affected module adapters | Queued; choose one target per increment, Scaleway first for cloud |
+| 13 | [Persistent, installable Mac solution](deployment-plan.md) | Local runtime, packaging, existing Wallet/Connector/client | Persistent runtime and standalone Mac installer verified; Homebrew prerequisite blocked; functional composition follows |
+| 14 | Optional cloud processing and independent deployment | Module package and Scaleway project profile | Follows local installation; dedicated project in existing account, separate from onmygarage |
 
 UC-010 was prioritised over packaging because API evidence was not providing a usable product experience. Dashboard maturity labels now distinguish interactive, read-only, API-tested and planned behaviour.
 

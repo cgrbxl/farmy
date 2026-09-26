@@ -12,6 +12,8 @@ Explore the [phone solution mockup](docs/mock/README.md): Las Tres Encinas illus
 
 ## What can I actually use?
 
+**Persistent Mac installation:** [install and operate Farmy locally](deployments/profiles/macos/README.md), retaining selected managed copies across restarts. The [deployment plan](docs/deployment-plan.md) keeps cloud services optional and separates Farmy hosting from onmygarage.
+
 [Connect a read-only folder with UC-012](solutions/directory/uc012/README.md) to browse nested files and admit selected exact copies. The supplied simulated farm data is an exploration fixture; modules and contracts remain independent of its domain.
 
 **One interactive journey is available:** upload a small local text file or preview a sample document, add it to your Wallet, open its exact managed copy, grant a demo consumer access and revoke it. [Launch the workbench and follow the steps](solutions/uploads/uc011/README.md). The operational monitor is read-only. Other foundations run through scripts/APIs; the phone mockup remains simulated. Technical slice/test counts are not a count of usable product features.

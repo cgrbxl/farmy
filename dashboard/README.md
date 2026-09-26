@@ -65,3 +65,5 @@ The usable journey now launches [UC-011](../solutions/uploads/uc011/README.md), 
 UC-011 verified locally on 2026-09-25: 126 baseline tests plus 11 optional S3-fixture checks (137 total), and 11 demos including installed Qwen/Ollama. The dashboard now includes ten slices. The existing commit link identifies the prior committed UC-010 baseline; UC-011 evidence is in its solution guide.
 
 UC-012 verified locally on 2026-09-26: eleven slices, 135 baseline tests plus 11 optional S3-fixture checks (146 total), and 12 demos. The default directory demo is domain-neutral; the supplied farm dataset is optional. The main panel launches the directory journey, while UC-011 retains its upload runner. The commit link still identifies the earlier committed UC-010 baseline, not these local verification results.
+
+The primary panel now links to the persistent local Mac installation. Its eight lifecycle checks are additional to the slice chart: 143 baseline checks, plus 11 optional S3 checks, total 154. The chart retains the eleven use-case slices; it does not count packaging as another domain capability.

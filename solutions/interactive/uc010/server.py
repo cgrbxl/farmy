@@ -22,11 +22,11 @@ ASSETS = {'/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript
 
 
 class Workbench:
-    def __init__(self, directory, allow_uploads=False):
+    def __init__(self, directory, allow_uploads=False, state_directory=None):
         self.allow_uploads=allow_uploads
         self.directory = Path(directory)
         self.lock = threading.Lock()
-        self.path = self.directory / 'workbench.sqlite'
+        self.path = Path(state_directory or self.directory) / 'workbench.sqlite'
         with self.db() as db:
             db.executescript('''CREATE TABLE IF NOT EXISTS settings (name TEXT PRIMARY KEY, value TEXT);
                 CREATE TABLE IF NOT EXISTS items (id TEXT PRIMARY KEY, metadata TEXT NOT NULL);

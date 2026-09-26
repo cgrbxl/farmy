@@ -29,3 +29,5 @@ Run `.venv/bin/python -m unittest discover -s conformance/uc008 -v`. Eleven test
 UC-011 adds optional owner-authorised local text upload; see [the upload journey](../solutions/uploads/uc011/README.md) for limits, contracts and verification.
 
 UC-012 adds a generic read-only directory provider and catalogue; see [the directory journey](../solutions/directory/uc012/README.md).
+
+The persistent local profile adds seven subprocess/HTTP lifecycle checks in `conformance/local`: restart and credential rotation, retained revocation, backup/restore, duplicate start, failed startup and supervisor crash recovery. The combined optional selection now totals 154 tests and 12 demos.
