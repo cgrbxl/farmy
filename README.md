@@ -1,5 +1,7 @@
 <img src="docs/brand/farmy-mark.svg" alt="Farmy" width="80">
 
+[Visual assets and brand guide](docs/brand/README.md)
+
 # Farmy
 
 Farmer-controlled digital memory and a composable ecosystem of agricultural intelligence services.
