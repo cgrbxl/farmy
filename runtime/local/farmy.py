@@ -13,6 +13,7 @@ from pathlib import Path
 import secrets
 import shutil
 import signal
+import socket
 import subprocess
 import sys
 import threading
@@ -22,7 +23,7 @@ import urllib.request
 from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = '0.1.1'
+VERSION = '0.2.0'
 SCHEMA = 1
 spec = importlib.util.spec_from_file_location('directory_solution', ROOT / 'solutions/directory/uc012/run.py')
 solution = importlib.util.module_from_spec(spec)
@@ -84,17 +85,47 @@ def exclusive(home):
         finally: fcntl.flock(lock, fcntl.LOCK_UN)
 
 
-def transport(home):
+def identities(home):
+    """Persistent P-256 keys. Local pairing pins SHA-256 public-key fingerprints."""
+    result = {}
+    for name in ('owner','reader'):
+        folder = home / 'identities' / name
+        folder.mkdir(mode=0o700,parents=True,exist_ok=True)
+        key = folder / 'private.pem'
+        if not key.exists():
+            temporary=folder / ('key.'+uuid4().hex)
+            subprocess.run(['openssl','genpkey','-algorithm','EC','-pkeyopt','ec_paramgen_curve:P-256','-out',str(temporary)],check=True,capture_output=True)
+            temporary.chmod(0o600);os.replace(temporary,key)
+        public=subprocess.run(['openssl','pkey','-in',str(key),'-pubout','-outform','DER'],check=True,capture_output=True).stdout
+        result[name]=dict(id=name,name='Local owner' if name=='owner' else 'Paired demo consumer',fingerprint=hashlib.sha256(public).hexdigest())
+    pairing=home/'identities'/'pairing.json'
+    if pairing.exists():
+        if json.loads(pairing.read_text()) != result:
+            raise ValueError('A paired identity key changed. Restore its key or explicitly re-pair; automatic replacement is refused.')
+    else: save(pairing,result)
+    return result
+
+
+def transport(home, consumer_token=None):
     """Fresh local certificates/configuration, with stable private service state."""
     config = settings(home)
     parent = home / 'transport';parent.mkdir(mode=0o700, exist_ok=True)
     generation = parent / uuid4().hex
-    solution.bootstrap(generation, config['source'])
+    if not 1024 <= config['port'] <= 65534: raise ValueError('Owner port must leave the following port available for the consumer.')
+    public=identities(home)
+    # Exclude both fixed browser ports while assigning ephemeral service ports.
+    with socket.socket() as owner_port, socket.socket() as consumer_port:
+        for sock,port in ((owner_port,config['port']),(consumer_port,config['port']+1)):
+            sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+            sock.bind(('127.0.0.1',port));sock.listen()
+        solution.bootstrap(generation, config['source'], identity_keys={name:home/'identities'/name/'private.pem' for name in public}, extra_services={'reader':'modules/consumer/local/service.py'})
     for path in generation.glob('*.json'):
         if path.name == 'binding.json': continue
         value = json.loads(path.read_text())
         if 'state' in value:
             value['state'] = str(home / ('state-' + value['identity']))
+        if value.get('identity')=='reader':
+            value.update(browserToken=consumer_token or secrets.token_urlsafe(32), browserPort=config['port']+1,publicIdentity=public['reader'],runtimeVersion=VERSION)
         save(path, value)
     return generation
 
@@ -107,6 +138,24 @@ class Workbench(solution.Workbench):
         self.session.update(owner=tokens[0], consumer=tokens[1])
         self.source_expires = 0
         self.renew_source()
+        self.public_identities=identities(home)
+        self.consumer_origin='http://127.0.0.1:'+str(settings(home)['port']+1)
+        self.sync_consumer()
+
+    def role(self, authorization):
+        role=super().role(authorization)
+        if role != 'owner': raise Fault('unauthenticated')
+        return role
+
+    def offer(self, item, permission):
+        client=core.config(self.directory,'owner')
+        query=core.request(client,'reader','consumer.offer',dict(resource=item['resource'],grantId=permission['grantId']),refs=core.refs(item['resource']),key='key.offer-'+permission['grantId'])
+        return core.exchange(client,'reader',query)
+
+    def sync_consumer(self):
+        with self.db() as db:
+            rows=db.execute('SELECT i.metadata,p.permission FROM items i JOIN permissions p ON i.id=p.resource WHERE p.revoked=0').fetchall()
+        for metadata,permission in rows: self.offer(json.loads(metadata),permission={"grantId":permission})
 
     def persist_session(self):
         with self.db() as db:
@@ -125,7 +174,11 @@ class Workbench(solution.Workbench):
     def state(self, role):
         if role == 'owner': self.renew_source()
         result = super().state(role)
-        result.update(persistent=True, runtimeVersion=VERSION)
+        try:
+            self.sync_consumer();delivery_pending=False
+        except Fault:
+            delivery_pending=True
+        result.update(persistent=True, runtimeVersion=VERSION, identities=self.public_identities, consumerOrigin=self.consumer_origin, independentConsumer=True, consumerDeliveryPending=delivery_pending)
         return result
 
     def preview(self, entry):
@@ -139,7 +192,12 @@ class Workbench(solution.Workbench):
             if action == 'runtime.stop': self.stop_event.set()
             return dict(running=True, version=VERSION)
         if role == 'owner' and action == 'admit': self.renew_source()
-        return super().action(role, action, payload)
+        if role != 'owner': raise Fault('denied')
+        result=super().action(role, action, payload)
+        if action == 'grant':
+            try:self.sync_consumer()
+            except Fault:result=dict(result,deliveryPending=True)
+        return result
 
     def read(self, role, resource):
         if role != 'owner': return super().read(role, resource)
@@ -157,7 +215,7 @@ class Server(solution.server.Server):
 
 class Processes(core.Processes):
     def __init__(self, generation, home):
-        super().__init__(generation, solution.SERVICES)
+        super().__init__(generation, dict(solution.SERVICES,reader='modules/consumer/local/service.py'))
         self.home = home
 
     def spawn(self, identity, log):
@@ -183,7 +241,7 @@ def serve(home, run_id):
         shutil.rmtree(home / 'transport', ignore_errors=True)
         try:
             while not stopping.is_set():
-                generation = transport(home)
+                generation = transport(home, tokens[1])
                 try:
                     with Processes(generation, home) as processes:
                         workbench = Workbench(generation, home, stopping, tokens)
@@ -257,7 +315,7 @@ def backup(home, destination):
         settings(home)
         destination.mkdir(parents=True, mode=0o700)
         try:
-            for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local']:
+            for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local', 'state-reader', 'identities']:
                 source = home / name
                 if source.is_dir(): shutil.copytree(source, destination / name, symlinks=False)
                 elif source.is_file(): shutil.copy2(source, destination / name)
@@ -280,7 +338,7 @@ def restore(home, source):
     if actual != marker.get('files'): raise ValueError('Backup content does not match its checksums.')
     home.mkdir(parents=True, mode=0o700)
     try:
-        for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local']:
+        for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local', 'state-reader', 'identities']:
             item = source / name
             if item.is_dir(): shutil.copytree(item, home / name)
             elif item.is_file(): shutil.copy2(item, home / name)

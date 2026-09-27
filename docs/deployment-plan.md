@@ -51,3 +51,7 @@ The installed persistent client now separates Drive, Copilot, Hub and Control. D
 L3 acceptance is **not complete**. Next implement an explicit processing/model permission for one selected immutable managed copy, with destination confirmation, bounded evidence, revocation checks before release, and provider replacement tests. Existing owner read authority must not silently become processing-module authority. Then connect that vertical slice to Copilot. No cloud infrastructure is needed for this step.
 
 Validation for 0.1.1: eight local lifecycle tests passed; JavaScript syntax checked; standalone build installed and login service restarted; browser verified all four views, 57 source entries / 53 preview-eligible entries and three retained managed copies. Both bounded workspace questions refreshed their records successfully. Homebrew and cloud status remain unchanged.
+
+### Identity and sharing prerequisite — 0.2.0
+
+Prioritised following the owner's feedback: editable managed-copy policies and a separate local consumer application with persistent keys, pinned public identities and its own receipt store. See [identity and sharing](identity-and-sharing.md). The existing TLS profile performs real key-possession authentication; the UI does not claim that local pairing verifies a person or organisation. Browser credentials remain bearer links. L3 model-backed acceptance, QR disclosure and public registry integration remain pending.

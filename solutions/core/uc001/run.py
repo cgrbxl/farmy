@@ -19,7 +19,7 @@ SERVICES = {'wallet.local': 'modules/wallet/reference/service.py',
             'connector.local': 'modules/connectors/local_folder/service.py'}
 
 
-def bootstrap(directory, services=None):
+def bootstrap(directory, services=None, identity_keys=None):
     services = SERVICES if services is None else services
     directory = Path(directory).resolve()
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -36,11 +36,15 @@ def bootstrap(directory, services=None):
             '-nodes', '-days', '2', '-subj', '/CN=Farmy UC001 development CA',
             '-addext', 'basicConstraints=critical,CA:TRUE',
             '-addext', 'keyUsage=critical,keyCertSign,cRLSign', '-keyout', cakey, '-out', ca)
-    identities = list(services) + ['owner', 'reader', 'denied', 'unknown']
+    identities = list(dict.fromkeys([*services, 'owner', 'reader', 'denied', 'unknown']))
     for serial, identity in enumerate(identities, 1):
         key, csr, cert = [certs / (identity + suffix) for suffix in ('.key', '.csr', '.pem')]
-        openssl('req', '-new', '-newkey', 'ec', '-pkeyopt', 'ec_paramgen_curve:P-256',
-                '-nodes', '-subj', '/CN=' + identity, '-keyout', key, '-out', csr)
+        if identity in (identity_keys or {}):
+            key = Path(identity_keys[identity])
+            openssl('req', '-new', '-key', key, '-subj', '/CN=' + identity, '-out', csr)
+        else:
+            openssl('req', '-new', '-newkey', 'ec', '-pkeyopt', 'ec_paramgen_curve:P-256',
+                    '-nodes', '-subj', '/CN=' + identity, '-keyout', key, '-out', csr)
         ext = certs / (identity + '.ext')
         ext.write_text('basicConstraints=critical,CA:FALSE\nkeyUsage=critical,digitalSignature\n'
                        'extendedKeyUsage=serverAuth,clientAuth\n'
@@ -73,7 +77,7 @@ def bootstrap(directory, services=None):
     (directory / 'binding.json').write_text(json.dumps(binding, indent=2))
     for identity in identities:
         config = {'identity': identity, 'walletId': 'wallet.demo', 'ca': str(ca),
-                  'cert': str(certs / (identity + '.pem')), 'key': str(certs / (identity + '.key')),
+                  'cert': str(certs / (identity + '.pem')), 'key': str((identity_keys or {}).get(identity, certs / (identity + '.key'))),
                   'endpoints': endpoints, 'peers': peers,
                   'operators': ['owner', *services],
                   'state': str(directory / ('state-' + identity)), 'sourceRoot': str(source),

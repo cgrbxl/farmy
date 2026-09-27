@@ -12,3 +12,7 @@ Source workspace launch (development only):
 ```
 
 For an installed application, use the [Mac release profile](../../deployments/profiles/macos/README.md). The [deployment plan](../../docs/deployment-plan.md) records local independence and optional Scaleway hosting.
+
+### 0.2.0 local identities and consumer
+
+The consumer now runs separately on the next loopback port (normally 54801), with its own browser link and receipt store. Both ports must be available. Owner-only actions are refused on the consumer endpoint, and consumer credentials are refused on the owner endpoint. Persistent P-256 keys and pinned fingerprints live under `identities/owner`, `identities/reader` and `identities/pairing.json`; consumer receipts live in `state-reader`. Stopped backups include these directories. Keep backups private because they contain private keys. See [identity and sharing](../../docs/identity-and-sharing.md).

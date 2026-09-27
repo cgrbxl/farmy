@@ -76,3 +76,27 @@ def admit(wallet, body):
         db.execute('INSERT INTO admissions VALUES(?,?,?,?)', (*key, logical, json.dumps(result)))
         wallet.event(db, body['actorId'], 'item.admit', 'succeeded', resource)
         return result
+
+
+def policy(wallet, db, body):
+    """Owner-only atomic policy change, bounded by original source-reader ceiling."""
+    payload = body['payload']
+    metadata = inspect(wallet, db, payload['resourceId'])
+    if body['subjectId'] != metadata['ownerId']:
+        raise Fault('denied')
+    current = wallet.current(db, body)
+    readers = payload['allowedReaders']
+    if (metadata['ownerId'] not in readers
+            or not set(readers) <= set(metadata['inheritedReaders'])
+            or not set(readers) <= set(wallet.config['peers'].values())
+            or (payload['classification'] == 'private' and readers != [metadata['ownerId']])):
+        raise Fault('denied')
+    db.execute('UPDATE resources SET revision=revision+1 WHERE id=?', (payload['resourceId'],))
+    # Policy restriction invalidates existing grants, even if later broadened again.
+    for row in db.execute('SELECT id,subject FROM grants WHERE resource=? AND revoked=0', (payload['resourceId'],)).fetchall():
+        if row['subject'] != metadata['ownerId']:
+            db.execute('UPDATE grants SET revoked=1,revision=revision+1 WHERE id=?', (row['id'],))
+    metadata.update(classification=payload['classification'], allowedReaders=readers,
+                    resource=wallet.inspect(db, payload['resourceId']))
+    db.execute('UPDATE managed_items SET metadata=? WHERE resource=?', (json.dumps(metadata),payload['resourceId']))
+    return metadata
