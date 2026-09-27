@@ -26,3 +26,22 @@ Reusable files live in `dashboard/assets/brand/` so the project dashboard can se
 | [Social-card source](../../dashboard/assets/brand/social-card.svg) | 1200 × 630 layout; export to PNG where required |
 
 Preserve proportions, colours and clear space. SVG wordmarks use Arial/Helvetica/system sans-serif rather than outlined lettering, so typography may vary slightly. This collection does not yet contain PNG, ICO or native ICNS exports. These are deterministic vector derivatives of the established mark; no new image generation was used.
+
+## Public URLs
+
+The [asset directory on GitHub](https://github.com/cgrbxl/farmy/tree/main/dashboard/assets/brand) contains the reusable files. Direct URLs below follow the latest `main` revision; replace `main` with a full commit SHA when an integration needs an immutable version.
+
+| Asset | Direct public URL |
+| --- | --- |
+| app-icon.svg | [app-icon.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/app-icon.svg) |
+| favicon.svg | [favicon.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/favicon.svg) |
+| symbol.svg | [symbol.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/symbol.svg) |
+| symbol-white.svg | [symbol-white.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/symbol-white.svg) |
+| logo-dark.svg | [logo-dark.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/logo-dark.svg) |
+| logo-light.svg | [logo-light.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/logo-light.svg) |
+| banner-light.svg | [banner-light.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/banner-light.svg) |
+| banner-dark.svg | [banner-dark.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/banner-dark.svg) |
+| social-card.svg | [social-card.svg](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/social-card.svg) |
+| farmy-visual-assets-v1.zip | [farmy-visual-assets-v1.zip](https://raw.githubusercontent.com/cgrbxl/farmy/main/dashboard/assets/brand/farmy-visual-assets-v1.zip) |
+
+GitHub raw URLs serve the files directly; the HTML preview gallery is repository source, not a hosted GitHub Pages website. Some external platforms restrict SVG embeds or require PNG uploads.
