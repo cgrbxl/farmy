@@ -14,7 +14,7 @@ This is the agreed navigation order. Copilot is the default entry point. The tab
 - **Copilot:** two refreshed workspace-record questions. No model-backed document analysis yet.
 - **Wallet:** owner/consumer fingerprints, actual authority boundaries and managed-item authorisations. Allow a paired consumer, grant access, revoke it or make the copy private.
 - **Library:** source browsing, bounded previews, managed copies, provenance and owner reads. Contextual policy/grant controls remain beside each item.
-- **Connect:** read-only description of the selected directory, separate paired consumer and absent model provider. Provider enrolment and AI-assisted connection setup are not implemented.
+- **Connect:** source/recipient/provider overview plus [local channel profiles, sender-filter checks and recurring draft rules](messaging.md). No live messaging provider, message ingestion or external delivery is connected. Provider enrolment and AI-assisted connection setup are not implemented.
 
 Wallet and Library invoke the same actions and refresh the same Wallet records. They do not maintain separate policy settings or duplicate document stores. Private information can live in Library; Wallet is not a second private-file folder. Changing eligibility is not issuing a grant.
 

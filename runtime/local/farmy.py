@@ -23,13 +23,15 @@ import urllib.request
 from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = '0.2.1'
+VERSION = '0.3.0'
 SCHEMA = 1
 spec = importlib.util.spec_from_file_location('directory_solution', ROOT / 'solutions/directory/uc012/run.py')
 solution = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(solution)
 core = solution.server.managed.core
 Fault = solution.server.Fault
+messaging_spec=importlib.util.spec_from_file_location('farmy_messaging',ROOT/'modules/workflow/messaging/planner.py')
+messaging=importlib.util.module_from_spec(messaging_spec);messaging_spec.loader.exec_module(messaging)
 
 
 def default_home():
@@ -131,9 +133,11 @@ def transport(home, consumer_token=None):
 
 
 class Workbench(solution.Workbench):
+    max_request_bytes=16384
     def __init__(self, generation, home, stop_event, tokens):
         self.stop_event = stop_event
         self.home = home
+        self.messaging=messaging.Planner(home/'state-messaging')
         super().__init__(generation, state_directory=home)
         self.session.update(owner=tokens[0], consumer=tokens[1])
         self.source_expires = 0
@@ -172,13 +176,14 @@ class Workbench(solution.Workbench):
         self.persist_session()
 
     def state(self, role):
-        if role == 'owner': self.renew_source()
+        if role != 'owner':raise Fault('denied')
+        self.renew_source()
         result = super().state(role)
         try:
             self.sync_consumer();delivery_pending=False
         except Fault:
             delivery_pending=True
-        result.update(persistent=True, runtimeVersion=VERSION, identities=self.public_identities, consumerOrigin=self.consumer_origin, independentConsumer=True, consumerDeliveryPending=delivery_pending)
+        result.update(messaging=self.messaging.snapshot(),persistent=True, runtimeVersion=VERSION, identities=self.public_identities, consumerOrigin=self.consumer_origin, independentConsumer=True, consumerDeliveryPending=delivery_pending)
         return result
 
     def preview(self, entry):
@@ -186,6 +191,15 @@ class Workbench(solution.Workbench):
         return super().preview(entry)
 
     def action(self, role, action, payload):
+        if not isinstance(action,str):raise Fault('invalid_request')
+        if action.startswith('messaging.'):
+            if role != 'owner': raise Fault('denied')
+            try:
+                operation=action.removeprefix('messaging.')
+                if operation=='sender.check':return self.messaging.check_sender(payload)
+                return self.messaging.change(operation,payload)
+            except messaging.Conflict as exc:raise Fault('conflict') from exc
+            except messaging.Invalid as exc:raise Fault('invalid_request') from exc
         if action in ('runtime.status', 'runtime.stop'):
             if role != 'owner': raise Fault('denied')
             if payload != {}: raise Fault('invalid_request')
@@ -250,9 +264,12 @@ def serve(home, run_id):
                             try:
                                 save(home / 'running.json', dict(pid=os.getpid(), runId=run_id, port=http.server_port, token=tokens[0], version=VERSION))
                                 rotate_at = time.time() + 12 * 3600
+                                next_messaging_tick=0
                                 while not stopping.wait(.2):
                                     if any(child.poll() is not None for child in processes.children.values()):
                                         raise RuntimeError('A module exited unexpectedly; the composition stopped. Check runtime.log.')
+                                    if time.time()>=next_messaging_tick:
+                                        workbench.messaging.tick();next_messaging_tick=time.time()+1
                                     if time.time() >= rotate_at: break
                             finally:
                                 http.shutdown()
@@ -315,7 +332,7 @@ def backup(home, destination):
         settings(home)
         destination.mkdir(parents=True, mode=0o700)
         try:
-            for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local', 'state-reader', 'identities']:
+            for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local', 'state-reader', 'identities', 'state-messaging']:
                 source = home / name
                 if source.is_dir(): shutil.copytree(source, destination / name, symlinks=False)
                 elif source.is_file(): shutil.copy2(source, destination / name)
@@ -338,7 +355,7 @@ def restore(home, source):
     if actual != marker.get('files'): raise ValueError('Backup content does not match its checksums.')
     home.mkdir(parents=True, mode=0o700)
     try:
-        for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local', 'state-reader', 'identities']:
+        for name in ['installation.json', 'workbench.sqlite', 'state-wallet.local', 'state-connector.local', 'state-reader', 'identities', 'state-messaging']:
             item = source / name
             if item.is_dir(): shutil.copytree(item, home / name)
             elif item.is_file(): shutil.copy2(item, home / name)

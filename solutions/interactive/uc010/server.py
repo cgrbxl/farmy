@@ -18,7 +18,7 @@ managed = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(managed)
 Fault = managed.core.Fault
 from farmy_transport.http import timestamp as bridge_time
-ASSETS = {'/farmy-mark.svg': ('farmy-mark.svg','image/svg+xml'), '/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
+ASSETS = {'/messaging.js': ('messaging.js','text/javascript'), '/farmy-mark.svg': ('farmy-mark.svg','image/svg+xml'), '/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
 
 
 class Workbench:
@@ -213,7 +213,7 @@ class Handler(BaseHTTPRequestHandler):
                 if self.headers.get('Content-Type')!='application/json' or self.headers.get('Transfer-Encoding'):
                     raise Fault('invalid_request')
                 length=int(self.headers.get('Content-Length','0'))
-                if not 0<length<=(32768 if self.server.workbench.allow_uploads else 4096): raise Fault('invalid_request')
+                if not 0<length<=getattr(self.server.workbench,'max_request_bytes',32768 if self.server.workbench.allow_uploads else 4096): raise Fault('invalid_request')
                 data=json.loads(self.rfile.read(length))
                 if not isinstance(data,dict) or set(data)!={'action','payload'}: raise Fault('invalid_request')
             elif self.path!='/api/state': self.send(404,{'error':'not_found'}); return

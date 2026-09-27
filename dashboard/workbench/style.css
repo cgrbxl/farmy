@@ -5,3 +5,5 @@
 .brand img{float:left;margin-right:12px;border-radius:10px}
 
 #consumer-identity{overflow-wrap:anywhere}
+
+#messaging-panel{margin-top:32px;border-top:1px solid var(--line);padding-top:24px}#messaging-panel textarea,#messaging-panel input{display:block;width:100%;max-width:700px;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:14px}#messaging-panel h2{margin-top:28px}

@@ -65,6 +65,7 @@ function renderWorkspace(){
  for(const identity of Object.values(state.identities||{}))dl.append(node('dt',identity.name),node('dd','P-256 · SHA-256 public-key fingerprint: '+identity.fingerprint));
  for(const [label,value] of [['Runtime',state.runtimeVersion],['Wallet rules','Private copies permit only the owner. Other copies may permit the owner and demo consumer; consumer access still needs a separate grant.'],['Consumer lifetime','Up to one hour. Revocation blocks future reads, not bytes already received.'],['Model destination','None connected in this composition.'],['Cloud dependency','None required by this composition.'],['Authentication','Locally paired persistent P-256 keys; separate consumer process and browser origin. Browser links remain bearer credentials. Both applications run under the same Mac user; pairing does not verify a legal identity.']])dl.append(node('dt',label),node('dd',value));
  controls.append(dl);
+ renderMessaging();
  const grants=$('#wallet-items');grants.replaceChildren();
  if(!state.items.length)grants.append(node('p','No managed copies yet. Open Library to retain a source document.'));
  for(const item of state.items){
@@ -94,3 +95,5 @@ document.querySelectorAll('[data-question]').forEach(b=>b.addEventListener('clic
  }
  message('Answered from refreshed workspace records.');
 })));
+
+initMessaging();

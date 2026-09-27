@@ -59,3 +59,7 @@ Prioritised following the owner's feedback: editable managed-copy policies and a
 ### Navigation revision — 0.2.1
 
 Current navigation is **Copilot · Wallet · Library · Connect**, replacing the earlier Drive/Hub/Control labels described in historical progress above. See [four-view organisation](functional-workspace.md) for responsibilities, module placement and implemented/planned boundaries. Wallet and Library use the same policy actions; they are not separate stores or authorities.
+
+### Messaging draft iteration — 0.3.0
+
+Connect now hosts local channel profiles, exact sender/recipient lists and a persistent draft-only scheduler. This is a reusable embedded Workflow component, not a claim of live email/SMS/WhatsApp/Signal integration. No message body ingestion, automatic document read, model generation or external sending occurs. See [messaging scope and responsibilities](messaging.md). L3 model-backed acceptance and cloud deployment remain pending.

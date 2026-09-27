@@ -97,3 +97,5 @@ UC-007 is **in progress**: an S3 source implementation and 11 additional local H
 ## Product navigation
 
 **Copilot · Wallet · Library · Connect** — [view responsibilities and module placement](docs/functional-workspace.md). The local interface and annotated phone simulation share this structure; available capabilities remain distinct from simulated or planned ones.
+
+Connect also includes [local messaging profiles and recurring drafts](docs/messaging.md): sender-filter rehearsal, approved recipients, fixed-text schedules and pause/resume. Live messaging accounts and external delivery are not connected.

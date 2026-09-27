@@ -151,6 +151,26 @@ class Lifecycle(unittest.TestCase):
             self.assertEqual(err.exception.code,'denied')
             self.assertEqual(client.state('owner')['items'][0]['classification'],'private')
 
+    def test_messaging_scheduler_owner_boundary_and_backup(self):
+        runtime.start(self.home)
+        channel=dict(key='channel',channel='email',revision=0,senders=['known@example.invalid'],recipients=['target@example.invalid'])
+        consumer=self.request()['consumerToken']
+        with self.assertRaises(urllib.error.HTTPError) as err:self.request('messaging.channel.save',channel,consumer)
+        self.assertEqual(err.exception.code,403);err.exception.close()
+        self.request('messaging.channel.save',channel)
+        self.assertFalse(self.request('messaging.sender.check',dict(channel='email',sender='unknown@example.invalid'))['allowed'])
+        rule=self.request('messaging.rule.create',dict(key='draft-rule',channel='email',recipient='target@example.invalid',topic='Synthetic test',content='Local rehearsal only.',period=3600,firstDue=int(time.time())))
+        deadline=time.monotonic()+5
+        while not self.request()['messaging']['drafts']:
+            if time.monotonic()>deadline:self.fail('Scheduled draft was not created')
+            time.sleep(.1)
+        state=self.request()['messaging'];self.assertEqual(len(state['drafts']),1)
+        self.request('messaging.rule.pause',dict(key='pause',id=rule['id'],revision=1,paused=True))
+        runtime.stop(self.home);runtime.backup(self.home,self.root/'message-backup')
+        restored=self.root/'message-restored';runtime.restore(restored,self.root/'message-backup');self.home=restored;runtime.start(self.home)
+        state=self.request()['messaging'];self.assertEqual(len(state['drafts']),1);self.assertTrue(state['rules'][0]['paused'])
+        self.assertEqual(state['channels'][0]['senders'],['known@example.invalid'])
+
     def test_key_substitution_fails_closed(self):
         runtime.start(self.home);runtime.stop(self.home)
         key=self.home/'identities/reader/private.pem'
