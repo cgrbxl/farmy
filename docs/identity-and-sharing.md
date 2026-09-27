@@ -2,7 +2,7 @@
 
 ## Try it
 
-Open the installed owner workspace with `farmy open`. In **Control**, inspect the local owner and paired consumer public-key fingerprints. In **Drive**, choose an existing private item and press **Allow paired consumer**. The original managed copy remains the same; the policy now makes the locally paired consumer eligible. Press **Grant consumer access**, then **Open demo consumer**. In that separate view, refresh and open the shared document. Revoke in the owner view, then try a new read as the consumer: the Wallet denies it.
+Open the installed owner workspace with `farmy open`. In **Wallet**, inspect the local owner and paired consumer public-key fingerprints. In **Library**, choose an existing private item and press **Allow paired consumer**. The original managed copy remains the same; the policy now makes the locally paired consumer eligible. Press **Grant consumer access**, then **Open demo consumer**. In that separate view, refresh and open the shared document. Revoke in the owner view, then try a new read as the consumer: the Wallet denies it.
 
 **Make private** also revokes existing consumer grants. Reallowing the consumer does not revive them. The grant button is disabled for private copies. A failed receipt delivery can be retried with Refresh without creating another grant.
 

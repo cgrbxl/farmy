@@ -23,7 +23,7 @@ import urllib.request
 from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = '0.2.0'
+VERSION = '0.2.1'
 SCHEMA = 1
 spec = importlib.util.spec_from_file_location('directory_solution', ROOT / 'solutions/directory/uc012/run.py')
 solution = importlib.util.module_from_spec(spec)
