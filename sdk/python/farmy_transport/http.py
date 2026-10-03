@@ -97,7 +97,13 @@ def request(config, target, operation, payload, *, refs=None, grant='grant.owner
     return result
 
 
+IDENTITY_SCHEMA = json.loads((ROOT / 'contracts/uc013/operations.schema.json').read_text())
+IDENTITY_OPERATIONS = json.loads((ROOT / 'contracts/uc013/operations.json').read_text())
+
 def operation_spec(operation):
+    if operation in IDENTITY_OPERATIONS:
+        data = IDENTITY_OPERATIONS[operation]
+        return IDENTITY_SCHEMA, 'uc013', '0.13-draft', data['capabilityId'], data['purpose'], data['mutation']
     if operation in DIRECTORY_OPERATIONS:
         data = DIRECTORY_OPERATIONS[operation]
         return DIRECTORY_SCHEMA, 'uc012', '0.12-draft', data['capabilityId'], data['purpose'], data['mutation']

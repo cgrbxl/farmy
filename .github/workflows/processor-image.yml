@@ -1,0 +1,39 @@
+name: Publish bounded processor
+on:
+  pull_request:
+    paths:
+      - "modules/processing/bounded_text/**"
+      - "conformance/scaleway/**"
+      - "deployments/providers/scaleway/**"
+      - ".github/workflows/processor-image.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: read
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Test deployment and HTTP contracts
+        run: python3 -m unittest discover -s conformance/scaleway -v
+      - name: Build and exercise image
+        run: |
+          docker build --pull --platform linux/amd64 -t farmy-processor:test modules/processing/bounded_text
+          python3 conformance/scaleway/container_smoke.py farmy-processor:test
+      - name: Publish immutable image
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}/bounded-text"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          trap 'docker logout ghcr.io >/dev/null 2>&1' EXIT
+          docker tag farmy-processor:test "$IMAGE:$GITHUB_SHA"
+          docker push "$IMAGE:$GITHUB_SHA"
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$IMAGE:$GITHUB_SHA")
+          printf 'Deployable image: `%s`\n\nMake this package public before Scaleway deployment.\n' "$DIGEST" >> "$GITHUB_STEP_SUMMARY"

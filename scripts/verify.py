@@ -10,6 +10,7 @@ parser.add_argument('--with-local-model', action='store_true', help='Also run UC
 parser.add_argument('--with-s3-fixture', action='store_true', help='Also run pending UC-007 checks against a local S3 HTTP double; requires optional S3 dependencies')
 args = parser.parse_args()
 steps = [
+    ['-m', 'unittest', 'discover', '-s', 'conformance/messaging', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/foundation', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc001', '-v'],
     ['-m', 'unittest', 'discover', '-s', 'conformance/uc002', '-v'],

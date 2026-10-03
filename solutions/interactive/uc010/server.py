@@ -18,7 +18,7 @@ managed = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(managed)
 Fault = managed.core.Fault
 from farmy_transport.http import timestamp as bridge_time
-ASSETS = {'/farmy-mark.svg': ('farmy-mark.svg','image/svg+xml'), '/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
+ASSETS = {'/messaging.js': ('messaging.js','text/javascript'), '/farmy-mark.svg': ('farmy-mark.svg','image/svg+xml'), '/': ('index.html','text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
 
 
 class Workbench:
@@ -133,7 +133,12 @@ class Workbench:
                     query={'payload':data}
                 else:
                     item=self.item(payload['id']); resource=item['resource']; permission=self.permission(payload['id'])
-                    if action=='grant':
+                    if action=='policy':
+                        if payload['policy'] not in ('private','restricted'): raise Fault('invalid_request')
+                        current=self.call('item.inspect',{'resourceId':payload['id']})
+                        op='item.policy'
+                        query={'payload':dict(resourceId=payload['id'],classification=payload['policy'],allowedReaders=['owner'] if payload['policy']=='private' else ['owner','reader']), 'refs':managed.core.refs(current['resource']), 'revision':current['resource']['revision']}
+                    elif action=='grant':
                         # Require revocation before replacement so one revoke covers every issued live grant.
                         if permission and not permission['revoked']: raise Fault('conflict')
                         op='grant.issue'
@@ -153,17 +158,20 @@ class Workbench:
         with self.db() as db:
             if action=='admit':
                 db.execute('INSERT OR IGNORE INTO items VALUES(?,?)',(result['resource']['resourceId'],json.dumps(result)))
+            elif action=='policy':
+                db.execute('UPDATE items SET metadata=? WHERE id=?',(json.dumps(result),payload['id']))
+                db.execute('UPDATE permissions SET revoked=1 WHERE resource=?',(payload['id'],))
             elif action=='grant':
                 db.execute('INSERT OR REPLACE INTO permissions VALUES(?,?,?,0)',(payload['id'],result['grantId'],result['revision']))
             elif action=='revoke':
                 db.execute('UPDATE permissions SET revision=?,revoked=1 WHERE resource=?',(result['revision'],payload['id']))
             # Browser receives a receipt without reusable service-grant identifiers.
-            receipt=result if action=='upload' else {'id':result['resource']['resourceId']} if action=='admit' else {'id':payload['id'],'status':'Granted' if action=='grant' else 'Revoked'}
+            receipt=result if action=='upload' else {'id':result['resource']['resourceId']} if action=='admit' else {'id':payload['id'],'status':'Policy updated' if action=='policy' else 'Granted' if action=='grant' else 'Revoked'}
             db.execute('UPDATE actions SET result=? WHERE key=?',(json.dumps(receipt),key))
         return receipt
 
     def action(self, role, action, payload):
-        fields={'preview':{'entry'},'read':{'id'},'admit':{'entry','sha256','policy','key'},'grant':{'id','key'},'revoke':{'id','key'}}
+        fields={'preview':{'entry'},'read':{'id'},'admit':{'entry','sha256','policy','key'},'grant':{'id','key'},'revoke':{'id','key'},'policy':{'id','policy','key'}}
         if self.allow_uploads: fields['upload']={'name','contentBase64','key'}
         if action not in fields or not isinstance(payload,dict) or set(payload)!=fields[action] or not all(isinstance(v,str) for v in payload.values()):
             raise Fault('invalid_request')
@@ -205,7 +213,7 @@ class Handler(BaseHTTPRequestHandler):
                 if self.headers.get('Content-Type')!='application/json' or self.headers.get('Transfer-Encoding'):
                     raise Fault('invalid_request')
                 length=int(self.headers.get('Content-Length','0'))
-                if not 0<length<=(32768 if self.server.workbench.allow_uploads else 4096): raise Fault('invalid_request')
+                if not 0<length<=getattr(self.server.workbench,'max_request_bytes',32768 if self.server.workbench.allow_uploads else 4096): raise Fault('invalid_request')
                 data=json.loads(self.rfile.read(length))
                 if not isinstance(data,dict) or set(data)!={'action','payload'}: raise Fault('invalid_request')
             elif self.path!='/api/state': self.send(404,{'error':'not_found'}); return

@@ -93,3 +93,9 @@ All examples are synthetic. Do not commit farm data, credentials or private endp
 Farmy’s original code, contracts and documentation are licensed under [Apache 2.0](LICENSE). Sharing improvements is encouraged, not required. See [LICENSING.md](LICENSING.md) for scope, exclusions and contribution terms.
 
 UC-007 is **in progress**: an S3 source implementation and 11 additional local HTTP-double checks are available. [Run the local preview](solutions/s3-source/uc007/README.md); real Scaleway validation awaits an approved bucket/prefix and scoped credential reference. It is not counted among the eleven verified slices (UC-001–006 and UC-008–012).
+
+## Product navigation
+
+**Copilot · Wallet · Library · Connect** — [view responsibilities and module placement](docs/functional-workspace.md). The local interface and annotated phone simulation share this structure; available capabilities remain distinct from simulated or planned ones.
+
+Connect also includes [local messaging profiles and recurring drafts](docs/messaging.md): sender-filter rehearsal, approved recipients, fixed-text schedules and pause/resume. Live messaging accounts and external delivery are not connected.

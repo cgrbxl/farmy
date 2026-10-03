@@ -17,7 +17,7 @@ Agreed 2026-09-26. Farmy remains an evolving modular prototype whose components 
 | --- | --- | --- |
 | L1 — Persistent local runtime | Operator-selected directory, durable Wallet/Connector/client state; CLI lifecycle and isolated local identities | Restart retains exact copies and revocations; duplicate start rejected; service failure stops the composition; credentials rotate without changing resource identities; no cloud needed |
 | L2 — Installable Mac release | Versioned self-contained artifact and user installation; then Homebrew distribution and login service integration | Run outside checkout; explicit data location; install/upgrade preserves state; backup/restore verified; uninstall retains data; supported OS/architecture recorded |
-| L3 — Functional composition | Wallet authority behind Drive, Copilot, Hub and Control views | One bounded question uses selected source evidence and an authorised model; evidence and destination visible; components remain independently replaceable |
+| L3 — Functional composition | Copilot, Wallet, Library and Connect views | One bounded question uses selected source evidence and an authorised model; evidence and destination visible; components remain independently replaceable |
 | C1 — Optional cloud processor | One versioned stateless processing module and Scaleway project provisioning recipe | Reviewed project/region/budget/IAM plan; Mac initiates bounded request; authentication, denial, timeout, retry and retention tested; local provider remains usable |
 | C2 — Independent deployment | Repeat C1 in another separately configured project or participant account | Same artifacts/contracts; no shared test-environment credentials or hidden endpoints required |
 | C3 — Optional participant environment | Reviewed module onboarding, isolated identities/state/secrets, quotas and teardown | Deployment access confers no Wallet authority; isolation and recovery verified before broader participant hosting |
@@ -51,3 +51,15 @@ The installed persistent client now separates Drive, Copilot, Hub and Control. D
 L3 acceptance is **not complete**. Next implement an explicit processing/model permission for one selected immutable managed copy, with destination confirmation, bounded evidence, revocation checks before release, and provider replacement tests. Existing owner read authority must not silently become processing-module authority. Then connect that vertical slice to Copilot. No cloud infrastructure is needed for this step.
 
 Validation for 0.1.1: eight local lifecycle tests passed; JavaScript syntax checked; standalone build installed and login service restarted; browser verified all four views, 57 source entries / 53 preview-eligible entries and three retained managed copies. Both bounded workspace questions refreshed their records successfully. Homebrew and cloud status remain unchanged.
+
+### Identity and sharing prerequisite — 0.2.0
+
+Prioritised following the owner's feedback: editable managed-copy policies and a separate local consumer application with persistent keys, pinned public identities and its own receipt store. See [identity and sharing](identity-and-sharing.md). The existing TLS profile performs real key-possession authentication; the UI does not claim that local pairing verifies a person or organisation. Browser credentials remain bearer links. L3 model-backed acceptance, QR disclosure and public registry integration remain pending.
+
+### Navigation revision — 0.2.1
+
+Current navigation is **Copilot · Wallet · Library · Connect**, replacing the earlier Drive/Hub/Control labels described in historical progress above. See [four-view organisation](functional-workspace.md) for responsibilities, module placement and implemented/planned boundaries. Wallet and Library use the same policy actions; they are not separate stores or authorities.
+
+### Messaging draft iteration — 0.3.0
+
+Connect now hosts local channel profiles, exact sender/recipient lists and a persistent draft-only scheduler. This is a reusable embedded Workflow component, not a claim of live email/SMS/WhatsApp/Signal integration. No message body ingestion, automatic document read, model generation or external sending occurs. See [messaging scope and responsibilities](messaging.md). L3 model-backed acceptance and cloud deployment remain pending.

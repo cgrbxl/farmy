@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-27",
+  "version": "0.3.0",
+  "build": "0.3.0-1b18269d4a2c",
+  "sha256": "ef4dd7f240e46a9063db01bc23aa40db488bae2bef3961a602c15a8ffbee8bed",
+  "checks": {
+    "plannerTests": 10,
+    "localLifecycleTests": 15,
+    "browserBridgeTests": 12,
+    "finalSchedulerBackupIntegrationRerun": "passed",
+    "browserFilterSchedulePauseAndDeduplication": "passed in isolated workspace",
+    "installedWorkspace": "upgraded; no messaging approvals or rules added",
+    "externalMessagesSent": 0
+  },
+  "limits": [
+    "Draft-only local planner, no live provider or Library ingestion",
+    "Exact owner-supplied metadata matching, not provider identity verification",
+    "Fixed authored text only; no source-data access or AI generation",
+    "Elapsed intervals, not timezone-aware calendar recurrence",
+    "Embedded Workflow component, not separately deployable service"
+  ]
+}

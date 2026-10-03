@@ -1,0 +1,12 @@
+{
+  "item.policy": {
+    "capabilityId": "farmy.item-policy",
+    "mutation": true,
+    "purpose": "uc013.item.policy"
+  },
+  "consumer.offer": {
+    "capabilityId": "farmy.consumer-inbox",
+    "mutation": true,
+    "purpose": "uc013.consumer.offer"
+  }
+}

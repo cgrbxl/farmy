@@ -3,3 +3,7 @@
 #workspace-nav{display:flex;gap:8px;margin:24px 0;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line)}#workspace-nav button{background:transparent;color:var(--muted);min-width:100px}#workspace-nav button[aria-current="page"]{background:var(--green);color:white}#workspace-questions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}#workspace-answer{padding:20px;background:#f0f2ea;border-radius:10px;margin:20px 0}#workspace-controls dd{margin-bottom:18px}#hub-components{grid-template-columns:repeat(3,1fr)}input:focus-visible{outline:3px solid #bf7a47;outline-offset:3px}@media(max-width:720px){#hub-components{grid-template-columns:1fr}#workspace-nav button{min-width:0;flex:1;padding:10px}}
 
 .brand img{float:left;margin-right:12px;border-radius:10px}
+
+#consumer-identity{overflow-wrap:anywhere}
+
+#messaging-panel{margin-top:32px;border-top:1px solid var(--line);padding-top:24px}#messaging-panel textarea,#messaging-panel input{display:block;width:100%;max-width:700px;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:14px}#messaging-panel h2{margin-top:28px}
