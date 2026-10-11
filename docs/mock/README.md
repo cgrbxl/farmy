@@ -6,7 +6,7 @@ The [annotated public copy](../../dashboard/mock/index.html) adds optional modul
 
 ## What this clarifies
 
-The farmer has four understandable views: Copilot, Drive, Hub and Control. Those views compose capabilities rather than defining four large backend services. Evidence, access decisions and outward disclosure remain visible within ordinary tasks. This is a useful expression of the intended product without making the farmer manage architecture.
+The farmer has four understandable views: Copilot, Wallet, Library and Connect. Those views compose capabilities rather than defining four large backend services. Evidence, access decisions and outward disclosure remain visible within ordinary tasks. This is a useful expression of the intended product without making the farmer manage architecture.
 
 | Visible experience | Main families | Boundary |
 | --- | --- | --- |
@@ -40,3 +40,7 @@ The existing UC-001–006 and UC-008 runtime evidence remains unchanged; UC-007 
 ## Verification
 
 2026-09-23: JavaScript syntax and repository documentation checks passed. Browser inspection covered the desktop phone frame, a 390-pixel phone viewport, Assistance and Wallet popups, the nine-family overview, Hub and Control navigation, hiding notes and a popup inside the dashboard embed. No browser errors were reported during those checks. The published assets exactly matched the reviewed local copy. Runtime acceptance counts were not changed by this documentation work.
+
+## Navigation revision — 2026-09-27
+
+The annotated demo follows [the four-view organisation](../functional-workspace.md). Copilot includes the dashboard formerly shown under Hub. Wallet contains policies and audit; Library contains documents; Connect contains source and sender configuration. The original supplied HTML and the historical publication record remain unchanged. This revision has not been republished to the external hosted mockup.

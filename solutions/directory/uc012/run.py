@@ -12,11 +12,11 @@ spec.loader.exec_module(server)
 SERVICES = dict(server.managed.SERVICES, **{'connector.local': 'modules/connectors/directory/service.py'})
 
 
-def bootstrap(directory, source):
+def bootstrap(directory, source, identity_keys=None, extra_services=None):
     source = Path(source).absolute()
     if source.is_symlink() or not source.is_dir():
         raise ValueError('Select an existing directory, not a symbolic link')
-    directory = server.managed.bootstrap(directory)
+    directory = server.managed.bootstrap(directory, identity_keys=identity_keys, extra_services=extra_services)
     path = directory / 'connector.local.json'
     config = json.loads(path.read_text())
     config.update(sourceRoot=str(source), implementationId='farmy.reference.directory', implementationVersion='0.1.0')

@@ -1,0 +1,7 @@
+# UC-013 — editable policies and a separately keyed local consumer
+
+`item.policy` is an owner-only, exact-version mutation with an expected resource revision and idempotency key. It changes classification and eligible readers within the original source-reader ceiling. Owner eligibility cannot be removed. Every policy edit revokes existing non-owner read grants atomically; broadening later never revives them. No bytes or resource/version identity change. The Wallet rechecks current eligibility when authorising reads.
+
+`consumer.offer` delivers an exact resource reference and a grant receipt from the authenticated owner to a consumer inbox. It does not confer additional authority. The consumer independently reads through the Connector using its own mTLS identity; the Connector checks the Wallet online. Offers are idempotent; replaying an earlier accepted offer does not overwrite a newer receipt, while reusing an offer key for different content conflicts. Expired or revoked grants can remain historical receipts but cannot authorise a read.
+
+This local profile pairs one owner and one consumer. P-256 private keys persist separately from rotating certificates, and SHA-256 fingerprints of DER public keys are pinned at first setup. Pairing is locally provisioned, not external identity assurance. See [identity and sharing](../../docs/identity-and-sharing.md) for boundaries and operating instructions.

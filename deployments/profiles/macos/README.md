@@ -1,6 +1,6 @@
 # macOS local profile — Farmy 0.1.0
 
-Status: experimental persistent local installation, verified on macOS 26.6.2 arm64 / Python 3.14.6. No Farmy cloud service is required. This installs the existing Wallet, read-only directory Connector and interactive client; it is not yet the full Copilot/Hub/Control experience.
+Status: experimental persistent local installation, verified on macOS 26.6.2 arm64 / Python 3.14.6. No Farmy cloud service is required. This installs the existing Wallet, read-only directory Connector and interactive client; the current UI uses Copilot / Wallet / Library / Connect, with planned capabilities labelled.
 
 ## Installed on the development Mac
 

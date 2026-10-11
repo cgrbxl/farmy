@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-27",
+  "version": "0.2.0",
+  "build": "0.2.0-c63e51b1a986",
+  "artifact": "farmy-0.2.0-c63e51b1a986-darwin-arm64.tar.gz",
+  "sha256": "ace8502bad9640c206ee189f4a049b0ead05afcacfb8aaa1a67f9e236d60b923",
+  "checks": {
+    "fullRegressionTests": 158,
+    "existingDemos": 12,
+    "finalLocalSuiteTests": 13,
+    "additionalSourceCeilingTest": "passed",
+    "consumerDescriptorAndPersistentIdentityRecheck": "passed",
+    "installedBrowserPolicyGrantReadRevokeDeny": "passed",
+    "installedOriginalPolicyRestored": "private",
+    "standaloneOfflineUpgrade": "passed",
+    "homebrew": "not retested; prior Xcode prerequisite remains unresolved"
+  },
+  "limits": [
+    "Same Mac user controls the supervisor and both identity stores",
+    "Browser sessions remain bearer credentials; mTLS authenticates the consumer application",
+    "Locally provisioned pairing only, no real-world identity attestation",
+    "Key substitution is refused; controlled identity-key rotation and recovery UI remain pending",
+    "No QR disclosure, public trust-registry integration or model-backed workspace question yet"
+  ]
+}

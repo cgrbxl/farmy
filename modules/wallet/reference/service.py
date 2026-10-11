@@ -106,6 +106,7 @@ class Wallet:
                 'operations':['item.admit','item.inspect'], 'features':[]})
             info['module']['dependencies'] = [{'capabilityId':'farmy.folder-source','contractVersion':'0.9-draft',
                 'operations':['folder.capture'],'features':[],'required':True}]
+            info['module']['capabilities'].append({'capabilityId':'farmy.item-policy', 'contractVersion':'0.13-draft', 'operations':['item.policy'], 'features':[]})
         return info
 
     def snapshot(self, path, body):
@@ -136,6 +137,8 @@ class Wallet:
     def mutate(self, db, body):
         operation, payload = body['operation'], body['payload']
         managed_items.restrict(self, db, body)
+        if operation == 'item.policy':
+            return managed_items.policy(self, db, body)
         if operation.startswith('source.'):
             return sources.mutate(self, db, body)
         if operation == 'resource.register':
@@ -248,6 +251,9 @@ class Wallet:
                     or row['resource'] != ref['resourceId'] or row['version'] != ref['versionId']
                     or row['purpose'] != body['purpose'] or row['binding_revision'] != self.binding['revision']):
                 raise Fault('denied')
+            managed = db.execute('SELECT metadata FROM managed_items WHERE resource=?', (ref['resourceId'],)).fetchone()
+            if managed and body['subjectId'] not in json.loads(managed['metadata'])['allowedReaders']:
+                raise Fault('denied')
             version = db.execute('SELECT * FROM versions WHERE id=? AND resource=?',
                                  (ref['versionId'], ref['resourceId'])).fetchone()
             if version is None:
@@ -265,7 +271,7 @@ class Wallet:
             return self.authorize(peer, body)
         if peer != 'owner' or body['subjectId'] != peer or body['grantRef'] != 'grant.owner-bootstrap':
             raise Fault('denied')
-        if body['operation'].startswith('item.'):
+        if body['operation'].startswith('item.') and body['operation'] != 'item.policy':
             if not self.config.get('managedItems'):
                 raise Fault('unsupported')
             if body['operation'] == 'item.admit':
@@ -279,7 +285,7 @@ class Wallet:
                 result = self.inspect(db, body['payload']['resourceId'])
                 self.event(db, peer, 'resource.inspect', 'succeeded', result['resourceId'])
                 return result
-        if body['operation'] not in {'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke', 'access.issue', 'access.revoke', 'source.register', 'source.grant', 'source.revoke'}:
+        if body['operation'] not in {'item.policy', 'resource.register', 'resource.move', 'resource.update', 'grant.issue', 'grant.revoke', 'access.issue', 'access.revoke', 'source.register', 'source.grant', 'source.revoke'}:
             raise Fault('unsupported')
         canonical = {key: body.get(key) for key in ('operation','payload','inputRefs','expectedRevision','purpose','grantRef','subjectId')}
         canonical['bindingRevision'] = self.binding['revision']

@@ -18,8 +18,8 @@ MAIL = b'From: synthetic@example.invalid\nSubject: Farm inspection\n\nInspection
 OTHER = b'From: synthetic@example.invalid\nSubject: Supplies\n\nDelivery on Monday.\n'
 
 
-def bootstrap(directory):
-    directory = core.bootstrap(directory, dict(SERVICES, **{'monitor.local': 'solutions/operations/uc005/server.py'}))
+def bootstrap(directory, identity_keys=None, extra_services=None):
+    directory = core.bootstrap(directory, dict(SERVICES, **{'monitor.local': 'solutions/operations/uc005/server.py'}, **(extra_services or {})), identity_keys=identity_keys)
     (directory / 'source/record.txt').unlink()
     (directory / 'source/inspection.eml').write_bytes(MAIL)
     (directory / 'source/supplies.eml').write_bytes(OTHER)

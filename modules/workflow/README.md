@@ -33,3 +33,7 @@ Supply configuration with secret references, owned persistence/migrations, healt
 ## Optional Knowledge binding
 
 [UC-008](../../solutions/replacement/uc008/README.md) adds `knowledgeBinding` configuration (implementation 0.2.0 in that composition). Workflow loads it at startup, pins its full content in job input and checks the authenticated target descriptor before indexing. A changed binding cannot resume an old job key. Stop Workflow before reconfiguration; replacement/rebuild requires a new job. Existing configurations preserve their legacy target and durable request format.
+
+## Local messaging drafts
+
+The [0.3.0 messaging planner](messaging/README.md) adds an embedded, durable draft-only workflow for approved local recipient profiles. It has no provider transport, Library read authority or external sending capability. See its own contract and limits rather than treating it as a general messaging service.

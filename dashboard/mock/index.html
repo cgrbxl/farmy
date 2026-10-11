@@ -245,8 +245,22 @@ details.disc[open] summary::before { content: "▾ "; }
 </header>
 
 <main>
-  <div class="mockbar" role="note"><b>Clickable mockup.</b> Everything runs inside this page: synthetic farm, clock set to 23 Sep 2026, model calls simulated. Reloading resets the farm simulation; your model selection may remain in this browser. This is a future-solution illustration, not the current production product. <span class="mocktabs">Jump to: <a href="#copilot" data-go="copilot">Copilot</a> · <a href="#drive" data-go="drive">Drive</a> · <a href="#hub" data-go="hub">Hub</a> · <a href="#control" data-go="control">Control</a></span></div>
+  <div class="mockbar" role="note"><b>Clickable mockup.</b> Everything runs inside this page: synthetic farm, clock set to 23 Sep 2026, model calls simulated. Reloading resets the farm simulation; your model selection may remain in this browser. This is a future-solution illustration, not the current production product. <span class="mocktabs">Jump to: <a href="#copilot" data-go="copilot">Copilot</a> · <a href="#wallet" data-go="wallet">Wallet</a> · <a href="#library" data-go="library">Library</a> · <a href="#connect" data-go="connect">Connect</a></span></div>
   <section id="view-copilot" class="view active" aria-label="Copilot">
+  <details id="copilot-dashboard" class="card"><summary>Dashboard · maps, charts and devices</summary>
+    <div class="pad">
+      <h2>Farm dashboard</h2>
+      <p class="muted">Your farm on a map: parcel boundaries from your farm app, where each sensor sits, the tractor and you. Tap anything for details.</p>
+      <div id="map" class="card mapcard"></div>
+      <p class="muted">Live readings from the sensors connected to the hub (simulated). In the charts, shaded bands are 00:00–06:00, when every valve is closed.</p>
+      <div id="tiles" class="tiles"></div>
+      <div id="charts"></div>
+      <h3>External source: 7-day forecast</h3>
+      <div id="forecast" class="forecast"></div>
+      <h3>Devices and demo controls</h3>
+      <div id="devices" class="card"></div>
+    </div>
+  </details>
     <div id="thread" class="thread">
       <div class="intro card">
         <h2>Hola Lucía.</h2>
@@ -258,36 +272,22 @@ details.disc[open] summary::before { content: "▾ "; }
       <textarea id="q" rows="1" placeholder="Ask about water, bills, pests, certificates…" aria-label="Question"></textarea>
       <button class="btn primary" type="submit" aria-label="Send">Ask</button>
     </form>
+
+
   </section>
 
-  <section id="view-drive" class="view" aria-label="Farm drive">
+  <section id="view-library" class="view" aria-label="Library">
     <div class="pad">
-      <h2>Farm drive</h2>
+      <h2>Library</h2>
       <p class="muted">The farm's laptop: documents, bills, certificates, manuals, advice, records, and the messages you let in. Everything stays on the hub.</p>
       <div id="driveList"></div>
     </div>
   </section>
 
-  <section id="view-hub" class="view" aria-label="Hub">
-    <div class="pad">
-      <h2>Farm hub</h2>
-      <p class="muted">Your farm on a map: parcel boundaries from your farm app, where each sensor sits, the tractor and you. Tap anything for details.</p>
-      <div id="map" class="card mapcard"></div>
-      <p class="muted">Live readings from the sensors connected to the hub (simulated). In the charts, shaded bands are 00:00–06:00, when every valve is closed.</p>
-      <div id="tiles" class="tiles"></div>
-      <div id="charts"></div>
-      <h3>External source: 7-day forecast</h3>
-      <div id="forecast" class="forecast"></div>
-      <h3>Devices and demo controls</h3>
-      <div id="devices" class="card"></div>
-    </div>
-  </section>
 
-  <section id="view-control" class="view" aria-label="Control">
+  <section id="view-wallet" class="view" aria-label="Wallet">
     <div class="pad">
-      <h2>Your sources</h2>
-      <p class="muted">Where farmy reads from: the folders on your farm computer, the hub sensors, one outside service, and your messages. For e-mail, SMS and WhatsApp, you choose which senders get in at all. Anything you leave out is never read, not even by the copilot on the hub.</p>
-      <div id="sources"></div>
+      <h2>Wallet</h2><p class="muted">Identity, authority and disclosure. Policies and audit entries below are simulated; credential verification and QR presentations are not implemented here.</p>
       <h2 class="mt">Who may see which source</h2>
       <p class="muted">For each recipient: <b>Off</b>, <b>Pseudonymised</b> (names, numbers and links replaced by roles before anything leaves) or <b>Full</b>. The copilot asks your wallet about every item before sending it. <b>Guarantee</b> is what actually protects the data: the hub enforces it, a contract promises it, or nothing does.</p>
       <div id="policy"></div>
@@ -297,14 +297,15 @@ details.disc[open] summary::before { content: "▾ "; }
       <div id="audit"></div>
     </div>
   </section>
+  <section id="view-connect" class="view" aria-label="Connect"><div class="pad"><h2>Connect</h2><p class="muted">Sources, recipients and model providers. Settings here are simulated; no external connection is made. Choose the model route in the header; control its information access in Wallet.</p>      <h2>Your sources</h2>
+      <p class="muted">Where farmy reads from: the folders on your farm computer, the hub sensors, one outside service, and your messages. For e-mail, SMS and WhatsApp, you choose which senders get in at all. Anything you leave out is never read, not even by the copilot on the hub.</p>
+      <div id="sources"></div>
+</div></section>
 </main>
 </div>
 
 <nav class="tabs" aria-label="Sections">
-  <button data-view="copilot" class="active"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H8l-4 4z"/></svg>Copilot</button>
-  <button data-view="drive"><svg viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3z"/></svg>Drive</button>
-  <button data-view="hub"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 5-8 4 5"/></svg>Hub</button>
-  <button data-view="control"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>Control</button>
+<button data-view="copilot" class="active">Copilot</button><button data-view="wallet">Wallet</button><button data-view="library">Library</button><button data-view="connect">Connect</button>
 </nav>
 
 <dialog id="sheet" class="sheet">
@@ -1410,7 +1411,7 @@ Lucía Morán Ruiz`;
       if (!approve) return { status: 'needs-approval', rung: 'act-reversible', title: 'Change RC-8 unscheduled-flow threshold 5.0 → 1.0 m³/h', preview: { device: 'AquaLogic RC-8', setting: 'Settings → Flow → Unscheduled', from: 5.0, to: 1.0, reversible: true, source: 'doc:rc8-manual §7.3' } };
       ctx.device.threshold = 1.0;
       const rec = wallet.record({ type: 'action.executed', actor: 'copilot', approved_by: 'farmer', action: actionId, device: 'RC-8', from: 5.0, to: 1.0, reversible: true });
-      return { status: 'done', rung: 'act-reversible', title: 'Alarm threshold set to 1.0 m³/h', note: `Recorded as audit entry #${rec.seq}. You can undo it in Control.` };
+      return { status: 'done', rung: 'act-reversible', title: 'Alarm threshold set to 1.0 m³/h', note: `Recorded as audit entry #${rec.seq}. You can undo it in Copilot → Dashboard.` };
     }
     case 'undo:controller-threshold': {
       ctx.device.threshold = 5.0;
@@ -1650,9 +1651,11 @@ sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); 
 // ---------- navigation
 document.querySelectorAll('.tabs button').forEach((b) => b.onclick = () => show(b.dataset.view));
 function show(v) {
+  v=({drive:'library',control:'wallet',hub:'copilot'})[v]||v;
+  if(!['copilot','wallet','library','connect'].includes(v))v='copilot';
   document.querySelectorAll('.tabs button').forEach((b) => b.classList.toggle('active', b.dataset.view === v));
   document.querySelectorAll('.view').forEach((s) => s.classList.toggle('active', s.id === 'view-' + v));
-  ({ drive: renderDrive, hub: renderHub, control: renderControl })[v]?.();
+  ({ library: renderDrive, copilot: renderHub, wallet: renderControl, connect: renderSources })[v]?.();
   try { history.replaceState(null, '', '#' + v); } catch { /* sandboxed */ }
   document.getElementById('screen')?.scrollTo(0, 0);
   window.scrollTo(0, 0);
@@ -1766,7 +1769,7 @@ async function renderDrive() {
 }
 async function openDoc(id) {
   const it = await api('drive/' + encodeURIComponent(id));
-  if (it.excluded) return openSheet(it.title, `<p><span class="pill">not let in</span></p><p>Your sender filter for <b>${esc(clsLabel(it.class))}</b> keeps out ${esc(S.farm?.groups?.[it.excludedGroup] ?? 'this sender')}. farmy holds nothing from this conversation, and the copilot cannot read it. You can change this in Control → Your sources.</p>`);
+  if (it.excluded) return openSheet(it.title, `<p><span class="pill">not let in</span></p><p>Your sender filter for <b>${esc(clsLabel(it.class))}</b> keeps out ${esc(S.farm?.groups?.[it.excludedGroup] ?? 'this sender')}. farmy holds nothing from this conversation, and the copilot cannot read it. You can change this in Connect → Your sources.</p>`);
   const who = Object.entries(S.policy.recipients).filter(([r]) => r !== 'farmer').map(([r, info]) => {
     const ex = S.policy.exceptions[r]?.[id];
     const lv = levelOf(ex ?? S.policy.policy[r]?.[it.class]);
@@ -1828,13 +1831,13 @@ function mapDetail(m, kind, id) {
   if (kind === 'valve') { const v = m.valves.find((x) => x.id === id); return openSheet(`Valve ${v.id} (sector ${v.sector})`, `<p>${v.leaking ? '<span class="pill bad">not closing fully</span> Water passes while the controller says it is closed. See the night-flow check in Copilot.' : v.open ? '<span class="pill info">open</span> Irrigating now.' : '<span class="pill">closed</span>'}</p>`); }
   if (kind === 'hub') return openSheet('Farm hub', '<p>Collects every sensor over Wi-Fi and LoRa, keeps your drive and runs the offline engine and your wallet. Nothing leaves it unless your policy allows.</p>');
   if (kind === 'tractor') return openSheet('Tractor', `<div class="whocan"><span>Now</span><span><b>${esc(m.tractor.activity)}</b></span>${m.tractor.row ? `<span>Row</span><span>${esc(m.tractor.row)}</span>` : ''}<span>Speed</span><span>${m.tractor.speed_kmh} km/h</span><span>Source</span><span>${esc(m.tractor.source)}</span></div><p class="muted">Under the EU Data Act you have a right to the data your tractor produces. Here it is read from the manufacturer's cloud and kept on your hub.</p>`);
-  if (kind === 'phone') return openSheet('You', `<p>Your position from this phone's GPS (±${m.phone.accuracy_m} m).</p><p class="muted">Location says a lot about a person. It is a source of its own in Control and is not shared with anyone by default.</p>`);
+  if (kind === 'phone') return openSheet('You', `<p>Your position from this phone's GPS (±${m.phone.accuracy_m} m).</p><p class="muted">Location says a lot about a person. It is a source of its own in Connect and is not shared with anyone by default.</p>`);
 }
 
 async function renderHub() {
   clearInterval(mapTimer);
   renderMap();
-  mapTimer = setInterval(() => { if ($('#view-hub').classList.contains('active')) renderMap(); else clearInterval(mapTimer); }, 4000);
+  mapTimer = setInterval(() => { if ($('#view-copilot').classList.contains('active')) renderMap(); else clearInterval(mapTimer); }, 4000);
   const [lat] = await Promise.all([api('hub/latest')]);
   const map = Object.fromEntries(lat.readings.map((r) => [r.id, r]));
   const show = ['FM-01', 'PW-01', 'SM-O3', 'SM-O1', 'FT-03', 'WX-T', 'WX-RH'];
@@ -1953,7 +1956,7 @@ async function boot() {
   S.policy = await api('policy');
   renderSuggest();
   const start = (location.hash || '').slice(1);
-  if (['drive', 'hub', 'control'].includes(start)) show(start);
+  show(start||'copilot');
   if (LOCAL && window.FARMY_PRELOAD) ask(window.FARMY_PRELOAD, { quiet: true });
 }
 boot();
